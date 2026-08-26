@@ -1,0 +1,2254 @@
+Domanda: Come si crea una query con colonne calcolate?
+File: BLDOBJQRY_COMUNE_ELENCO_DEFINIZIONE - Copia.BC
+Contesto:
+'@PGQUERY BLDOBJQRY_COMUNE_ELENCO_DEFINIZIONE STRICT[4] ' Query di elenco su BLDCOMUNE - Definizione query
+  
+    '@SBP Query[BCQUERY] [INOUT]                      _ ' Oggetto Query
+         Multisel[TIPO[BCBOOL]]              [IN]    _ ' Multiselezione (0-No;1-Si)
+         CodPreselezionati[STRING]           [IN]    _ ' Elenco codici preselezionati
+         Modalita[TIPO[BCTD_MODALITAELENCO]] [IN]    _ ' Modalit dell'elenco
+         Filtri[CLASSE[BLD_COMUNE_FILTRI]]   [INOUT] 
+
+   '@DEFQUERY QUERY[Query] NOME["OBJQRY_BLD_COMUNE_ELENCO_DEFINIZIONE_IdQueryElenco"]
+   
+      '@FROM TABELLA[BLDCOMUNE]
+   
+      '@COLUMN ESPR[BLDCOMUNE.COD AS [Comune]]         _
+               ESPR[BLDCOMUNE.CODPR AS [CodProvincia]] _
+               ESPR[BLDCOMUNE.CODREG AS [CodRegione]]  _
+               ESPR[BLDCOMUNE.CODST AS [CodStato]]     _
+               ESPR[BLDCOMUNE.CAP AS [CAP]]
+                   
+      If Multisel = 1 Then
+   
+         '@COMPUTEDCOLUMN ESPR[If INLISTSTR(BLDFAMIGLIA.COD, CodPreSelezionati)>0 Then 1 AS [ZSEL] FMT[NUMERICO[1]] ]
+   
+      EndIf   
+      
+      If Filtri.CodComune <> "" Then
+      
+         '@WHERE ESPR[BLDCOMUNE.COD = Filtri.CodComune]
+      
+      Else
+      
+         If Modalita = BCTD_MODALITAELENCO.Ricerca And Filtri.CodStato <> "" Then 
+   
+            '@WHERE ESPR[BLDCOMUNE.CODST = Filtri.CodStato]
+      
+         Else
+      
+            '@WHERE ESPR[BLDCOMUNE.COD <> ""]
+      
+         EndIf 
+         
+      EndIf
+
+   '@ENDQUERY
+
+End
+
+------------------------------------------------------------
+Domanda: Quali parametri accetta SUB06_STRDIN?
+File: SUB06_STRDIN.BC
+Contesto:
+'@PG SUB06_STRDIN     ' Esercitazione 6: Strutture dinamiche
+
+'@SBP 
+
+   DIM Ritorno[INT] = 0
+   
+   ' Definizione strutture
+   GoSub DefinizioneStrutture
+   
+   ' Aggiungi elementi
+   GoSub AggiungiElementi
+   If Ritorno=0 Then
+      
+      ' Inserisci un elemento
+      GoSub InserisciElemento
+      If Ritorno=0 Then
+      
+         ' Modifica un elemento
+         GoSub ModificaElemento
+         If Ritorno=0 Then
+         
+            ' Eliminazione di un elemento
+            GoSub EliminaElemento
+            If Ritorno=0 Then
+            
+               ' Lettura elementi
+               GoSub LetturaElemento
+               
+               ' Eliminazione struttura dinamica
+               GoSub EliminaStruttura
+               
+            EndIf
+            
+         EndIf
+         
+      EndIf
+      
+   EndIf
+
+End
+
+'@SR DefinizioneStrutture
+
+   CALL SUB06_DEFSTR(Ritorno [OUT]) ' Esercitazione 6: Definizione strutture dinamiche
+   If Ritorno=0 Then ExitSr
+   
+   MESSAGEBOX(#ERRORE,"CBAS_06","Esercitazione 6: Strutture dinamiche<br>" + _
+                      "Errore nella definizione della struttura dinamica")
+
+Return
+
+'@SR AggiungiElementi
+
+   MESSAGEBOX(#INFO,"CBAS_06","Esercitazione 6: Strutture dinamiche<br>" + _
+                    "Aggiunta dei dati nella struttura")
+   
+   CALL SUB06_AGG(Ritorno [OUT]) ' Esercitazione 6: Aggiunta elemento in struttura
+   
+   MESSAGEBOX(#INFO,"CBAS_06","Esercitazione 6: Strutture dinamiche<br>" + _
+                    "Aggiunta dei dati nella struttura<br>"              + _
+                    "Per visualizzare utilizzare il BCLive (shift+F9)")
+   
+   If Ritorno=0 Then ExitSr
+   
+   MESSAGEBOX(#ERRORE,"CBAS_06","Esercitazione 6: Strutture dinamiche<br>" + _
+                      "Errore nell'inserimento di un elemento nella struttura dinamica")
+
+RETURN
+
+'@SR InserisciElemento
+
+   MESSAGEBOX(#INFO,"CBAS_06","Esercitazione 6: Strutture dinamiche<br>" + _
+                    "Inserimento di un elemento nella struttura")
+   
+   CALL SUB06_INS(Ritorno [OUT]) ' Esercitazione 6: Inserimento di un nuovo elemento
+   
+   MESSAGEBOX(#INFO,"CBAS_06","Esercitazione 6: Strutture dinamiche<br>" + _
+                    "Inserimento di un elemento nella struttura<br>"     + _
+                    "Per visualizzare utilizzare il BCLive (shift+F9)")
+   
+   If Ritorno=0 Then ExitSr
+   
+   MESSAGEBOX(#ERRORE,"CBAS_06","Esercitazione 6: Strutture dinamiche<br>" + _
+                      "Errore nell'inserimento di un elemento nella struttura dinamica")
+
+RETURN
+
+'@SR ModificaElemento
+
+   MESSAGEBOX(#INFO,"CBAS_06","Esercitazione 6: Strutture dinamiche<br>" + _
+                    "Modifica di un elemento nella struttura")
+   
+   CALL SUB06_MOD(Ritorno [OUT]) ' Esercitazione 6: Modifica elemento
+   
+   MESSAGEBOX(#INFO,"CBAS_06","Esercitazione 6: Strutture dinamiche<br>" + _
+                    "Modifica di un elemento nella struttura<br>"        + _
+                    "Per visualizzare utilizzare il BCLive (shift+F9)")
+   
+   If Ritorno=0 Then ExitSr
+   
+   MESSAGEBOX(#ERRORE,"CBAS_06","Esercitazione 6: Strutture dinamiche<br>" + _
+                      "Errore nella modifica di un elemento nella struttura dinamica")
+
+RETURN
+
+'@SR EliminaElemento
+
+   MESSAGEBOX(#INFO,"CBAS_06","Esercitazione 6: Strutture dinamiche<br>" + _
+                    "Eliminazione di un elemento nella struttura")
+   
+   CALL SUB06_ELIMINA(Ritorno [OUT]) ' Esercitazione 6: Eliminazione elemento
+   
+   MESSAGEBOX(#INFO,"CBAS_06","Esercitazione 6: Strutture dinamiche<br>" + _
+                    "Eliminazione di un elemento nella struttura<br>"    + _
+                    "Per visualizzare utilizzare il BCLive (shift+F9)")
+   
+   If Ritorno=0 Then ExitSr
+   
+   MESSAGEBOX(#ERRORE,"CBAS_06","Esercitazione 6: Strutture dinamiche<br>" + _
+                      "Errore nella modifica di un elemento nella struttura dinamica")
+
+RETURN
+
+'@SR LetturaElemento
+
+   MESSAGEBOX(#INFO,"CBAS_06","Esercitazione 6: Strutture dinamiche<br>" + _
+                    "Lettura elementi struttura")
+   
+   CALL SUB06_LETTURA(Ritorno [OUT]) ' Esercitazione 6: Lettura articoli
+   If Ritorno=0 Then ExitSr
+   
+   MESSAGEBOX(#ERRORE,"CBAS_06","Esercitazione 6: Strutture dinamiche<br>" + _
+                      "Errore nella modifica di un elemento nella struttura dinamica")
+
+RETURN
+
+'@SR EliminaStruttura
+
+   MESSAGEBOX(#INFO,"CBAS_06","Esercitazione 6: Strutture dinamiche<br>" + _
+                    "Eliminazione struttura dinamica")
+   
+   CALL SUB06_ELIMINA_STRUTTURA(Ritorno [OUT]) ' Esercitazione 6: Eliminazione elemento
+   If Ritorno=0 Then ExitSr
+   
+   MESSAGEBOX(#ERRORE,"CBAS_06","Esercitazione 6: Strutture dinamiche<br>" + _
+                      "Errore nell'eliminazione della struttura dinamica")
+
+Return
+
+------------------------------------------------------------
+Domanda: Spiega come modificare campi usando una query
+File: SUB12_UPDATEDB.BC
+Contesto:
+'@PG SUB12_UPDATEDB      ' Esercitazione 12: Accesso ai dati (UPDATEDBDATA)'
+
+'@SBP RITORNO[1] [OUT] ' O - Valore in uscita (0-Nessun errore;1-Sub terminata con errore)
+
+GOSUB DEFINIZIONE_VARIABILI
+
+' LETTURA INIZIALE DEI DATI
+
+GOSUB LETTURA
+IF RITORNO=1 THEN GOTO FINE
+
+' EMISSIONE A VIDEO DELL'ARTICOLO LETTO
+
+GOSUB VISUALIZZAZIONE_ARTICOLI
+
+'@BS FINE
+END
+
+
+'@SR DEFINIZIONE_VARIABILI
+
+VARIA[1]=0
+ORDLET[1]=0
+COM_POS[1]=1     ' VARIABILE POSIZIONAMENTO GETDBDATA
+
+RETURN
+
+'@SR LETTURA
+
+' LETTURA DEI DATI
+
+'@GETDBDATA TABELLA[BLDART]                           _ ' Tabella BLDART
+            TIPOREC[ART]                              _ ' Tipo record ART
+            IND[0 \COD=""\]                           _ ' Indice 0
+            SELEZIONI[ARTCOD>=""]                     _ ' Selezioni codice > ""
+            POSIZIONA[COM_POS]                        _ ' Posizionamento
+            CAMPI[COD DES CODFAM PREZZO SCONTO QUA]   _ ' Campi letti
+            ORDINELETTURA[ORDLET]                     _ ' Verso di lettura del resultset degli articoli
+            ERRORE[#ENDFIL]                             ' #ENDFIL permette la valorizzazione di ZENDFIL a 1 se siamo a fine file (EOF)
+
+IF ZENDFIL>0 THEN RITORNO=1
+
+RETURN
+
+'@SR MODIFICA
+
+' MODIFICO ARTICOLI CON I VALORI NEI CAMPI DELLA VIDEATA
+
+'@UPDATEDBDATA TABELLA[BLDART]                     _ ' Tabella BLDART
+               TIPOREC[ART]                        _ ' Tipo record ART
+               IND[0\COD=ARTCOD$\]                 _ ' Update per indice
+               CAMPI[DES CODFAM PREZZO SCONTO QUA]   ' Campi della tabella da modificare
+
+' RIPOSIZIONO ALL'INIZIO IL "CURSORE" DEL RESULTSET DEI DATI E RIPETO LA LETTURA INIZIALE
+
+COM_POS=1
+
+GOSUB LETTURA
+
+RETURN
+
+'@SR VISUALIZZAZIONE_ARTICOLI
+
+'@DEFVID DIM[9,69] POS[SCHERMO,CENTRO] POSBOTTONI[#BASSODESTRA] TIT["Esercitazione 12: Accesso ai dati (UPDATEDBDATA)"]
+
+'@DEFLABEL VAR["Codice"] POS[2,3] DIM[1,11] ID["L_ARTCOD"] FMT[TESTO]
+
+'@DEFEDIT VAR[ARTCOD$] ID["ARTCOD"] RET[1,1] POS[2,21] DIM[1,25] FMT[TESTO] DISABILITATO[1]
+
+'@DEFLABEL VAR["Descrizione"] POS[3,3] DIM[1,11] ID["L_ARTDES"] FMT[TESTO]
+
+'@DEFEDIT VAR[ARTDES$] ID["ARTDES"] RET[2,1] POS[3,21] DIM[1,54] FMT[TESTO] DISABILITATO[VARIA=0]
+
+'@DEFLABEL VAR["Famiglia"] POS[4,3] DIM[1,11] ID["L_ARTCODFAM"] FMT[TESTO]
+
+'@DEFEDIT VAR[ARTCODFAM$] ID["ARTCODFAM"] RET[3,1] POS[4,21] DIM[1,54] FMT[TESTO] DISABILITATO[VARIA=0]
+
+'@DEFLABEL VAR["Prezzo unitario"] POS[5,3] DIM[1,11] ID["L_ARTPREZZO"] FMT[TESTO]
+
+'@DEFEDIT VAR[ARTPREZZO#] ID["ARTPREZZO"] RET[4,1] POS[5,21] DIM[1,14] FMT[NUMERICO[8,3]] DISABILITATO[VARIA=0]
+
+'@DEFLABEL VAR["Sconto articolo"] POS[6,3] DIM[1,11] ID["L_ARTSCONTO"] FMT[TESTO]
+
+'@DEFEDIT VAR[ARTSCONTO] ID["ARTSCONTO"] RET[5,1] POS[6,21] DIM[1,14] FMT[NUMERICO[8,3]] DISABILITATO[VARIA=0]
+
+'@DEFLABEL VAR["Quantit magazzino"] POS[7,3] DIM[1,11] ID["L_ARTQUA"] FMT[TESTO]
+
+'@DEFEDIT VAR[ARTQUA] ID["ARTQUA"] RET[6,1] POS[7,21] DIM[1,14] FMT[NUMERICO[6]] DISABILITATO[VARIA=0]
+
+'@DEFBUTTON VAR["Precedente"] POS[9,22] DIM[1,9] AZIONE[ORDLET=1:GOSUB LETTURA] ID["L_BUTT_PREC"]
+
+'@DEFBUTTON VAR["Successivo"] POS[9,33] DIM[1,9] AZIONE[ORDLET=2:GOSUB LETTURA] ID["L_BUTT_SUCC"]
+
+'@DEFBUTTON VAR["Varia"] POS[9,44] DIM[1,9] AZIONE[VARIA=1] ID["L_BUTT_VAR"]
+
+'@DEFBUTTON VAR["Salva"] POS[9,55] DIM[1,9] AZIONE[GOSUB MODIFICA:VARIA=0] ID["L_BUTT_SAVE"] CONVARIABILI[1] DISABILITATO[VARIA=0]
+
+'@DEFFUNCKEY TASTO["F10"] NASCOSTO[1] DISABILITATO[1]
+
+'@DEFFUNCKEY TASTO["ESC"] CONVARIABILI[1]
+
+'@RUNVID
+
+RETURN
+
+------------------------------------------------------------
+Domanda: Come si risolve l'esercizio CBAS_07?
+File: CBAS_07.BC
+Contesto:
+'@PG CBAS_07 STRICT[2]      ' Esercitazione 7: Enumerato
+
+   CALL SUB07_ENUMERATO()
+
+End
+
+
+------------------------------------------------------------
+Domanda: Spiega il codice dell'esercizio CBAS_02
+File: CBAS_02.BC
+Contesto:
+'@PG CBAS_02 STRICT[2]     ' Esercitazione 2: Hello + Sub
+   
+   DIM varTesto[STRING]="Hello, World!"
+   
+   ' Chiamata alla sub SUB_002 con passaggio della variabile varTesto
+   CALL SUB02_MSGSUB(varTesto)  ' Esercitazione 2: Hello + Sub
+
+End
+
+------------------------------------------------------------
+Domanda: Qual è lo scopo dell'esercizio CBAS_09?
+File: CBAS_09.BC
+Contesto:
+'@PG  CBAS_09      ' Esercitazione 9: Accesso ai dati (FINDDBDATA)
+
+
+
+
+GOSUB RICERCA_ELEMENTI
+
+'@BS FINE
+END
+
+
+'@SR RICERCA_ELEMENTI
+
+'@SBC SUB09_FINDB  _                      ' Esercitazione 9: Accesso ai dati (FINDDBDATA)
+               RITORNO[1]    [OUT]    ' O - Valore in uscita (0-Nessun errore;1-Sub terminata con errore)
+
+RETURN
+
+------------------------------------------------------------
+Domanda: Spiega il codice dell'esercizio CBAS_07
+File: CBAS_07.BC
+Contesto:
+'@PG CBAS_07 STRICT[2]      ' Esercitazione 7: Enumerato
+
+   CALL SUB07_ENUMERATO()
+
+End
+
+
+------------------------------------------------------------
+Domanda: Come si definisce una query per Esercitazione query base - Definizione query?
+File: BLDOBJQRY_QUERYBASE_DEFINIZIONE.BC
+Contesto:
+'@PGQUERY BLDOBJQRY_QUERYBASE_DEFINIZIONE STRICT[4] ' Esercitazione query base - Definizione query
+
+   '@SBP QueryObject[BCQUERY] [INOUT]
+
+   '@DEFQUERY QUERY[QueryObject] NOME["BLDOBJQRY_QUERYBASE_DEFINIZIONE"]
+   
+      ' Definizione della tabella di riferimento della query
+      ' Tabella ARTICOLI
+      '@FROM TABELLA[BLDART]
+      
+      ' Definizione dei campi della query
+      ' Una sola DEFQUERYFIELD con tanti ESPR quanti sono i campi
+      '@COLUMN ESPR[BLDART.COD       AS [CodiceArticolo]]      _ ' Codice articolo
+               ESPR[BLDART.DES       AS [Descrizione]]         _ ' Descrizione
+               ESPR[BLDART.CODFAM    AS [Famiglia]]            _ ' Codice famiglia
+               ESPR[BLDART.PREZZO    AS [PrezzoUnitario]]      _ ' Prezzo unitario di listino
+               ESPR[BLDART.SCONTO    AS [ScontoArticolo]]      _ ' Sconto articolo
+               ESPR[BLDART.QUA       AS [QuantitaMagazzino]]     ' Quantit in magazzino
+   
+      ' Filtri (Where)
+      ' Applicazione del filtro: Selezionare tutti i dati DOVE il prezzo  superiore a 30
+      '@WHERE ESPR[BLDART.PREZZO>30]
+      
+      ' Ordinamento
+      ' Definizione ordinamento ASCENDENTE per DESCRIZIONE
+      '@ORDERBY IND[1] ESPR[BLDART.DES/ASC]
+
+   '@ENDQUERY
+
+End
+
+
+------------------------------------------------------------
+Domanda: Spiega l'uso di JOIN nelle query BC
+File: BLDOBJQRY_CLIFOR_ELENCO_DEFINIZIONE - Copia.BC
+Contesto:
+'@PGQUERY BLDOBJQRY_CLIFOR_ELENCO_DEFINIZIONE STRICT[4] ' Query di elenco su BLDCLIFOR - Definizione query
+
+ '@SBP Query[BCQUERY]                    [INOUT] _ ' Oggetto query
+         Multisel[TIPO[BCBOOL]]            [IN]    _ ' Multiselezione (0-No;1-Si)
+         CodPreselezionati[STRING]         [IN]    _ ' Elenco codici preselezionati
+         Filtri[CLASSE[BLD_CLIFOR_FILTRI]] [INOUT]   ' Filtri
+
+   '@DEFQUERY QUERY[Query] NOME["OBJQRY_BLD_CLIFOR_ELENCO_DEFINIZIONE_IdQueryElenco"]
+
+      '@FROM TABELLA[BLDCLIFOR]
+   
+      '@COLUMN ESPR[BLDCLIFOR.COD  AS [Codice]] _
+               ESPR[BLDCLIFOR.RS1  AS [RS1]]    _
+               ESPR[BLDCLIFOR.PIVA AS [PIVA]]
+      
+      '@COMPUTEDCOLUMN ESPR[DECODDES$(BLDCLIFOR.TIPANA) AS[Tipana] FMT[TESTO[50]]]
+      '@COMPUTEDCOLUMN ESPR[DECODDES$(BLDCLIFOR.STANA)  AS[Stana]  FMT[TESTO[50]]] 
+      '@COMPUTEDCOLUMN ESPR[DECODDES$(BLDCLIFOR.TIPSOG) AS[Tipsog] FMT[TESTO[50]]]
+      
+      ' Se  prevista la multiselezione va aggiunto il campo calcolato ZSEL sui codici preselezionati
+      If Multisel = 1 Then
+   
+         '@COMPUTEDCOLUMN ESPR[If INLISTSTR(BLDCLIFOR.COD, CodPreSelezionati) > 0 Then 1 AS [ZSEL] FMT[NUMERICO[1]]]
+   
+      EndIf
+      
+      If Filtri.CodCliFor <> 0 Then
+         
+         '@WHERE ESPR[BLDCLIFOR.COD = Filtri.CodCliFor]
+         
+      Else
+      
+         If Filtri.TipoFiltro <> -1 AND Filtri.TipoFiltro <> 2 Then
+      
+            '@WHERE ESPR[BLDCLIFOR.TIPANA = Filtri.TipoFiltro]
+         
+         EndIf
+         
+         If Filtri.TipoFiltro = 2 Then
+         
+            '@WHERE ESPR[BLDCLIFOR.STANA = Filtri.TipoFiltro]
+         
+         EndIf
+         
+      EndIf
+      
+   '@ENDQUERY
+
+End
+
+------------------------------------------------------------
+Domanda: Spiega l'accesso ai dati con GETDBDATA
+File: SUB08_GETDB.BC
+Contesto:
+'@PG SUB08_GETDB       ' Esercitazione 8: Accesso ai dati (GETDBDATA)'
+
+'@SBP RITORNO[1] [OUT] ' O - Valore in uscita (0-Nessun errore;1-Sub terminata con errore)
+
+' Inizializzazione variabili
+
+GoSub DEFINIZIONE_VARIABILI
+
+' Lettura articoli
+
+GOSUB LETTURA
+
+IF RITORNO=1 THEN GOTO FINE
+
+' Visualizzazione degli articoli
+
+GOSUB VISUALIZZAZIONE_ARTICOLI
+
+'@BS FINE
+END
+
+'@SR DEFINIZIONE_VARIABILI
+
+COM_POS[1]=1     ' VARIABILE POSIZIONAMENTO GETDBDATA
+ORDLET[1]=0      ' SENSO LETTURA RESULTSET DELLA GETDBDATA
+
+Return
+
+'@SR LETTURA
+
+' SELEZIONE DEI DATI
+
+'@GETDBDATA TABELLA[BLDART]            _ ' Tabella BLDART
+            TIPOREC[ART]               _ ' Tipo record ART
+            IND[0 \COD=""\]            _ ' Indice 0
+            SELEZIONI[ARTCOD>=""]      _ ' Selezioni codice valorizzato
+            POSIZIONA[COM_POS]         _ ' Posizionamento
+            CAMPI[COD DES CODFAM PREZZO SCONTO QUA] _ ' Campi letti
+            ORDINELETTURA[ORDLET]      _ ' ORDLET DEFINISCE IN CHE SENSO LEGGERE IL RESULTSET DEI DATI ESTRATTI
+            ERRORE[#ENDFIL]              ' #ENDFIL = CONTROLLA L'ERRORE DI FINE FILE (EOF)
+
+' SE SIAMO A FINE FILE ZENDFIL=1 ALLORA VALORIZZIAMO A 1 LA VARIABILE RITORNO
+
+IF ZENDFIL>0 THEN RITORNO=1
+
+RETURN
+
+'@SR VISUALIZZAZIONE_ARTICOLI
+
+'@DEFVID DIM[9,70] POS[SCHERMO,CENTRO] POSBOTTONI[#BASSODESTRA] TIT["Esercitazione 8: Accesso ai dati (GETDBDATA)"]
+
+'@DEFLABEL VAR["Codice"] POS[2,3] DIM[1,11] ID["L_ARTCOD"] FMT[TESTO]
+
+'@DEFEDIT VAR[ARTCOD$] ID["ARTCOD"] RET[1,1] POS[2,21] DIM[1,25] FMT[TESTO] DISABILITATO[1]
+
+'@DEFLABEL VAR["Descrizione"] POS[3,3] DIM[1,11] ID["L_ARTDES"] FMT[TESTO]
+
+'@DEFEDIT VAR[ARTDES$] ID["ARTDES"] RET[2,1] POS[3,21] DIM[1,54] FMT[TESTO] DISABILITATO[1]
+
+'@DEFLABEL VAR["Famiglia"] POS[4,3] DIM[1,11] ID["L_ARTCODFAM"] FMT[TESTO]
+
+'@DEFEDIT VAR[ARTCODFAM$] ID["ARTCODFAM"] RET[3,1] POS[4,21] DIM[1,54] FMT[TESTO] DISABILITATO[1]
+
+'@DEFLABEL VAR["Prezzo unitario"] POS[5,3] DIM[1,11] ID["L_ARTPREZZO"] FMT[TESTO]
+
+'@DEFEDIT VAR[ARTPREZZO#] ID["ARTPREZZO"] RET[4,1] POS[5,21] DIM[1,14] FMT[NUMERICO[8,3]] DISABILITATO[1]
+
+'@DEFLABEL VAR["Sconto articolo"] POS[6,3] DIM[1,11] ID["L_ARTSCONTO"] FMT[TESTO]
+
+'@DEFEDIT VAR[ARTSCONTO] ID["ARTSCONTO"] RET[5,1] POS[6,21] DIM[1,14] FMT[NUMERICO[8,3]] DISABILITATO[1]
+
+'@DEFLABEL VAR["Quantit magazzino"] POS[7,3] DIM[1,11] ID["L_ARTQUA"] FMT[TESTO]
+
+'@DEFEDIT VAR[ARTQUA] ID["ARTQUA"] RET[6,1] POS[7,21] DIM[1,14] FMT[NUMERICO[6]] DISABILITATO[1]
+
+'@DEFBUTTON VAR["Precedente"] POS[9,44] DIM[1,10] AZIONE[ORDLET=1:GOSUB LETTURA] ID["L_BUT_PREC"]
+
+'@DEFBUTTON VAR["Successivo"] POS[9,55] DIM[1,9] AZIONE[ORDLET=2:GOSUB LETTURA] ID["L_BUT_SUCC"]
+
+'@DEFFUNCKEY TASTO["F10"] NASCOSTO[1] DISABILITATO[1]
+
+'@DEFFUNCKEY TASTO["ESC"] CONVARIABILI[1]
+
+'@RUNVID
+
+RETURN
+
+------------------------------------------------------------
+Domanda: Spiega il codice dell'esercizio CBAS_08
+File: CBAS_08.BC
+Contesto:
+'@PG CBAS_08      ' Esercitazione 8: Accesso ai dati (GETDBDATA)
+
+
+
+
+GOSUB LETTURA_ELEMENTI
+
+'@BS FINE
+END
+
+
+'@SR LETTURA_ELEMENTI
+
+'@SBC SUB08_GETDB  _                  ' Esercitazione 8: Accesso ai dati (GETDBDATA)
+               RITORNO[1]    [OUT]    ' O - Valore in uscita (0-Nessun errore;1-Sub terminata con errore)
+
+RETURN
+
+------------------------------------------------------------
+Domanda: Spiega le CTE ricorsive in ambiente Sistemi
+File: BLDOBJQRY_CTE_RECURSIVE_DEFINIZIONE.BC
+Contesto:
+'@PGQUERY BLDOBJQRY_CTE_RECURSIVE_DEFINIZIONE STRICT[4] ' CTE ricorsiva - Definizione query
+
+   '@SBP Query[BCQUERY] [INOUT]
+
+   '@DEFQUERY QUERY[Query] NOME["BLOBJQRY_CTE_RECURSIVE_DEFINIZIONE_15"]
+   
+      '@DEFQUERYCTE QUERY[ParteFissa] ALIAS["Organigramma"] PARTE[#FISSA]
+      
+         '@FROM TABELLA[BLDIMPIEGATI]
+         
+         '@COLUMN ESPR[BLDIMPIEGATI.IDImpiegato AS [IdPadre]] 
+         '@COMPUTEDCOLUMN ESPR[BLDIMPIEGATI.Nome +" " + BLDIMPIEGATI.Cognome AS [Nominativo] FMT[TESTO[80]]] 
+         '@COMPUTEDCOLUMN ESPR[1 AS [Livello] FMT[NUMERICO[2]]] 
+         '@COMPUTEDCOLUMN ESPR[FNTRSD$(BLDIMPIEGATI.Nome) + " " + FNTRSD$(BLDIMPIEGATI.Cognome) AS [Posizione] FMT[TESTO[255]]]  
+         '@COMPUTEDCOLUMN ESPR[FNS$(BLDIMPIEGATI.IDImpiegato) AS [Sort] FMT[TESTO[255]]]    
+         
+         '@WHERE ESPR[BLDIMPIEGATI.IDResponsabile=0]
+      
+      '@ENDQUERY 
+      
+      '@DEFQUERYCTE QUERY[ParteRicorsiva] ALIAS["Organigramma"] PARTE[#RICORSIVA]
+      
+         '@FROM TABELLA[BLDIMPIEGATI]
+         '@JOIN TABELLA[[Organigramma]] TABELLAPADRE[BLDIMPIEGATI] OPERATOREJOIN["INNER"] REL[BLDIMPIEGATI.IDResponsabile=[Organigramma].IdPadre] 
+         
+         '@COLUMN ESPR[BLDIMPIEGATI.IDImpiegato AS [IdPadre]] 
+         '@COMPUTEDCOLUMN ESPR[BLDIMPIEGATI.Nome +" " + BLDIMPIEGATI.Cognome AS [Nominativo] FMT[TESTO[80]]] 
+         '@COMPUTEDCOLUMN ESPR[[Organigramma].Livello + 1 AS [Livello] FMT[NUMERICO[2]]] 
+         '@COMPUTEDCOLUMN ESPR[STRING$([Organigramma].Livello, "|    ")+FNTRSD$(BLDIMPIEGATI.Nome) + " " + FNTRSD$(BLDIMPIEGATI.Cognome) AS [Posizione] FMT[TESTO[255]]]     
+         '@COMPUTEDCOLUMN ESPR[[Organigramma].Sort+FNS$(BLDIMPIEGATI.IDImpiegato) AS [Sort] FMT[TESTO[255]]]
+      
+      '@ENDQUERY 
+      
+      '@FROM TABELLA[[Organigramma]]
+      
+      '@COMPUTEDCOLUMN ESPR[[Organigramma].IdPadre AS [IdPadre] FMT[NUMERICO[9]]] 
+      '@COMPUTEDCOLUMN ESPR[[Organigramma].Nominativo AS [Nominativo] FMT[TESTO[80]]] 
+      '@COMPUTEDCOLUMN ESPR[[Organigramma].Posizione AS [Posizione] FMT[TESTO[255]]] 
+      '@COMPUTEDCOLUMN ESPR[[Organigramma].Livello  AS [Livello] FMT[NUMERICO[2]]]  
+      '@COMPUTEDCOLUMN ESPR[[Organigramma].Sort AS [Sort] FMT[NUMERICO[5]] NOOUTPUT] 
+      
+      '@ORDERBY ESPR[[Sort]]
+
+   '@ENDQUERY
+End
+
+
+------------------------------------------------------------
+Domanda: Spiega il funzionamento della subroutine SUB06_STRDIN
+File: SUB06_STRDIN.BC
+Contesto:
+'@PG SUB06_STRDIN     ' Esercitazione 6: Strutture dinamiche
+
+'@SBP 
+
+   DIM Ritorno[INT] = 0
+   
+   ' Definizione strutture
+   GoSub DefinizioneStrutture
+   
+   ' Aggiungi elementi
+   GoSub AggiungiElementi
+   If Ritorno=0 Then
+      
+      ' Inserisci un elemento
+      GoSub InserisciElemento
+      If Ritorno=0 Then
+      
+         ' Modifica un elemento
+         GoSub ModificaElemento
+         If Ritorno=0 Then
+         
+            ' Eliminazione di un elemento
+            GoSub EliminaElemento
+            If Ritorno=0 Then
+            
+               ' Lettura elementi
+               GoSub LetturaElemento
+               
+               ' Eliminazione struttura dinamica
+               GoSub EliminaStruttura
+               
+            EndIf
+            
+         EndIf
+         
+      EndIf
+      
+   EndIf
+
+End
+
+'@SR DefinizioneStrutture
+
+   CALL SUB06_DEFSTR(Ritorno [OUT]) ' Esercitazione 6: Definizione strutture dinamiche
+   If Ritorno=0 Then ExitSr
+   
+   MESSAGEBOX(#ERRORE,"CBAS_06","Esercitazione 6: Strutture dinamiche<br>" + _
+                      "Errore nella definizione della struttura dinamica")
+
+Return
+
+'@SR AggiungiElementi
+
+   MESSAGEBOX(#INFO,"CBAS_06","Esercitazione 6: Strutture dinamiche<br>" + _
+                    "Aggiunta dei dati nella struttura")
+   
+   CALL SUB06_AGG(Ritorno [OUT]) ' Esercitazione 6: Aggiunta elemento in struttura
+   
+   MESSAGEBOX(#INFO,"CBAS_06","Esercitazione 6: Strutture dinamiche<br>" + _
+                    "Aggiunta dei dati nella struttura<br>"              + _
+                    "Per visualizzare utilizzare il BCLive (shift+F9)")
+   
+   If Ritorno=0 Then ExitSr
+   
+   MESSAGEBOX(#ERRORE,"CBAS_06","Esercitazione 6: Strutture dinamiche<br>" + _
+                      "Errore nell'inserimento di un elemento nella struttura dinamica")
+
+RETURN
+
+'@SR InserisciElemento
+
+   MESSAGEBOX(#INFO,"CBAS_06","Esercitazione 6: Strutture dinamiche<br>" + _
+                    "Inserimento di un elemento nella struttura")
+   
+   CALL SUB06_INS(Ritorno [OUT]) ' Esercitazione 6: Inserimento di un nuovo elemento
+   
+   MESSAGEBOX(#INFO,"CBAS_06","Esercitazione 6: Strutture dinamiche<br>" + _
+                    "Inserimento di un elemento nella struttura<br>"     + _
+                    "Per visualizzare utilizzare il BCLive (shift+F9)")
+   
+   If Ritorno=0 Then ExitSr
+   
+   MESSAGEBOX(#ERRORE,"CBAS_06","Esercitazione 6: Strutture dinamiche<br>" + _
+                      "Errore nell'inserimento di un elemento nella struttura dinamica")
+
+RETURN
+
+'@SR ModificaElemento
+
+   MESSAGEBOX(#INFO,"CBAS_06","Esercitazione 6: Strutture dinamiche<br>" + _
+                    "Modifica di un elemento nella struttura")
+   
+   CALL SUB06_MOD(Ritorno [OUT]) ' Esercitazione 6: Modifica elemento
+   
+   MESSAGEBOX(#INFO,"CBAS_06","Esercitazione 6: Strutture dinamiche<br>" + _
+                    "Modifica di un elemento nella struttura<br>"        + _
+                    "Per visualizzare utilizzare il BCLive (shift+F9)")
+   
+   If Ritorno=0 Then ExitSr
+   
+   MESSAGEBOX(#ERRORE,"CBAS_06","Esercitazione 6: Strutture dinamiche<br>" + _
+                      "Errore nella modifica di un elemento nella struttura dinamica")
+
+RETURN
+
+'@SR EliminaElemento
+
+   MESSAGEBOX(#INFO,"CBAS_06","Esercitazione 6: Strutture dinamiche<br>" + _
+                    "Eliminazione di un elemento nella struttura")
+   
+   CALL SUB06_ELIMINA(Ritorno [OUT]) ' Esercitazione 6: Eliminazione elemento
+   
+   MESSAGEBOX(#INFO,"CBAS_06","Esercitazione 6: Strutture dinamiche<br>" + _
+                    "Eliminazione di un elemento nella struttura<br>"    + _
+                    "Per visualizzare utilizzare il BCLive (shift+F9)")
+   
+   If Ritorno=0 Then ExitSr
+   
+   MESSAGEBOX(#ERRORE,"CBAS_06","Esercitazione 6: Strutture dinamiche<br>" + _
+                      "Errore nella modifica di un elemento nella struttura dinamica")
+
+RETURN
+
+'@SR LetturaElemento
+
+   MESSAGEBOX(#INFO,"CBAS_06","Esercitazione 6: Strutture dinamiche<br>" + _
+                    "Lettura elementi struttura")
+   
+   CALL SUB06_LETTURA(Ritorno [OUT]) ' Esercitazione 6: Lettura articoli
+   If Ritorno=0 Then ExitSr
+   
+   MESSAGEBOX(#ERRORE,"CBAS_06","Esercitazione 6: Strutture dinamiche<br>" + _
+                      "Errore nella modifica di un elemento nella struttura dinamica")
+
+RETURN
+
+'@SR EliminaStruttura
+
+   MESSAGEBOX(#INFO,"CBAS_06","Esercitazione 6: Strutture dinamiche<br>" + _
+                    "Eliminazione struttura dinamica")
+   
+   CALL SUB06_ELIMINA_STRUTTURA(Ritorno [OUT]) ' Esercitazione 6: Eliminazione elemento
+   If Ritorno=0 Then ExitSr
+   
+   MESSAGEBOX(#ERRORE,"CBAS_06","Esercitazione 6: Strutture dinamiche<br>" + _
+                      "Errore nell'eliminazione della struttura dinamica")
+
+Return
+
+------------------------------------------------------------
+Domanda: Come si crea una subroutine che operazione?
+File: SUB06_STRDIN.BC
+Contesto:
+'@PG SUB06_STRDIN     ' Esercitazione 6: Strutture dinamiche
+
+'@SBP 
+
+   DIM Ritorno[INT] = 0
+   
+   ' Definizione strutture
+   GoSub DefinizioneStrutture
+   
+   ' Aggiungi elementi
+   GoSub AggiungiElementi
+   If Ritorno=0 Then
+      
+      ' Inserisci un elemento
+      GoSub InserisciElemento
+      If Ritorno=0 Then
+      
+         ' Modifica un elemento
+         GoSub ModificaElemento
+         If Ritorno=0 Then
+         
+            ' Eliminazione di un elemento
+            GoSub EliminaElemento
+            If Ritorno=0 Then
+            
+               ' Lettura elementi
+               GoSub LetturaElemento
+               
+               ' Eliminazione struttura dinamica
+               GoSub EliminaStruttura
+               
+            EndIf
+            
+         EndIf
+         
+      EndIf
+      
+   EndIf
+
+End
+
+'@SR DefinizioneStrutture
+
+   CALL SUB06_DEFSTR(Ritorno [OUT]) ' Esercitazione 6: Definizione strutture dinamiche
+   If Ritorno=0 Then ExitSr
+   
+   MESSAGEBOX(#ERRORE,"CBAS_06","Esercitazione 6: Strutture dinamiche<br>" + _
+                      "Errore nella definizione della struttura dinamica")
+
+Return
+
+'@SR AggiungiElementi
+
+   MESSAGEBOX(#INFO,"CBAS_06","Esercitazione 6: Strutture dinamiche<br>" + _
+                    "Aggiunta dei dati nella struttura")
+   
+   CALL SUB06_AGG(Ritorno [OUT]) ' Esercitazione 6: Aggiunta elemento in struttura
+   
+   MESSAGEBOX(#INFO,"CBAS_06","Esercitazione 6: Strutture dinamiche<br>" + _
+                    "Aggiunta dei dati nella struttura<br>"              + _
+                    "Per visualizzare utilizzare il BCLive (shift+F9)")
+   
+   If Ritorno=0 Then ExitSr
+   
+   MESSAGEBOX(#ERRORE,"CBAS_06","Esercitazione 6: Strutture dinamiche<br>" + _
+                      "Errore nell'inserimento di un elemento nella struttura dinamica")
+
+RETURN
+
+'@SR InserisciElemento
+
+   MESSAGEBOX(#INFO,"CBAS_06","Esercitazione 6: Strutture dinamiche<br>" + _
+                    "Inserimento di un elemento nella struttura")
+   
+   CALL SUB06_INS(Ritorno [OUT]) ' Esercitazione 6: Inserimento di un nuovo elemento
+   
+   MESSAGEBOX(#INFO,"CBAS_06","Esercitazione 6: Strutture dinamiche<br>" + _
+                    "Inserimento di un elemento nella struttura<br>"     + _
+                    "Per visualizzare utilizzare il BCLive (shift+F9)")
+   
+   If Ritorno=0 Then ExitSr
+   
+   MESSAGEBOX(#ERRORE,"CBAS_06","Esercitazione 6: Strutture dinamiche<br>" + _
+                      "Errore nell'inserimento di un elemento nella struttura dinamica")
+
+RETURN
+
+'@SR ModificaElemento
+
+   MESSAGEBOX(#INFO,"CBAS_06","Esercitazione 6: Strutture dinamiche<br>" + _
+                    "Modifica di un elemento nella struttura")
+   
+   CALL SUB06_MOD(Ritorno [OUT]) ' Esercitazione 6: Modifica elemento
+   
+   MESSAGEBOX(#INFO,"CBAS_06","Esercitazione 6: Strutture dinamiche<br>" + _
+                    "Modifica di un elemento nella struttura<br>"        + _
+                    "Per visualizzare utilizzare il BCLive (shift+F9)")
+   
+   If Ritorno=0 Then ExitSr
+   
+   MESSAGEBOX(#ERRORE,"CBAS_06","Esercitazione 6: Strutture dinamiche<br>" + _
+                      "Errore nella modifica di un elemento nella struttura dinamica")
+
+RETURN
+
+'@SR EliminaElemento
+
+   MESSAGEBOX(#INFO,"CBAS_06","Esercitazione 6: Strutture dinamiche<br>" + _
+                    "Eliminazione di un elemento nella struttura")
+   
+   CALL SUB06_ELIMINA(Ritorno [OUT]) ' Esercitazione 6: Eliminazione elemento
+   
+   MESSAGEBOX(#INFO,"CBAS_06","Esercitazione 6: Strutture dinamiche<br>" + _
+                    "Eliminazione di un elemento nella struttura<br>"    + _
+                    "Per visualizzare utilizzare il BCLive (shift+F9)")
+   
+   If Ritorno=0 Then ExitSr
+   
+   MESSAGEBOX(#ERRORE,"CBAS_06","Esercitazione 6: Strutture dinamiche<br>" + _
+                      "Errore nella modifica di un elemento nella struttura dinamica")
+
+RETURN
+
+'@SR LetturaElemento
+
+   MESSAGEBOX(#INFO,"CBAS_06","Esercitazione 6: Strutture dinamiche<br>" + _
+                    "Lettura elementi struttura")
+   
+   CALL SUB06_LETTURA(Ritorno [OUT]) ' Esercitazione 6: Lettura articoli
+   If Ritorno=0 Then ExitSr
+   
+   MESSAGEBOX(#ERRORE,"CBAS_06","Esercitazione 6: Strutture dinamiche<br>" + _
+                      "Errore nella modifica di un elemento nella struttura dinamica")
+
+RETURN
+
+'@SR EliminaStruttura
+
+   MESSAGEBOX(#INFO,"CBAS_06","Esercitazione 6: Strutture dinamiche<br>" + _
+                    "Eliminazione struttura dinamica")
+   
+   CALL SUB06_ELIMINA_STRUTTURA(Ritorno [OUT]) ' Esercitazione 6: Eliminazione elemento
+   If Ritorno=0 Then ExitSr
+   
+   MESSAGEBOX(#ERRORE,"CBAS_06","Esercitazione 6: Strutture dinamiche<br>" + _
+                      "Errore nell'eliminazione della struttura dinamica")
+
+Return
+
+------------------------------------------------------------
+Domanda: Come si crea una query con colonne calcolate?
+File: BLDOBJQRY_QUERY_RAG_DEFINIZIONE.BC
+Contesto:
+'@PGQUERY BLDOBJQRY_QUERY_RAG_DEFINIZIONE STRICT[4] ' Esercitazione query raggruppata - Definizione query
+
+   '@SBP QueryObject[BCQUERY] [INOUT]
+
+   '@DEFQUERY QUERY[QueryObject] NOME["BLDOBJQRY_QUERY_RAG_DEFINIZIONE"]
+
+      ' Definizione della tabella di riferimento della query
+      ' Tabella BLDFAMIGLIA
+      '@FROM TABELLA[BLDFAMIGLIA]
+      
+      ' Definizione della seconda tabella all'interno della query.
+      ' Ogni tabella inserita deve essere in relazione con una tabella gi presente
+      
+      ' Relazione tra BLDART   (Articoli)             - Articoli
+      '             e BLDFAMIGLIA   (FamiglieArticoli)     - Famiglie
+      '@JOIN TABELLA[BLDART] TABELLAPADRE[BLDFAMIGLIA] _
+             REL[BLDART.CODFAM = BLDFAMIGLIA.COD] OPERATOREJOIN["LEFT"]
+      
+      ' Definizione dei campi della query
+      ' Una sola DEFQUERYFIELD con tanti ESPR quanti sono i campi (anche se puntano a tabelle differenti)
+      ' All'interno del parametro ESPR viene definita una funzione di RAGGRUPPAMENTO (GROUPBY/SUM).
+      ' Se definite TUTTI i campi devono avere una funzione associata.
+      '@COLUMN ESPR[GROUPBY(BLDFAMIGLIA.COD) AS [CodiceFamiglia]]   _ ' Codice famiglia _
+               ESPR[GROUPBY(BLDFAMIGLIA.DES) AS [Descrizione]]      _ ' Descrizione _
+               ESPR[SUM(BLDART.PREZZO)       AS [PrezzoUnitario]]     ' Prezzo unitario di listino
+            
+   '@ENDQUERY
+
+End
+
+
+------------------------------------------------------------
+Domanda: Mostra un esempio di Common Table Expression
+File: BLDOBJQRY_CTE_RECURSIVE_DEFINIZIONE.BC
+Contesto:
+'@PGQUERY BLDOBJQRY_CTE_RECURSIVE_DEFINIZIONE STRICT[4] ' CTE ricorsiva - Definizione query
+
+   '@SBP Query[BCQUERY] [INOUT]
+
+   '@DEFQUERY QUERY[Query] NOME["BLOBJQRY_CTE_RECURSIVE_DEFINIZIONE_15"]
+   
+      '@DEFQUERYCTE QUERY[ParteFissa] ALIAS["Organigramma"] PARTE[#FISSA]
+      
+         '@FROM TABELLA[BLDIMPIEGATI]
+         
+         '@COLUMN ESPR[BLDIMPIEGATI.IDImpiegato AS [IdPadre]] 
+         '@COMPUTEDCOLUMN ESPR[BLDIMPIEGATI.Nome +" " + BLDIMPIEGATI.Cognome AS [Nominativo] FMT[TESTO[80]]] 
+         '@COMPUTEDCOLUMN ESPR[1 AS [Livello] FMT[NUMERICO[2]]] 
+         '@COMPUTEDCOLUMN ESPR[FNTRSD$(BLDIMPIEGATI.Nome) + " " + FNTRSD$(BLDIMPIEGATI.Cognome) AS [Posizione] FMT[TESTO[255]]]  
+         '@COMPUTEDCOLUMN ESPR[FNS$(BLDIMPIEGATI.IDImpiegato) AS [Sort] FMT[TESTO[255]]]    
+         
+         '@WHERE ESPR[BLDIMPIEGATI.IDResponsabile=0]
+      
+      '@ENDQUERY 
+      
+      '@DEFQUERYCTE QUERY[ParteRicorsiva] ALIAS["Organigramma"] PARTE[#RICORSIVA]
+      
+         '@FROM TABELLA[BLDIMPIEGATI]
+         '@JOIN TABELLA[[Organigramma]] TABELLAPADRE[BLDIMPIEGATI] OPERATOREJOIN["INNER"] REL[BLDIMPIEGATI.IDResponsabile=[Organigramma].IdPadre] 
+         
+         '@COLUMN ESPR[BLDIMPIEGATI.IDImpiegato AS [IdPadre]] 
+         '@COMPUTEDCOLUMN ESPR[BLDIMPIEGATI.Nome +" " + BLDIMPIEGATI.Cognome AS [Nominativo] FMT[TESTO[80]]] 
+         '@COMPUTEDCOLUMN ESPR[[Organigramma].Livello + 1 AS [Livello] FMT[NUMERICO[2]]] 
+         '@COMPUTEDCOLUMN ESPR[STRING$([Organigramma].Livello, "|    ")+FNTRSD$(BLDIMPIEGATI.Nome) + " " + FNTRSD$(BLDIMPIEGATI.Cognome) AS [Posizione] FMT[TESTO[255]]]     
+         '@COMPUTEDCOLUMN ESPR[[Organigramma].Sort+FNS$(BLDIMPIEGATI.IDImpiegato) AS [Sort] FMT[TESTO[255]]]
+      
+      '@ENDQUERY 
+      
+      '@FROM TABELLA[[Organigramma]]
+      
+      '@COMPUTEDCOLUMN ESPR[[Organigramma].IdPadre AS [IdPadre] FMT[NUMERICO[9]]] 
+      '@COMPUTEDCOLUMN ESPR[[Organigramma].Nominativo AS [Nominativo] FMT[TESTO[80]]] 
+      '@COMPUTEDCOLUMN ESPR[[Organigramma].Posizione AS [Posizione] FMT[TESTO[255]]] 
+      '@COMPUTEDCOLUMN ESPR[[Organigramma].Livello  AS [Livello] FMT[NUMERICO[2]]]  
+      '@COMPUTEDCOLUMN ESPR[[Organigramma].Sort AS [Sort] FMT[NUMERICO[5]] NOOUTPUT] 
+      
+      '@ORDERBY ESPR[[Sort]]
+
+   '@ENDQUERY
+End
+
+
+------------------------------------------------------------
+Domanda: Spiega il funzionamento della subroutine SUB06_INS
+File: SUB06_INS.BC
+Contesto:
+'@PG SUB06_INS      ' Esercitazione 6: Inserimento di un nuovo elemento
+
+'@SBP Ritorno[INT] [OUT] ' Valore in uscita (0-definizione corretta;1-Definizione errata)
+
+   GoSub InserisciElemento
+   
+End
+
+
+'@SR InserisciElemento
+
+   ' INSERIMENTO DI UN ELEMENTO NELLA STRUTTURA DINAMICA AD UNA DATA POSIZIONE
+   
+   ' INIZIALIZZAZIONE DELLE VARIABILI
+   
+   ' CODICE$[10]=""
+   ' FAMIGLIA$[6]=""
+   ' QUANTITA#[8,3]=0
+   DESCRIZIONE$[40]="Articolo inserito al secondo elemento"
+   
+   FAMCOD$[6]="FAM02"
+   ARCOD$[10]="ART00000B1"
+   
+   ' INSERIMENTO DELL'ELEMENTO NELLA POSIZIONE 2 DELLA STRUTTURA DINAMICA
+   
+   NOME_STRUTTURA$[20]="ARTICOLI"
+   
+   '@INSDYNSTRUCT STRUTTURA[NOME_STRUTTURA$]    _
+                  ELEMENTO[2]              _
+                  CAMPI[CODICE$=ARCOD$,    _  ' ASSEGNAZIONE esplicita
+                  DESCRIZIONE$,            _  ' ASSEGNAZIONE IMPLICITA
+                  FAMIGLIA$=FAMCOD$,       _  ' ASSEGNAZIONE esplicita
+                  QUANTITA#=7]             _  ' ASSEGNAZIONE esplicita
+                  ERRORE
+   
+   ' ASSEGNAZIONE DEFAULT: PREZZO = 0
+   
+   If ZBCERR>0 THEN Ritorno=1:ExitSr
+   
+   ' malgrado sia specificata la posizione 2, l'elemento viene sempre aggiunto al fondo
+   ' perch la struttura ha un indice, quindi viene ordinata sempre per l'indice definito
+
+Return
+
+------------------------------------------------------------
+Domanda: Spiega l'uso di JOIN nelle query BC
+File: BLDOBJQRY_QUERY_RAG_DEFINIZIONE.BC
+Contesto:
+'@PGQUERY BLDOBJQRY_QUERY_RAG_DEFINIZIONE STRICT[4] ' Esercitazione query raggruppata - Definizione query
+
+   '@SBP QueryObject[BCQUERY] [INOUT]
+
+   '@DEFQUERY QUERY[QueryObject] NOME["BLDOBJQRY_QUERY_RAG_DEFINIZIONE"]
+
+      ' Definizione della tabella di riferimento della query
+      ' Tabella BLDFAMIGLIA
+      '@FROM TABELLA[BLDFAMIGLIA]
+      
+      ' Definizione della seconda tabella all'interno della query.
+      ' Ogni tabella inserita deve essere in relazione con una tabella gi presente
+      
+      ' Relazione tra BLDART   (Articoli)             - Articoli
+      '             e BLDFAMIGLIA   (FamiglieArticoli)     - Famiglie
+      '@JOIN TABELLA[BLDART] TABELLAPADRE[BLDFAMIGLIA] _
+             REL[BLDART.CODFAM = BLDFAMIGLIA.COD] OPERATOREJOIN["LEFT"]
+      
+      ' Definizione dei campi della query
+      ' Una sola DEFQUERYFIELD con tanti ESPR quanti sono i campi (anche se puntano a tabelle differenti)
+      ' All'interno del parametro ESPR viene definita una funzione di RAGGRUPPAMENTO (GROUPBY/SUM).
+      ' Se definite TUTTI i campi devono avere una funzione associata.
+      '@COLUMN ESPR[GROUPBY(BLDFAMIGLIA.COD) AS [CodiceFamiglia]]   _ ' Codice famiglia _
+               ESPR[GROUPBY(BLDFAMIGLIA.DES) AS [Descrizione]]      _ ' Descrizione _
+               ESPR[SUM(BLDART.PREZZO)       AS [PrezzoUnitario]]     ' Prezzo unitario di listino
+            
+   '@ENDQUERY
+
+End
+
+
+------------------------------------------------------------
+Domanda: Spiega la struttura della query BLDOBJQRY_QUERYBASE_DEFINIZIONE
+File: BLDOBJQRY_QUERYBASE_DEFINIZIONE.BC
+Contesto:
+'@PGQUERY BLDOBJQRY_QUERYBASE_DEFINIZIONE STRICT[4] ' Esercitazione query base - Definizione query
+
+   '@SBP QueryObject[BCQUERY] [INOUT]
+
+   '@DEFQUERY QUERY[QueryObject] NOME["BLDOBJQRY_QUERYBASE_DEFINIZIONE"]
+   
+      ' Definizione della tabella di riferimento della query
+      ' Tabella ARTICOLI
+      '@FROM TABELLA[BLDART]
+      
+      ' Definizione dei campi della query
+      ' Una sola DEFQUERYFIELD con tanti ESPR quanti sono i campi
+      '@COLUMN ESPR[BLDART.COD       AS [CodiceArticolo]]      _ ' Codice articolo
+               ESPR[BLDART.DES       AS [Descrizione]]         _ ' Descrizione
+               ESPR[BLDART.CODFAM    AS [Famiglia]]            _ ' Codice famiglia
+               ESPR[BLDART.PREZZO    AS [PrezzoUnitario]]      _ ' Prezzo unitario di listino
+               ESPR[BLDART.SCONTO    AS [ScontoArticolo]]      _ ' Sconto articolo
+               ESPR[BLDART.QUA       AS [QuantitaMagazzino]]     ' Quantit in magazzino
+   
+      ' Filtri (Where)
+      ' Applicazione del filtro: Selezionare tutti i dati DOVE il prezzo  superiore a 30
+      '@WHERE ESPR[BLDART.PREZZO>30]
+      
+      ' Ordinamento
+      ' Definizione ordinamento ASCENDENTE per DESCRIZIONE
+      '@ORDERBY IND[1] ESPR[BLDART.DES/ASC]
+
+   '@ENDQUERY
+
+End
+
+
+------------------------------------------------------------
+Domanda: Spiega il codice dell'esercizio CBAS_11
+File: CBAS_11.BC
+Contesto:
+'@PG CBAS_11      ' Esercitazione 11: Accesso ai dati (DELDBDATA)
+
+
+
+
+'@SBC SUB11_DELDB  _                      ' Esercitazione 11: Accesso ai dati (DELDBDATA)
+               RITORNO[1]    [OUT]    ' O - Valore in uscita (0-Nessun errore;1-Sub terminata con errore)
+
+'@BS FINE
+END
+
+------------------------------------------------------------
+Domanda: Come si usa COMPUTEDCOLUMN in una query?
+File: BLDOBJQRY_QUERY_JOIN_DEFINIZIONE.BC
+Contesto:
+'@PGQUERY BLDOBJQRY_QUERY_JOIN_DEFINIZIONE STRICT[4] ' Esercitazione query con Join - Definizione query
+
+   '@SBP Query[BCQUERY] [INOUT]
+
+   '@DEFQUERY QUERY[Query] NOME["BLDOBJQRY_QUERY_JOIN_DEFINIZIONE"]
+
+      ' Definizione della tabella di riferimento della query
+      ' Tabella BLDART
+      '@FROM TABELLA[BLDART]
+      
+      ' Definizione della seconda tabella all'interno della query.
+      ' Ogni tabella inserita deve essere in relazione con una tabella gi presente
+      
+      ' Relazione tra BLDFAMIGLIA   (FamiglieArticoli)     - Famiglie
+      '             e BLDART   (Articoli)             - Articoli
+      '@JOIN TABELLA[BLDFAMIGLIA] TABELLAPADRE[BLDART]  _
+             REL[BLDFAMIGLIA.COD=BLDART.CODFAM] OPERATOREJOIN["LEFT"]  
+      
+      ' Definizione dei campi della query
+      ' Una sola DEFQUERYFIELD con tanti ESPR quanti sono i campi (anche se puntano a tabelle differenti)
+      '@COLUMN ESPR[BLDART.COD           AS [CodiceArticolo]]     _ ' Codice articolo _
+               ESPR[BLDART.DES           AS [Descrizione]]        _ ' Descrizione _
+               ESPR[BLDART.PREZZO        AS [PrezzoUnitario]]     _ ' Prezzo unitario di listino _
+               ESPR[BLDART.SCONTO        AS [ScontoArticolo]]     _ ' Sconto articolo _
+               ESPR[BLDART.QUA           AS [QuantitaMagazzino]]  _ ' Quantit in magazzino _
+               ESPR[BLDFAMIGLIA.DES      AS [DesFamiglia]]          ' Descrizione
+      
+      ' Ordinamento
+      ' Definizione ordinamento ASCENDENTE per DESCRIZIONE
+      '@ORDERBY IND[1] ESPR[BLDART.DES/ASC]
+
+   '@ENDQUERY
+
+End
+
+
+------------------------------------------------------------
+Domanda: Spiega come aggiungere elementi a una struttura
+File: SUB06_DEFSTR.BC
+Contesto:
+'@PG SUB06_DEFSTR      ' Esercitazione 6: Definizione strutture dinamiche
+
+'@SBP Ritorno[INT] [OUT] ' Valore in uscita (0-definizione corretta;1-Definizione errata)
+
+   GoSub DefinizioneStruttura
+
+End
+
+'@SR DefinizioneStruttura
+
+   ' DEFINIZIONE DELLA STRUTTURA DINAMICA "ARTICOLI" CONTENENTE I CAMPI:
+   ' CODICE$, DESCRIZIONE$, FAMIGLIA$, PREZZO# E QUANTITA
+   
+   NOME_STRUTTURA$[20]="ARTICOLI"
+   
+   '@DEFDYNSTRUCT STRUTTURA[NOME_STRUTTURA$] _
+                  CAMPI[CODICE$[10],DESCRIZIONE$[30],FAMIGLIA$[6],PREZZO#[8,3],QUANTITA[6]] _
+                  IND[CODICE$] _
+                  ERRORE
+   
+   Ritorno=0
+   If ZBCERR>0 Then Ritorno=1
+
+Return
+
+------------------------------------------------------------
+Domanda: Come si crea una query con colonne calcolate?
+File: BLDOBJQRY_SUBQUERY_RICHIAMO_DEFINIZIONE.BC
+Contesto:
+'@PGQUERY BLDOBJQRY_SUBQUERY_RICHIAMO_DEFINIZIONE STRICT[4] ' SUBQUERY Richiamo - Definizione query
+
+   '@SBP Query[BCQUERY] [INOUT]
+
+   '@DEFQUERY QUERY[Query] NOME["BLDOBJQRY_SUBQUERY_RICHIAMO_DEFINIZIONE_15"] 
+
+      '@FROM TABELLA[BLDART]
+      
+      DIM totaleRigheArt[QUERY[BLDOBJQRY_SUBQUERY_DEF(Query [INOUT], QUERY.SetExpression(BLDART.COD) [INOUT] )]]
+   
+      '@COLUMN ESPR[BLDART.COD AS [Codice]] _
+               ESPR[BLDART.DES AS [Descrizione]]
+               
+      '@COMPUTEDCOLUMN ESPR[SUBQ(totaleRigheArt) AS [NumeroDoc] FMT[NUMERICO[6]]]       
+            
+      '@WHERE ESPR[SUBQ(totaleRigheArt)>3]
+      
+   '@ENDQUERY 
+
+End
+
+
+------------------------------------------------------------
+Domanda: Spiega le CTE ricorsive in ambiente Sistemi
+File: BLDOBJQRY_CTE_DEFINIZIONE.BC
+Contesto:
+'@PGQUERY BLDOBJQRY_CTE_DEFINIZIONE STRICT[4] ' CTE semplice - Definizione query
+
+   '@SBP Query[BCQUERY] [INOUT]
+
+   '@DEFQUERY QUERY[Query] NOME["BLDOBJQRY_CTE_DEFINIZIONE_15"]
+      
+      '@DEFQUERYCTE QUERY[QScadenze] ALIAS["Scadenze"]
+      
+         '@FROM TABELLA[BLDTESTATA]
+         '@JOIN TABELLA[BLDPIEDE] TABELLAPADRE[BLDTESTATA] OPERATOREJOIN["INNER"] REL[BLDPIEDE.IDDOC=BLDTESTATA.IDDOC]
+         '@JOIN TABELLA[BLDCPG] TABELLAPADRE[BLDTESTATA] OPERATOREJOIN["INNER"] REL[BLDCPG.COD=BLDTESTATA.CODPAG]
+         '@JOIN TABELLA[BLDSDE] TABELLAPADRE[BLDCPG] OPERATOREJOIN["LEFT"] REL[BLDSDE.COD=BLDCPG.COD]
+         '@WHERE ESPR[BLDTESTATA.GRDOC="FTV"]
+         
+         '@COLUMN ESPR[BLDTESTATA.INTEST  AS [Cliente]]   _
+                  ESPR[BLDTESTATA.IDDOC AS [Documento]]
+         
+         '@COMPUTEDCOLUMN ESPR[FNDAYDATEADD(BLDTESTATA.DatDoc,BLDSDE.GG) AS[DataScadenza] FMT[DATA8]] _
+                          ESPR[BLDPiede.ValTot*BLDSDE.PerImp/100 AS[Importo] FMT[NUMERICO[7,2]]]
+      '@ENDQUERY 
+      
+      '@FROM TABELLA[BLDCLIFOR]
+      '@JOIN TABELLA[[Scadenze]] TABELLAPADRE[BLDCLIFOR] OPERATOREJOIN["INNER"] REL[[Scadenze].Cliente=BLDCLIFOR.COD]
+      
+      '@COLUMN ESPR[BLDCLIFOR.COD AS [Cliente]]  
+      '@COMPUTEDCOLUMN ESPR[[Scadenze].DataScadenza AS [Scadenza] FMT[DATA8]]     _
+                       ESPR[[Scadenze].Importo AS [Importo] FMT[NUMERICO[8,2]]]    
+                       
+      '@WHERE ESPR[[Cliente]=1 AND [Importo]>0]                       
+   
+      '@ORDERBY ESPR[[Scadenza]]
+      
+   '@ENDQUERY
+
+End
+
+
+------------------------------------------------------------
+Domanda: Spiega l'uso di JOIN nelle query BC
+File: BLDOBJQRY_ART_ELENCO_DEFINIZIONE.BC
+Contesto:
+'@PGQUERY BLDOBJQRY_ART_ELENCO_DEFINIZIONE STRICT[4] ' Query di elenco su BLDART - Definizione query
+
+   '@SBP Query[BCQUERY]                   [INOUT] _ ' Oggetto query
+         Multisel[TIPO[BCBOOL]]           [IN]    _ ' Abilita multiselezione
+         CodPreselezionati[STRING]        [IN]    _ ' Elenco codici pre selezionati
+         Filtri[CLASSE[BLD_ART_FILTRI]]   [INOUT]   ' Filtro sul campo chiave per l'aggiornamento della griglia
+
+   '@DEFQUERY QUERY[Query] NOME["OBJQRY_BLD_ART_ELENCO_DEFINIZIONE_IdQueryElenco"]
+
+      '@FROM TABELLA[BLDART]
+      
+      '@JOIN TABELLA[BLDFAMIGLIA] TABELLAPADRE[BLDART] _
+             REL[BLDFAMIGLIA.COD = BLDART.CODFAM] OPERATOREJOIN["LEFT"]
+             
+      '@COLUMN ESPR[BLDART.COD            AS [CodiceArticolo]] _
+               ESPR[BLDART.DES            AS [Descrizione]]    _
+               ESPR[BLDART.ACQUISTO       AS [Acquisto]]       _
+               ESPR[BLDART.VENDITA        AS [Vendita]]        _
+               ESPR[BLDART.GESVAR         AS [GestVariazione]] _
+               ESPR[BLDART.FlGesMatricole AS [GestMatricole]]  _
+               ESPR[BLDART.COSTO          AS [Costo]]          _
+               ESPR[BLDART.PREZZO         AS [Prezzo]]         _
+               ESPR[BLDART.SCONTO         AS [Sconto]]         _
+               ESPR[BLDART.CODFAM         AS [CodiceFamiglia]] _
+               ESPR[BLDFAMIGLIA.DES       AS [DescrizioneFam]]
+               
+      '@COMPUTEDCOLUMN ESPR[DECODDES$(BLDART.STATO) AS[Stato] FMT[TESTO[50]]] _
+                       ESPR[DECODDES$(BLDART.TIPO)  AS[Tipo]  FMT[TESTO[50]]]
+                       
+      ' Se  prevista la multiselezione va aggiunto il campo calcolato ZSEL sui codici preselezionati
+      If Multisel = #True Then
+
+         '@COMPUTEDCOLUMN ESPR[If INLISTSTR(BLDART.COD, CodPreSelezionati) > 0 Then 1 AS [ZSEL] FMT[NUMERICO[1]]]
+
+      EndIf
+      
+      ' Escludo i filtri se sto aggiornando la query
+      If Filtri.CodArt = "" Then
+   
+         If Filtri.CodMacro <> "" Then
+         
+           '@WHERE ESPR[INLISTSTR(BLDFAMIGLIA.CODMACRO, Filtri.CodMacro) > 0]
+           
+         EndIf
+         
+         If Filtri.CodFamSelezionati <> "" Then
+         
+           '@WHERE ESPR[INLISTSTR(BLDART.CODFAM, Filtri.CodFamSelezionati) > 0]
+           
+         EndIf
+         
+         If Filtri.Acquisti <> 2 Then
+         
+            '@DEFQUERYWHERE ESPR[BLDART.ACQUISTO = Filtri.Acquisti]
+            
+         EndIf
+         
+         If Filtri.Vendite <> 2 Then
+         
+            '@WHERE ESPR[BLDART.VENDITA = Filtri.Vendite]
+            
+         EndIf
+         
+         If Filtri.DesArt > "" Then
+         
+            '@WHERE ESPR[MATCH(BLDART.DES, "%" + FNTRSD$(Filtri.DesArt) + "%") > 0]
+            
+         EndIf
+         
+      Else
+      
+         '@WHERE ESPR[BLDART.COD = Filtri.CodArt]
+      
+      EndIf
+      
+   '@ENDQUERY
+
+End
+
+------------------------------------------------------------
+Domanda: Come si definisce una struttura dinamica?
+File: SUB06_ELIMINA_STRUTTURA.BC
+Contesto:
+'@PG SUB06_ELIMINA_STRUTTURA     ' Esercitazione 6: Eliminazione struttura dinamica
+
+'@SBP Ritorno[INT] [OUT] ' Valore in uscita (0-definizione corretta;1-Definizione errata)
+
+   NOME_STRUTTURA$[20]="ARTICOLI"
+   
+   ' Elimina strttura dinamica
+   GoSub EliminaStruttura
+
+End
+
+'@SR EliminaStruttura
+
+' Eliminazione della struttura dinamica definita in precedenza con
+   ' @DEFDYNSTRUCT
+   
+   '@KILLDYNSTRUCT STRUTTURA[NOME_STRUTTURA$] _
+                   ERRORE
+   
+   If ZBCERR>0 Then Ritorno=1:ExitSr
+
+Return
+
+
+------------------------------------------------------------
+Domanda: Spiega come aggiungere elementi a una struttura
+File: SUB06_ELIMINA_STRUTTURA.BC
+Contesto:
+'@PG SUB06_ELIMINA_STRUTTURA     ' Esercitazione 6: Eliminazione struttura dinamica
+
+'@SBP Ritorno[INT] [OUT] ' Valore in uscita (0-definizione corretta;1-Definizione errata)
+
+   NOME_STRUTTURA$[20]="ARTICOLI"
+   
+   ' Elimina strttura dinamica
+   GoSub EliminaStruttura
+
+End
+
+'@SR EliminaStruttura
+
+' Eliminazione della struttura dinamica definita in precedenza con
+   ' @DEFDYNSTRUCT
+   
+   '@KILLDYNSTRUCT STRUTTURA[NOME_STRUTTURA$] _
+                   ERRORE
+   
+   If ZBCERR>0 Then Ritorno=1:ExitSr
+
+Return
+
+
+------------------------------------------------------------
+Domanda: Come si crea una query con colonne calcolate?
+File: BLDOBJQRY_CTE_RICHIAMO_DEFINIZIONE.BC
+Contesto:
+'@PGQUERY BLDOBJQRY_CTE_RICHIAMO_DEFINIZIONE STRICT[4] ' CTE Richiamo - Definizione query
+
+   '@SBP Query[BCQUERY] [INOUT]
+
+   '@DEFQUERY QUERY[Query] NOME["BLDOBJQRY_CTE_COMP2_DEFINIZIONE_15"]
+   
+      DIM scadenze[QUERY[BLDOBJQRY_CTE_DEF(Query [INOUT])]]
+      
+      '@FROM TABELLA[BLDCLIFOR]
+      '@JOIN TABELLA[scadenze] TABELLAPADRE[BLDCLIFOR] OPERATOREJOIN["INNER"] REL[scadenze.Cliente=BLDCLIFOR.COD]
+      
+      '@COLUMN ESPR[BLDCLIFOR.COD AS [Cliente]]  
+      '@COMPUTEDCOLUMN ESPR[scadenze.DataScadenza AS [Scadenza] FMT[DATA8]]     _
+                       ESPR[scadenze.Importo AS [Importo] FMT[NUMERICO[8,2]]]    
+                       
+      '@WHERE ESPR[[Cliente]=1 AND [Importo]>0]                       
+   
+      '@ORDERBY ESPR[[Scadenza]]   
+
+   '@ENDQUERY
+
+End
+
+
+------------------------------------------------------------
+Domanda: Come si crea una query con colonne calcolate?
+File: BLDOBJQRY_ART_AUTO_DEFINIZIONE.BC
+Contesto:
+'@PGQUERY BLDOBJQRY_ART_AUTO_DEFINIZIONE STRICT[4] ' Query di autocompletamento su BLDART - Definizione query
+
+   '@SBP Query[BCQUERY] [INOUT]
+
+   '@DEFQUERY QUERY[Query] NOME["BLDOBJQRY_ART_AUTO_DEFINIZIONE_15"]
+
+      '@FROM TABELLA[BLDART]
+
+      '@COLUMN ESPR[BLDART.COD     AS [VAR]]                       ETICHETTA["Codice"]    _
+               ESPR[BLDART.DES     AS [Descrizione]]               ETICHETTA["Descrizione"]
+   
+      '@COMPUTEDCOLUMN ESPR[IF BLDART.COD="#TD" THEN 1 AS [MatchCode] FMT[NUMERICO[1]] NOOUTPUT[1]]   ETICHETTA["MatchCode"] ERRORE
+      
+      '@WHERE ESPR[(MATCH([VAR],"%#TD%")>0 OR MATCH([Descrizione],"%#TD%")>0)] IDESPR["1"]
+      
+      '@ORDERBY ESPR[[MatchCode] /DESC, BLDART.COD]
+
+   '@ENDQUERY
+
+End
+
+------------------------------------------------------------
+Domanda: Come si aggiornano i dati con UPDATEDBDATA?
+File: SUB12_UPDATEDB.BC
+Contesto:
+'@PG SUB12_UPDATEDB      ' Esercitazione 12: Accesso ai dati (UPDATEDBDATA)'
+
+'@SBP RITORNO[1] [OUT] ' O - Valore in uscita (0-Nessun errore;1-Sub terminata con errore)
+
+GOSUB DEFINIZIONE_VARIABILI
+
+' LETTURA INIZIALE DEI DATI
+
+GOSUB LETTURA
+IF RITORNO=1 THEN GOTO FINE
+
+' EMISSIONE A VIDEO DELL'ARTICOLO LETTO
+
+GOSUB VISUALIZZAZIONE_ARTICOLI
+
+'@BS FINE
+END
+
+
+'@SR DEFINIZIONE_VARIABILI
+
+VARIA[1]=0
+ORDLET[1]=0
+COM_POS[1]=1     ' VARIABILE POSIZIONAMENTO GETDBDATA
+
+RETURN
+
+'@SR LETTURA
+
+' LETTURA DEI DATI
+
+'@GETDBDATA TABELLA[BLDART]                           _ ' Tabella BLDART
+            TIPOREC[ART]                              _ ' Tipo record ART
+            IND[0 \COD=""\]                           _ ' Indice 0
+            SELEZIONI[ARTCOD>=""]                     _ ' Selezioni codice > ""
+            POSIZIONA[COM_POS]                        _ ' Posizionamento
+            CAMPI[COD DES CODFAM PREZZO SCONTO QUA]   _ ' Campi letti
+            ORDINELETTURA[ORDLET]                     _ ' Verso di lettura del resultset degli articoli
+            ERRORE[#ENDFIL]                             ' #ENDFIL permette la valorizzazione di ZENDFIL a 1 se siamo a fine file (EOF)
+
+IF ZENDFIL>0 THEN RITORNO=1
+
+RETURN
+
+'@SR MODIFICA
+
+' MODIFICO ARTICOLI CON I VALORI NEI CAMPI DELLA VIDEATA
+
+'@UPDATEDBDATA TABELLA[BLDART]                     _ ' Tabella BLDART
+               TIPOREC[ART]                        _ ' Tipo record ART
+               IND[0\COD=ARTCOD$\]                 _ ' Update per indice
+               CAMPI[DES CODFAM PREZZO SCONTO QUA]   ' Campi della tabella da modificare
+
+' RIPOSIZIONO ALL'INIZIO IL "CURSORE" DEL RESULTSET DEI DATI E RIPETO LA LETTURA INIZIALE
+
+COM_POS=1
+
+GOSUB LETTURA
+
+RETURN
+
+'@SR VISUALIZZAZIONE_ARTICOLI
+
+'@DEFVID DIM[9,69] POS[SCHERMO,CENTRO] POSBOTTONI[#BASSODESTRA] TIT["Esercitazione 12: Accesso ai dati (UPDATEDBDATA)"]
+
+'@DEFLABEL VAR["Codice"] POS[2,3] DIM[1,11] ID["L_ARTCOD"] FMT[TESTO]
+
+'@DEFEDIT VAR[ARTCOD$] ID["ARTCOD"] RET[1,1] POS[2,21] DIM[1,25] FMT[TESTO] DISABILITATO[1]
+
+'@DEFLABEL VAR["Descrizione"] POS[3,3] DIM[1,11] ID["L_ARTDES"] FMT[TESTO]
+
+'@DEFEDIT VAR[ARTDES$] ID["ARTDES"] RET[2,1] POS[3,21] DIM[1,54] FMT[TESTO] DISABILITATO[VARIA=0]
+
+'@DEFLABEL VAR["Famiglia"] POS[4,3] DIM[1,11] ID["L_ARTCODFAM"] FMT[TESTO]
+
+'@DEFEDIT VAR[ARTCODFAM$] ID["ARTCODFAM"] RET[3,1] POS[4,21] DIM[1,54] FMT[TESTO] DISABILITATO[VARIA=0]
+
+'@DEFLABEL VAR["Prezzo unitario"] POS[5,3] DIM[1,11] ID["L_ARTPREZZO"] FMT[TESTO]
+
+'@DEFEDIT VAR[ARTPREZZO#] ID["ARTPREZZO"] RET[4,1] POS[5,21] DIM[1,14] FMT[NUMERICO[8,3]] DISABILITATO[VARIA=0]
+
+'@DEFLABEL VAR["Sconto articolo"] POS[6,3] DIM[1,11] ID["L_ARTSCONTO"] FMT[TESTO]
+
+'@DEFEDIT VAR[ARTSCONTO] ID["ARTSCONTO"] RET[5,1] POS[6,21] DIM[1,14] FMT[NUMERICO[8,3]] DISABILITATO[VARIA=0]
+
+'@DEFLABEL VAR["Quantit magazzino"] POS[7,3] DIM[1,11] ID["L_ARTQUA"] FMT[TESTO]
+
+'@DEFEDIT VAR[ARTQUA] ID["ARTQUA"] RET[6,1] POS[7,21] DIM[1,14] FMT[NUMERICO[6]] DISABILITATO[VARIA=0]
+
+'@DEFBUTTON VAR["Precedente"] POS[9,22] DIM[1,9] AZIONE[ORDLET=1:GOSUB LETTURA] ID["L_BUTT_PREC"]
+
+'@DEFBUTTON VAR["Successivo"] POS[9,33] DIM[1,9] AZIONE[ORDLET=2:GOSUB LETTURA] ID["L_BUTT_SUCC"]
+
+'@DEFBUTTON VAR["Varia"] POS[9,44] DIM[1,9] AZIONE[VARIA=1] ID["L_BUTT_VAR"]
+
+'@DEFBUTTON VAR["Salva"] POS[9,55] DIM[1,9] AZIONE[GOSUB MODIFICA:VARIA=0] ID["L_BUTT_SAVE"] CONVARIABILI[1] DISABILITATO[VARIA=0]
+
+'@DEFFUNCKEY TASTO["F10"] NASCOSTO[1] DISABILITATO[1]
+
+'@DEFFUNCKEY TASTO["ESC"] CONVARIABILI[1]
+
+'@RUNVID
+
+RETURN
+
+------------------------------------------------------------
+Domanda: Quali parametri accetta SUB06_MOD?
+File: SUB06_MOD.BC
+Contesto:
+'@PG SUB06_MOD      ' Esercitazione 6: Modifica elemento
+
+'@SBP Ritorno[INT] [OUT] ' Valore in uscita (0-definizione corretta;1-Definizione errata)
+
+   NOME_STRUTTURA$[20]="ARTICOLI"
+   
+   ' Modifica elemento specifico
+   GoSub ModificaElementoId
+   
+   ' Modifica elemento con filtro
+   GoSub ModificaElementoFiltro
+
+End
+
+'@SR ModificaElementoId
+
+   '@SETDYNSTRUCT STRUTTURA[NOME_STRUTTURA$] _
+            ELEMENTO[2]        _
+            CAMPI[QUANTITA#=9] _
+            ERRORE
+   
+   If ZBCERR>0 Then Ritorno=1:ExitSr
+
+Return
+
+'@SR ModificaElementoFiltro
+
+   '@SETDYNSTRUCT STRUTTURA[NOME_STRUTTURA$]    _
+            FILTRO[CODICE$="ART0000003"]        _
+            CAMPI[QUANTITA#=0]                  _
+            ERRORE
+   
+   If ZBCERR>0 Then Ritorno=1:ExitSr
+
+Return
+
+------------------------------------------------------------
+Domanda: Spiega il codice dell'esercizio CBAS_10
+File: CBAS_10.BC
+Contesto:
+'@PG CBAS_10      ' Esercitazione 10: Accesso ai dati (INSDBDATA)
+
+
+
+
+'@SBC SUB10_INSDB  _                  ' Esercitazione 10: Accesso ai dati (INSDBDATA)
+               RITORNO[1]    [OUT]    ' O - Valore in uscita (0-Nessun errore;1-Sub terminata con errore)
+
+'@BS FINE
+END
+
+------------------------------------------------------------
+Domanda: Come si crea un video in BC?
+File: SUB03_MSGDLL.BC
+Contesto:
+'@PG SUB03_MSGDLL     ' Esercitazione 3: Hello + dll
+
+'@SBP TESTO$[50] [IN] ' I - Testo da stampare
+
+' La funzione MESSAGEBOX va in sostituzione della specifica @DEFVIDMSG,
+' semplificandone l'utilizzo e standardizzando la configurazione dei tasti.
+
+' EMISSIONE A VIDEO DELLA VARIABILE RICEVUTA IN INTERFACCIA (TESTO$)
+
+MESSAGEBOX(#INFO,"CBAS_03",TESTO$)
+
+' EMISSIONE A VIDEO DELLA VARIABILE RICEVUTA IN INTERFACCIA (TESTO$)
+
+''@DEFVIDMSG MSG[TESTO$] T[]
+
+'@BS FINE
+END
+
+------------------------------------------------------------
+Domanda: Spiega il codice dell'esercizio CBAS_01
+File: CBAS_01.BC
+Contesto:
+'@PG CBAS_01 STRICT[2]     ' Esercitazione 1: Hello + Main'
+
+   DIM varTesto[STRING]="Hello, World!"
+   
+   ' Emissione a video della variabile varTesto
+   MESSAGEBOX(#INFO,"CBAS_01",varTesto)
+   
+End
+
+------------------------------------------------------------
+Domanda: Come si definisce una struttura dinamica?
+File: SUB06_AGG.BC
+Contesto:
+'@PG SUB06_AGG      ' Esercitazione 6: Aggiunta elemento in struttura
+
+'@SBP Ritorno[INT] [OUT] ' Valore in uscita (0-definizione corretta;1-Definizione errata)
+
+   Gosub AggiuntaElemento
+
+End
+
+'@SR AggiuntaElemento
+
+   ' AGGIUNTA DI UN ELEMENTO NELLA STRUTTURA DINAMICA
+   
+   ' INIZIALIZZAZIONE DELLE VARIABILI
+   
+   ' CODICE$[10]=""
+   ' FAMIGLIA$[6]=""
+   ' QUANTITA#[8,3]=0
+   DESCRIZIONE$[30]="Descrizione dell'articolo"
+   FAMCOD$[6]="FAM01"
+   
+   ' CICLO D'INSERIMENTO 5 ELEMENTI
+   
+   For I[INT]=1 To 5
+   
+      ' VALORIZZAZIONE CAMPI DELLA STRUTTURA
+   
+      ARCOD$[10]="ART000000"
+      ARCOD$=FNTR$(ARCOD$)+FNS$(I)
+      NOME_STRUTTURA$[20]="ARTICOLI"
+   
+      ' AGGIUNTA ALL'INTERNO DELLA STRUTTURA DINAMICA
+   
+      '@ADDDYNSTRUCT STRUTTURA[NOME_STRUTTURA$] _
+                     CAMPI[CODICE$=ARCOD$, _  ' ASSEGNAZIONE esplicita
+                     DESCRIZIONE$,         _  ' ASSEGNAZIONE IMPLICITA
+                     FAMIGLIA$=FAMCOD$,    _  ' ASSEGNAZIONE esplicita
+                     QUANTITA#=10]         _  ' ASSEGNAZIONE esplicita
+                     ERRORE
+   
+      ' ASSEGNAZIONE DEFAULT: PREZZO = 0
+   
+      If ZBCERR>0 Then Ritorno=1:ExitSr
+      
+   Next I
+
+Return
+
+------------------------------------------------------------
+Domanda: Qual è lo scopo dell'esercizio CBAS_10?
+File: CBAS_10.BC
+Contesto:
+'@PG CBAS_10      ' Esercitazione 10: Accesso ai dati (INSDBDATA)
+
+
+
+
+'@SBC SUB10_INSDB  _                  ' Esercitazione 10: Accesso ai dati (INSDBDATA)
+               RITORNO[1]    [OUT]    ' O - Valore in uscita (0-Nessun errore;1-Sub terminata con errore)
+
+'@BS FINE
+END
+
+------------------------------------------------------------
+Domanda: Spiega il codice dell'esercizio CBAS_06
+File: CBAS_06.BC
+Contesto:
+'@PG CBAS_06 STRICT[2]     ' Esercitazione 6: Strutture dinamiche
+                       
+
+   CALL SUB06_STRDIN() ' Esercitazione 6: Strutture dinamiche
+
+End
+
+------------------------------------------------------------
+Domanda: Mostra come definire un form di input dati
+File: SUB03_MSGDLL.BC
+Contesto:
+'@PG SUB03_MSGDLL     ' Esercitazione 3: Hello + dll
+
+'@SBP TESTO$[50] [IN] ' I - Testo da stampare
+
+' La funzione MESSAGEBOX va in sostituzione della specifica @DEFVIDMSG,
+' semplificandone l'utilizzo e standardizzando la configurazione dei tasti.
+
+' EMISSIONE A VIDEO DELLA VARIABILE RICEVUTA IN INTERFACCIA (TESTO$)
+
+MESSAGEBOX(#INFO,"CBAS_03",TESTO$)
+
+' EMISSIONE A VIDEO DELLA VARIABILE RICEVUTA IN INTERFACCIA (TESTO$)
+
+''@DEFVIDMSG MSG[TESTO$] T[]
+
+'@BS FINE
+END
+
+------------------------------------------------------------
+Domanda: Come si risolve l'esercizio CBAS_10?
+File: CBAS_10.BC
+Contesto:
+'@PG CBAS_10      ' Esercitazione 10: Accesso ai dati (INSDBDATA)
+
+
+
+
+'@SBC SUB10_INSDB  _                  ' Esercitazione 10: Accesso ai dati (INSDBDATA)
+               RITORNO[1]    [OUT]    ' O - Valore in uscita (0-Nessun errore;1-Sub terminata con errore)
+
+'@BS FINE
+END
+
+------------------------------------------------------------
+Domanda: Come si definisce una CTE in BC?
+File: BLDOBJQRY_CTE_DEFINIZIONE.BC
+Contesto:
+'@PGQUERY BLDOBJQRY_CTE_DEFINIZIONE STRICT[4] ' CTE semplice - Definizione query
+
+   '@SBP Query[BCQUERY] [INOUT]
+
+   '@DEFQUERY QUERY[Query] NOME["BLDOBJQRY_CTE_DEFINIZIONE_15"]
+      
+      '@DEFQUERYCTE QUERY[QScadenze] ALIAS["Scadenze"]
+      
+         '@FROM TABELLA[BLDTESTATA]
+         '@JOIN TABELLA[BLDPIEDE] TABELLAPADRE[BLDTESTATA] OPERATOREJOIN["INNER"] REL[BLDPIEDE.IDDOC=BLDTESTATA.IDDOC]
+         '@JOIN TABELLA[BLDCPG] TABELLAPADRE[BLDTESTATA] OPERATOREJOIN["INNER"] REL[BLDCPG.COD=BLDTESTATA.CODPAG]
+         '@JOIN TABELLA[BLDSDE] TABELLAPADRE[BLDCPG] OPERATOREJOIN["LEFT"] REL[BLDSDE.COD=BLDCPG.COD]
+         '@WHERE ESPR[BLDTESTATA.GRDOC="FTV"]
+         
+         '@COLUMN ESPR[BLDTESTATA.INTEST  AS [Cliente]]   _
+                  ESPR[BLDTESTATA.IDDOC AS [Documento]]
+         
+         '@COMPUTEDCOLUMN ESPR[FNDAYDATEADD(BLDTESTATA.DatDoc,BLDSDE.GG) AS[DataScadenza] FMT[DATA8]] _
+                          ESPR[BLDPiede.ValTot*BLDSDE.PerImp/100 AS[Importo] FMT[NUMERICO[7,2]]]
+      '@ENDQUERY 
+      
+      '@FROM TABELLA[BLDCLIFOR]
+      '@JOIN TABELLA[[Scadenze]] TABELLAPADRE[BLDCLIFOR] OPERATOREJOIN["INNER"] REL[[Scadenze].Cliente=BLDCLIFOR.COD]
+      
+      '@COLUMN ESPR[BLDCLIFOR.COD AS [Cliente]]  
+      '@COMPUTEDCOLUMN ESPR[[Scadenze].DataScadenza AS [Scadenza] FMT[DATA8]]     _
+                       ESPR[[Scadenze].Importo AS [Importo] FMT[NUMERICO[8,2]]]    
+                       
+      '@WHERE ESPR[[Cliente]=1 AND [Importo]>0]                       
+   
+      '@ORDERBY ESPR[[Scadenza]]
+      
+   '@ENDQUERY
+
+End
+
+
+------------------------------------------------------------
+Domanda: Come si usa una subquery nella clausola IN?
+File: BLDOBJQRY_SUBQUERY_IN_DEFINIZIONE.BC
+Contesto:
+'@PGQUERY BLDOBJQRY_SUBQUERY_IN_DEFINIZIONE STRICT[4] ' Sottoquery nella clausola IN - Definizione query
+
+   '@SBP Query[BCQUERY] [INOUT]
+
+   '@DEFQUERY QUERY[Query] NOME["BLDOBJQRY_SUBQUERY_IN_DEFINIZIONE_15"] 
+   
+      '@FROM TABELLA[BLDCLIFOR]
+   
+      '@DEFSUBQUERY QUERY[Compratori] ELIMINADUPLICATI
+      
+         '@FROM TABELLA[BLDTESTATA]
+         '@JOIN TABELLA[BLDRIGA] TABELLAPADRE[BLDTESTATA] OPERATOREJOIN["INNER"] REL[BLDRIGA.IDD=BLDTESTATA.IDD]
+         
+         '@COLUMN ESPR[BLDTESTATA.INTEST AS [Cliente]]
+      
+      '@ENDQUERY 
+      
+      '@COLUMN ESPR[BLDCLIFOR.COD AS [Codice]] 
+      
+      '@COMPUTEDCOLUMN ESPR[BLDCLIFOR.RS1+" "+BLDCLIFOR.RS2 AS [RagioneSociale] FMT[TESTO[50]]]
+               
+      '@WHERE ESPR[BLDCLIFOR.COD IN(SUBQ(Compratori))]
+      
+   '@ENDQUERY 
+
+End
+
+------------------------------------------------------------
+Domanda: Mostra un esempio di definizione query per Esercitazione query per DataReader - Definizione query
+File: BLDOBJQRY_QUERYBASE_DATAREADER_DEFINIZIONE.BC
+Contesto:
+'@PGQUERY BLDOBJQRY_QUERYBASE_DATAREADER_DEFINIZIONE STRICT[4] ' Esercitazione query per DataReader - Definizione query
+
+   '@SBP Query[BCQUERY] [INOUT]
+
+   '@DEFQUERY QUERY[Query] NOME["BLDOBJQRY_QUERYBASE_DATAREADER_DEFINIZIONE_15"]
+
+      ' Definizione della tabella principale (FROM)
+      '@FROM TABELLA[BLDART]
+
+      ' Definizione elenco dei campi da estrarre
+      '@COLUMN ESPR[BLDART.COD AS [CodArt]] _
+               ESPR[BLDART.DES AS [DesArt]] 
+
+   '@ENDQUERY
+
+End
+
+
+------------------------------------------------------------
+Domanda: Come si crea una query con colonne calcolate?
+File: BLDOBJQRY_ART_ELENCO_DEFINIZIONE.BC
+Contesto:
+'@PGQUERY BLDOBJQRY_ART_ELENCO_DEFINIZIONE STRICT[4] ' Query di elenco su BLDART - Definizione query
+
+   '@SBP Query[BCQUERY]                   [INOUT] _ ' Oggetto query
+         Multisel[TIPO[BCBOOL]]           [IN]    _ ' Abilita multiselezione
+         CodPreselezionati[STRING]        [IN]    _ ' Elenco codici pre selezionati
+         Filtri[CLASSE[BLD_ART_FILTRI]]   [INOUT]   ' Filtro sul campo chiave per l'aggiornamento della griglia
+
+   '@DEFQUERY QUERY[Query] NOME["OBJQRY_BLD_ART_ELENCO_DEFINIZIONE_IdQueryElenco"]
+
+      '@FROM TABELLA[BLDART]
+      
+      '@JOIN TABELLA[BLDFAMIGLIA] TABELLAPADRE[BLDART] _
+             REL[BLDFAMIGLIA.COD = BLDART.CODFAM] OPERATOREJOIN["LEFT"]
+             
+      '@COLUMN ESPR[BLDART.COD            AS [CodiceArticolo]] _
+               ESPR[BLDART.DES            AS [Descrizione]]    _
+               ESPR[BLDART.ACQUISTO       AS [Acquisto]]       _
+               ESPR[BLDART.VENDITA        AS [Vendita]]        _
+               ESPR[BLDART.GESVAR         AS [GestVariazione]] _
+               ESPR[BLDART.FlGesMatricole AS [GestMatricole]]  _
+               ESPR[BLDART.COSTO          AS [Costo]]          _
+               ESPR[BLDART.PREZZO         AS [Prezzo]]         _
+               ESPR[BLDART.SCONTO         AS [Sconto]]         _
+               ESPR[BLDART.CODFAM         AS [CodiceFamiglia]] _
+               ESPR[BLDFAMIGLIA.DES       AS [DescrizioneFam]]
+               
+      '@COMPUTEDCOLUMN ESPR[DECODDES$(BLDART.STATO) AS[Stato] FMT[TESTO[50]]] _
+                       ESPR[DECODDES$(BLDART.TIPO)  AS[Tipo]  FMT[TESTO[50]]]
+                       
+      ' Se  prevista la multiselezione va aggiunto il campo calcolato ZSEL sui codici preselezionati
+      If Multisel = #True Then
+
+         '@COMPUTEDCOLUMN ESPR[If INLISTSTR(BLDART.COD, CodPreSelezionati) > 0 Then 1 AS [ZSEL] FMT[NUMERICO[1]]]
+
+      EndIf
+      
+      ' Escludo i filtri se sto aggiornando la query
+      If Filtri.CodArt = "" Then
+   
+         If Filtri.CodMacro <> "" Then
+         
+           '@WHERE ESPR[INLISTSTR(BLDFAMIGLIA.CODMACRO, Filtri.CodMacro) > 0]
+           
+         EndIf
+         
+         If Filtri.CodFamSelezionati <> "" Then
+         
+           '@WHERE ESPR[INLISTSTR(BLDART.CODFAM, Filtri.CodFamSelezionati) > 0]
+           
+         EndIf
+         
+         If Filtri.Acquisti <> 2 Then
+         
+            '@DEFQUERYWHERE ESPR[BLDART.ACQUISTO = Filtri.Acquisti]
+            
+         EndIf
+         
+         If Filtri.Vendite <> 2 Then
+         
+            '@WHERE ESPR[BLDART.VENDITA = Filtri.Vendite]
+            
+         EndIf
+         
+         If Filtri.DesArt > "" Then
+         
+            '@WHERE ESPR[MATCH(BLDART.DES, "%" + FNTRSD$(Filtri.DesArt) + "%") > 0]
+            
+         EndIf
+         
+      Else
+      
+         '@WHERE ESPR[BLDART.COD = Filtri.CodArt]
+      
+      EndIf
+      
+   '@ENDQUERY
+
+End
+
+------------------------------------------------------------
+Domanda: Spiega le CTE ricorsive in ambiente Sistemi
+File: BLDOBJQRY_CTE_UNION_BIS_DEFINIZIONE.BC
+Contesto:
+'@PGQUERY BLDOBJQRY_CTE_UNION_BIS_DEFINIZIONE STRICT[4] ' CTE con UNION annidate - Definizione query
+
+   '@SBP Query[BCQUERY] [INOUT]
+
+   '@DEFQUERY QUERY[Query] NOME["BLDOBJQRY_CTE_UNION_DEFINIZIONE_15"]
+'   
+'      ' Definizione della prima CTE
+'      '@DEFQUERYCTE QUERY[Impiegati] ALIAS["Impiegati"] 
+'      
+'         '@FROM TABELLA[BLDIMPIEGATI]
+'
+'         '@COLUMN ESPR[GROUPBY(BLDIMPIEGATI.IDUfficio) AS [IdUfficio]] _
+'                  ESPR[COUNT(BLDIMPIEGATI.IDImpiegato) AS [ContaUfficio]]
+'   
+'         ' Uffici con pi di un impiegato
+'         '@WHERE ESPRHAVING[[ContaUfficio]>1]
+'         
+'      '@ENDQUERY 
+'      
+'      '@DEFQUERYCTE QUERY[Impiegati2] ALIAS["Impiegati2"] 
+'      
+'         '@FROM TABELLA[BLDIMPIEGATI]
+'
+'         '@COLUMN ESPR[GROUPBY(BLDIMPIEGATI.IDUfficio) AS [IdUfficio]] _
+'                  ESPR[COUNT(BLDIMPIEGATI.IDImpiegato) AS [ContaUfficio]]
+'   
+'         ' Uffici con un impiegato
+'         '@WHERE ESPRHAVING[[ContaUfficio]=1]
+'         
+'      '@ENDQUERY 
+'         
+'         
+'         '@FROM TABELLA[BLDUFFICI]
+'   
+'         '@JOIN TABELLA[[Impiegati]] TABELLAPADRE[BLDUFFICI] _
+'                REL[[Impiegati].IdUfficio = BLDUFFICI.IDUfficio] _
+'                OPERATOREJOIN["INNER"]
+'         
+'         '@COLUMN ESPR[BLDUFFICI.Descrizione   AS [DescrizioneUfficio]]
+'         '@COMPUTEDCOLUMN ESPR[[Impiegati].ContaUfficio AS [NumeroImpiegati] FMT[NUMERICO[9]]] 
+'
+'      '@ENDQUERY
+'   
+'   
+'      ' Definizione della terza query
+'      '@DEFQUERY QUERY[TerzaQuery] NOME["BLDOBJQRY_CTE_TerzaQuery"]
+'
+         '@FROM TABELLA[BLDUFFICI]
+   
+         '@COMPUTEDCOLUMN ESPR["Ufficio Fittizio" AS [DescrizioneUfficio] FMT[TESTO[50]]]
+         '@COMPUTEDCOLUMN ESPR[12 AS [NumeroImpiegati] FMT[NUMERICO[9]]] 
+'
+'      '@ENDQUERY
+'      
+'      ' '@DEFQUERYSET ESPR[QRY(PrimaQuery) UNION QRY(SecondaQuery) UNION QRY(TerzaQuery)]
+'      '@DEFQUERYSET ESPR[QRY(TerzaQuery)]
+'      
+   '@ENDQUERY
+
+End
+
+
+------------------------------------------------------------
+Domanda: Mostra un esempio di sottoquery
+File: BLDOBJQRY_SUBQUERY_SCA_DEFINIZIONE.BC
+Contesto:
+'@PGQUERY BLDOBJQRY_SUBQUERY_SCA_DEFINIZIONE STRICT[4] ' Query esercitazione sottoquery scalare - Definizione query
+
+   '@SBP Query[BCQUERY] [INOUT]
+
+   '@DEFQUERY QUERY[Query] NOME["BLDOBJQRY_SUBQUERY_SCA_DEFINIZIONE_15"]
+
+      '@FROM TABELLA[BLDART]
+   
+      '@DEFSUBQUERY QUERY[TotaleRigheArt]
+      
+         '@FROM TABELLA[BLDTESTATA]
+         '@JOIN TABELLA[BLDRIGA] TABELLAPADRE[BLDTESTATA] OPERATOREJOIN["INNER"] REL[BLDRIGA.IDD=BLDTESTATA.IDD]
+         
+         '@COMPUTEDCOLUMN ESPR[COUNTDISTINCT(BLDRIGA.IDDOC) AS [Totale] FMT[NUMERICO[6]]]
+         
+         '@WHERE ESPR[BLDRIGA.CODART=BLDART.COD ]
+      
+      '@ENDQUERY   
+      
+      '@COLUMN ESPR[BLDART.COD AS [Codice]] _
+               ESPR[BLDART.DES AS [Descrizione]]
+               
+      '@COMPUTEDCOLUMN ESPR[SUBQ(TotaleRigheArt) AS [NumeroDoc] FMT[NUMERICO[6]]] 
+            
+      '@WHERE ESPR[SUBQ(TotaleRigheArt)>3]
+      
+   '@ENDQUERY 
+
+End
+
+------------------------------------------------------------
+Domanda: Come si usa COMPUTEDCOLUMN in una query?
+File: BLDOBJQRY_VALUTA_ELENCO_DEFINIZIONE.BC
+Contesto:
+'@PGQUERY BLDOBJQRY_VALUTA_ELENCO_DEFINIZIONE STRICT[4] ' Query di elenco su BLDVALUTA - Definizione query
+
+   '@SBP Query[BCQUERY]            [INOUT] _ ' Oggetto query
+         Multisel[TIPO[BCBOOL]]    [IN]    _ ' Multiselezione (0-No;1-Si)
+         CodPreselezionati[STRING] [IN]    _ ' Elenco codici preselezionati
+         CodValuta[STRING]         [IN]      ' Filtro su codice valuta per aggiornare la query
+
+   '@DEFQUERY QUERY[Query] NOME["OBJQRY_BLD_VALUTA_ELENCO_DEFINIZIONE_IdQueryElenco"]
+
+      '@FROM TABELLA[BLDVALUTA]
+      
+      '@COLUMN ESPR[BLDVALUTA.COD  AS [CodiceValuta]] _
+                       ESPR[BLDVALUTA.DES  AS [Descr]]        _
+                       ESPR[BLDVALUTA.SIMB AS [Simbolo]]      _
+                       ESPR[BLDVALUTA.RAPP AS [Cambio]]
+                       
+      If Multisel = #True Then
+      
+         '@COMPUTEDCOLUMN ESPR[If INLISTSTR(BLDVALUTA.COD, CodPreSelezionati)>0 Then 1 AS [ZSEL] FMT[NUMERICO[1]] ]
+      
+      EndIf 
+      
+      If CodValuta <> "" Then
+         
+         '@WHERE ESPR[BLDVALUTA.COD = CodValuta]
+         
+      EndIf
+   
+   '@ENDQUERY
+
+End
+
+------------------------------------------------------------
+Domanda: Come si usa COMPUTEDCOLUMN in una query?
+File: BLDOBJQRY_ART_AUTO_DEFINIZIONE - Copia.BC
+Contesto:
+'@PGQUERY BLDOBJQRY_ART_AUTO_DEFINIZIONE STRICT[4] ' Query di autocompletamento su BLDART - Definizione query
+
+   '@SBP Query[BCQUERY] [INOUT]
+
+   '@DEFQUERY QUERY[Query] NOME["BLDOBJQRY_ART_AUTO_DEFINIZIONE_15"]
+
+      '@FROM TABELLA[BLDART]
+
+      '@COLUMN ESPR[BLDART.COD     AS [VAR]]                       ETICHETTA["Codice"]    _
+               ESPR[BLDART.DES     AS [Descrizione]]               ETICHETTA["Descrizione"]
+   
+      '@COMPUTEDCOLUMN ESPR[IF BLDART.COD="#TD" THEN 1 AS [MatchCode] FMT[NUMERICO[1]] NOOUTPUT[1]]   ETICHETTA["MatchCode"] ERRORE
+      
+      '@WHERE ESPR[(MATCH([VAR],"%#TD%")>0 OR MATCH([Descrizione],"%#TD%")>0)] IDESPR["1"]
+      
+      '@ORDERBY ESPR[[MatchCode] /DESC, BLDART.COD]
+
+   '@ENDQUERY
+
+End
+
+------------------------------------------------------------
+Domanda: Spiega il funzionamento della subroutine SUB06_LETTURA
+File: SUB06_LETTURA.BC
+Contesto:
+'@PG SUB06_LETTURA      ' Esercitazione 6: Lettura articoli
+
+'@SBP Ritorno[INT] [OUT] ' Valore in uscita (0-definizione corretta;1-Definizione errata)
+
+   NOME_STRUTTURA$[20]="ARTICOLI"
+   
+   ' Elimina elemento specifico
+   GoSub LetturaArticoli
+
+End
+
+'@SR LetturaArticoli
+
+   CODICE$[10]=""
+   QUANTITA[6]=0
+   
+   ' CONTEGGIO DI TUTTI GLI ELEMENTI PRESENTI ALL'INTERNO DELLA STRUTTURA
+   ' IL NUMERO DI ELEMENTI VIENE INSERITO ALL'INTERNO DELLA VARIABILE NUM_ART
+   
+   DIM NumArt[INT]=0
+   '@COUNTDYNSTRUCT STRUTTURA[NOME_STRUTTURA$] ELEMENTI[NumArt]
+   
+   ' CICLO TUTTI GLI ELEMENTI DELLA STRUTTURA DINAMICA (DA 1 A NUM_ART)
+   
+   For I[INT]=1 To NumArt
+   
+      ' LEGGO SEQUENZIALMENTE L'ELEMENTO I
+   
+      '@GETDYNSTRUCT  STRUTTURA[NOME_STRUTTURA$] _
+                      ELEMENTO[I]                _
+                      CAMPI[CODICE$,QUANTITA]    _
+                      ERRORE
+   
+      ' EMETTO A VIDEO L'ARTICOLO LETTO CON LA QUANTITA'
+   
+      DIM Messaggio[STRING]="Articolo: "+FNTR$(CODICE$)+" Quantit: "+FNS$(QUANTITA)
+   
+      MESSAGEBOX(#INFO,"CBAS_06","Esercitazione 6: Strutture dinamiche<br>" + Messaggio)
+   
+   Next I
+
+Return
+
+------------------------------------------------------------
+Domanda: Come si crea una query con colonne calcolate?
+File: BLDOBJQRY_CLIFOR_ELENCO_DEFINIZIONE - Copia.BC
+Contesto:
+'@PGQUERY BLDOBJQRY_CLIFOR_ELENCO_DEFINIZIONE STRICT[4] ' Query di elenco su BLDCLIFOR - Definizione query
+
+ '@SBP Query[BCQUERY]                    [INOUT] _ ' Oggetto query
+         Multisel[TIPO[BCBOOL]]            [IN]    _ ' Multiselezione (0-No;1-Si)
+         CodPreselezionati[STRING]         [IN]    _ ' Elenco codici preselezionati
+         Filtri[CLASSE[BLD_CLIFOR_FILTRI]] [INOUT]   ' Filtri
+
+   '@DEFQUERY QUERY[Query] NOME["OBJQRY_BLD_CLIFOR_ELENCO_DEFINIZIONE_IdQueryElenco"]
+
+      '@FROM TABELLA[BLDCLIFOR]
+   
+      '@COLUMN ESPR[BLDCLIFOR.COD  AS [Codice]] _
+               ESPR[BLDCLIFOR.RS1  AS [RS1]]    _
+               ESPR[BLDCLIFOR.PIVA AS [PIVA]]
+      
+      '@COMPUTEDCOLUMN ESPR[DECODDES$(BLDCLIFOR.TIPANA) AS[Tipana] FMT[TESTO[50]]]
+      '@COMPUTEDCOLUMN ESPR[DECODDES$(BLDCLIFOR.STANA)  AS[Stana]  FMT[TESTO[50]]] 
+      '@COMPUTEDCOLUMN ESPR[DECODDES$(BLDCLIFOR.TIPSOG) AS[Tipsog] FMT[TESTO[50]]]
+      
+      ' Se  prevista la multiselezione va aggiunto il campo calcolato ZSEL sui codici preselezionati
+      If Multisel = 1 Then
+   
+         '@COMPUTEDCOLUMN ESPR[If INLISTSTR(BLDCLIFOR.COD, CodPreSelezionati) > 0 Then 1 AS [ZSEL] FMT[NUMERICO[1]]]
+   
+      EndIf
+      
+      If Filtri.CodCliFor <> 0 Then
+         
+         '@WHERE ESPR[BLDCLIFOR.COD = Filtri.CodCliFor]
+         
+      Else
+      
+         If Filtri.TipoFiltro <> -1 AND Filtri.TipoFiltro <> 2 Then
+      
+            '@WHERE ESPR[BLDCLIFOR.TIPANA = Filtri.TipoFiltro]
+         
+         EndIf
+         
+         If Filtri.TipoFiltro = 2 Then
+         
+            '@WHERE ESPR[BLDCLIFOR.STANA = Filtri.TipoFiltro]
+         
+         EndIf
+         
+      EndIf
+      
+   '@ENDQUERY
+
+End
+
+------------------------------------------------------------
+Domanda: Come si usa COMPUTEDCOLUMN in una query?
+File: BLDOBJQRY_ART_AUTO_DEFINIZIONE.BC
+Contesto:
+'@PGQUERY BLDOBJQRY_ART_AUTO_DEFINIZIONE STRICT[4] ' Query di autocompletamento su BLDART - Definizione query
+
+   '@SBP Query[BCQUERY] [INOUT]
+
+   '@DEFQUERY QUERY[Query] NOME["BLDOBJQRY_ART_AUTO_DEFINIZIONE_15"]
+
+      '@FROM TABELLA[BLDART]
+
+      '@COLUMN ESPR[BLDART.COD     AS [VAR]]                       ETICHETTA["Codice"]    _
+               ESPR[BLDART.DES     AS [Descrizione]]               ETICHETTA["Descrizione"]
+   
+      '@COMPUTEDCOLUMN ESPR[IF BLDART.COD="#TD" THEN 1 AS [MatchCode] FMT[NUMERICO[1]] NOOUTPUT[1]]   ETICHETTA["MatchCode"] ERRORE
+      
+      '@WHERE ESPR[(MATCH([VAR],"%#TD%")>0 OR MATCH([Descrizione],"%#TD%")>0)] IDESPR["1"]
+      
+      '@ORDERBY ESPR[[MatchCode] /DESC, BLDART.COD]
+
+   '@ENDQUERY
+
+End
+
+------------------------------------------------------------
