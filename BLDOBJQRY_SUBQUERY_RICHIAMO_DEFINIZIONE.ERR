@@ -1,0 +1,10 @@
+
+
+Traduttore BC/X - Windows/.NET (C) v33.2
+Errori/Warnings di traduzione - Programma : C:\TMP\BLDOBJQRY_SUBQUERY_RICHIAMO_DEFINIZIONE.TD3
+                              - Stazione  : D3 09-01-2026 16:07:35
+
+
+BLDOBJQRY_SUBQUERY_RICHIAMO_DEFINIZIONE.BC - Linea 9 Colonna 6
+TOTALERIGHEART.DEFINIZIONE(QUERY [INOUT], QUERY.SetExpression(BLDART.COD) [INOUT])
+[C O M P A T I B I L I T A . N E T] - La sub <BLDOBJQRY_SUBQUERY_DEF_DEFINIZIONE> non puo' essere richiamata perche' non e' valida .NET (#1144)

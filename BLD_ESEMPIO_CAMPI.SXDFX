@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<Table Name="BLD_ESEMPIO_CAMPI" NameDFX="BLD_ESEMPIO_CAMPI" NameExt="BLD_ESEMPIO_CAMPI" DesRecType="Esempio campi" Des="Esempio campi" Type="C" NumTRecs="1" Date="2025-05-12" Time="09.06.33" Operator="PINZARRONE" Session="A5" RecContName="BLD_TAB_CL">
+	<Fields>
+		<Field Pos="1" Name="CampoTesto" Des="Testo" Type="C" Length="20" NotMapped="2" XmlName="CampoTesto" FlCamelCase="1">
+			<FieldFormat Help="Testo" ListHdr="Testo"/>
+		</Field>
+		<Field Pos="2" Name="CampoInt" Des="Numero intero" Type="I" Length="2" NumDigits="4" NotMapped="2" XmlName="CampoInt" FlCamelCase="1">
+			<FieldFormat IsSigned="1" Help="Intero" ListHdr="Intero"/>
+		</Field>
+		<Field Pos="3" Name="CampoDouble" Des="Numero decimale" Type="D" Length="8" NumDigits="13" NumDecs="2" NotMapped="2" XmlName="CampoDouble" FlCamelCase="1">
+			<FieldFormat IsSigned="1" IsGrouped="1" Help="Decimale" ListHdr="Decimale"/>
+		</Field>
+		<Field Pos="4" Name="CampoData" Des="Data" Type="A" Length="4" NotMapped="2" XmlName="CampoData" FlCamelCase="1">
+			<FieldFormat Help="Data" ListHdr="Data"/>
+		</Field>
+	</Fields>
+	<Methods/>
+	<Views>
+		<View Name="SUB13_SPEC_DUI" Des="Esercitazione 13: Videata di base con SchemaPanel (DUI)" Accessibility="1" Type="4" Dll="BLD_TAB_UI" Context="2"/>
+		<View Name="SUB13_SPEC_GRID_DUI" Des="Esercitazione 13: Videataa di base con GridPanel (DUI)" Accessibility="1" Type="4" Dll="BLD_TAB_UI" Context="2"/>
+	</Views>
+	<Features UseDynString="1"/>
+</Table>
+

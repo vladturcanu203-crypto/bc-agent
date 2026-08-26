@@ -1,0 +1,30 @@
+'@PGQUERY BLDOBJQRY_QUERY_RAG_DEFINIZIONE STRICT[4] ' Esercitazione query raggruppata - Definizione query
+
+   '@SBP QueryObject[BCQUERY] [INOUT]
+
+   '@DEFQUERY QUERY[QueryObject] NOME["BLDOBJQRY_QUERY_RAG_DEFINIZIONE"]
+
+      ' Definizione della tabella di riferimento della query
+      ' Tabella BLDFAMIGLIA
+      '@FROM TABELLA[BLDFAMIGLIA]
+      
+      ' Definizione della seconda tabella all'interno della query.
+      ' Ogni tabella inserita deve essere in relazione con una tabella gi… presente
+      
+      ' Relazione tra BLDART   (Articoli)             - Articoli
+      '             e BLDFAMIGLIA   (FamiglieArticoli)     - Famiglie
+      '@JOIN TABELLA[BLDART] TABELLAPADRE[BLDFAMIGLIA] _
+             REL[BLDART.CODFAM = BLDFAMIGLIA.COD] OPERATOREJOIN["LEFT"]
+      
+      ' Definizione dei campi della query
+      ' Una sola DEFQUERYFIELD con tanti ESPR quanti sono i campi (anche se puntano a tabelle differenti)
+      ' All'interno del parametro ESPR viene definita una funzione di RAGGRUPPAMENTO (GROUPBY/SUM).
+      ' Se definite TUTTI i campi devono avere una funzione associata.
+      '@COLUMN ESPR[GROUPBY(BLDFAMIGLIA.COD) AS [CodiceFamiglia]]   _ ' Codice famiglia _
+               ESPR[GROUPBY(BLDFAMIGLIA.DES) AS [Descrizione]]      _ ' Descrizione _
+               ESPR[SUM(BLDART.PREZZO)       AS [PrezzoUnitario]]     ' Prezzo unitario di listino
+            
+   '@ENDQUERY
+
+End
+

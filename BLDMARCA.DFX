@@ -1,0 +1,15 @@
+F,1,2048,145,,Tabella Marche,**BLDMARCHE
+K,0|BLDMARCHE,,COD,MAR,,Marca
+T,MAR,,,,,                 Tabella Marche
+C,COD,C,6,,,               Codice Marca
+C,DES,C,35,,,              Descrizione Marca
+C,DATAINIZVAL,A,4,,[DATETIME], Data Inizio Validit…
+C,DATAFINEVAL,A,4,,[DATETIME], Data Fine Validit…
+C,Sys_DataCreazione,A,4,,, Firma creazione: Data
+C,Sys_OraCreazione,L4r[N6],,,, Firma creazione: Ora
+C,Sys_OperCreazione,C,20,,, Firma creazione: Operatore
+C,Sys_ModuloCreazione,C,20,,, Firma creazione: Modulo
+C,Sys_DataModifica,A,4,,,  Firma modifica: Data
+C,Sys_OraModifica,L4r[N6],,,, Firma modifica: Ora
+C,Sys_OperModifica,C,20,,, Firma modifica: Operatore
+C,Sys_ModuloModifica,C,20,,, Firma modifica: Modulo

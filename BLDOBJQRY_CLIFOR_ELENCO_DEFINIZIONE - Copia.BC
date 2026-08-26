@@ -1,0 +1,49 @@
+'@PGQUERY BLDOBJQRY_CLIFOR_ELENCO_DEFINIZIONE STRICT[4] ' Query di elenco su BLDCLIFOR - Definizione query
+
+ '@SBP Query[BCQUERY]                    [INOUT] _ ' Oggetto query
+         Multisel[TIPO[BCBOOL]]            [IN]    _ ' Multiselezione (0-No;1-Si)
+         CodPreselezionati[STRING]         [IN]    _ ' Elenco codici preselezionati
+         Filtri[CLASSE[BLD_CLIFOR_FILTRI]] [INOUT]   ' Filtri
+
+   '@DEFQUERY QUERY[Query] NOME["OBJQRY_BLD_CLIFOR_ELENCO_DEFINIZIONE_IdQueryElenco"]
+
+      '@FROM TABELLA[BLDCLIFOR]
+   
+      '@COLUMN ESPR[BLDCLIFOR.COD  AS [Codice]] _
+               ESPR[BLDCLIFOR.RS1  AS [RS1]]    _
+               ESPR[BLDCLIFOR.PIVA AS [PIVA]]
+      
+      '@COMPUTEDCOLUMN ESPR[DECODDES$(BLDCLIFOR.TIPANA) AS[Tipana] FMT[TESTO[50]]]
+      '@COMPUTEDCOLUMN ESPR[DECODDES$(BLDCLIFOR.STANA)  AS[Stana]  FMT[TESTO[50]]] 
+      '@COMPUTEDCOLUMN ESPR[DECODDES$(BLDCLIFOR.TIPSOG) AS[Tipsog] FMT[TESTO[50]]]
+      
+      ' Se Š prevista la multiselezione va aggiunto il campo calcolato ZSEL sui codici preselezionati
+      If Multisel = 1 Then
+   
+         '@COMPUTEDCOLUMN ESPR[If INLISTSTR(BLDCLIFOR.COD, CodPreSelezionati) > 0 Then 1 AS [ZSEL] FMT[NUMERICO[1]]]
+   
+      EndIf
+      
+      If Filtri.CodCliFor <> 0 Then
+         
+         '@WHERE ESPR[BLDCLIFOR.COD = Filtri.CodCliFor]
+         
+      Else
+      
+         If Filtri.TipoFiltro <> -1 AND Filtri.TipoFiltro <> 2 Then
+      
+            '@WHERE ESPR[BLDCLIFOR.TIPANA = Filtri.TipoFiltro]
+         
+         EndIf
+         
+         If Filtri.TipoFiltro = 2 Then
+         
+            '@WHERE ESPR[BLDCLIFOR.STANA = Filtri.TipoFiltro]
+         
+         EndIf
+         
+      EndIf
+      
+   '@ENDQUERY
+
+End

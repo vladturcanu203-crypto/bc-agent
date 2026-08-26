@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<AG_QUERY_METADATI NomeDLL="DLL_CBASE_QRY" Contenitore="">
+  <Campi>
+    <AG_QUERY_CAMPO DFX="BLDOBJQRY_CTE_RECURSIVE" NPR="1" NOMC="IdPadre" DES="IdPadre" TLOG="0" TID="L" LUD="4" POSD="0" LUU="0" DEU="0" POSU="0" CIF="9" DEC="0" SCH="0" FLPER="0" XMLTIPO="0" XMLOBBL="0" CAMELCASE="1" FLBOOL="0" EspInGriglia="0" Obbligatorio="0" ACCESSIBILITA="0" RELAZIONABILE="0">
+      <InfoEstese NoZero="0" NoZeroDec="0" Intestazione="" NumValori="0" TipoValori="-1">
+        <Valori />
+      </InfoEstese>
+    </AG_QUERY_CAMPO>
+    <AG_QUERY_CAMPO DFX="BLDOBJQRY_CTE_RECURSIVE" NPR="2" NOMC="Nominativo" DES="Nominativo" TLOG="0" TID="C" LUD="80" POSD="0" LUU="0" DEU="0" POSU="0" CIF="0" DEC="0" SCH="0" FLPER="0" XMLTIPO="0" XMLOBBL="0" CAMELCASE="1" FLBOOL="0" EspInGriglia="0" Obbligatorio="0" ACCESSIBILITA="0" RELAZIONABILE="0">
+      <InfoEstese NoZero="0" NoZeroDec="0" Intestazione="" NumValori="0" TipoValori="-1">
+        <Valori />
+      </InfoEstese>
+    </AG_QUERY_CAMPO>
+    <AG_QUERY_CAMPO DFX="BLDOBJQRY_CTE_RECURSIVE" NPR="3" NOMC="Posizione" DES="Posizione" TLOG="0" TID="C" LUD="255" POSD="0" LUU="0" DEU="0" POSU="0" CIF="0" DEC="0" SCH="0" FLPER="0" XMLTIPO="0" XMLOBBL="0" CAMELCASE="1" FLBOOL="0" EspInGriglia="0" Obbligatorio="0" ACCESSIBILITA="0" RELAZIONABILE="0">
+      <InfoEstese NoZero="0" NoZeroDec="0" Intestazione="" NumValori="0" TipoValori="-1">
+        <Valori />
+      </InfoEstese>
+    </AG_QUERY_CAMPO>
+    <AG_QUERY_CAMPO DFX="BLDOBJQRY_CTE_RECURSIVE" NPR="4" NOMC="Livello" DES="Livello" TLOG="0" TID="N" LUD="2" POSD="0" LUU="0" DEU="0" POSU="0" CIF="2" DEC="0" SCH="0" FLPER="0" XMLTIPO="0" XMLOBBL="0" CAMELCASE="1" FLBOOL="0" EspInGriglia="0" Obbligatorio="0" ACCESSIBILITA="0" RELAZIONABILE="0">
+      <InfoEstese NoZero="0" NoZeroDec="0" Intestazione="" NumValori="0" TipoValori="-1">
+        <Valori />
+      </InfoEstese>
+    </AG_QUERY_CAMPO>
+  </Campi>
+  <Metodi>
+    <AG_QUERY_METODO ARE="" PRD="" PRJ="" TIP="0" NOM="BLDOBJQRY_CTE_RECURSIVE_DEFINIZIONE" DES="CTE ricorsiva - Definizione query" DAT="01012001" ORA="0" OPE="" CODOP="" VALWIN="0" VALNET="0" WCL="0" NCL="0" PWS="1" DLL="0" TIPOSPEC="0">
+      <Info ARE="" PRD="" PRJ="" NOM="Definizione" DES="CTE ricorsiva - Definizione query" SUB="BLDOBJQRY_CTE_RECURSIVE_DEFINIZIONE" ACCESS="1" DLL="" CTX="0" />
+    </AG_QUERY_METODO>
+  </Metodi>
+</AG_QUERY_METADATI>

@@ -1,0 +1,35 @@
+'@PGQUERY BLDOBJQRY_QUERY_JOIN_DEFINIZIONE STRICT[4] ' Esercitazione query con Join - Definizione query
+
+   '@SBP Query[BCQUERY] [INOUT]
+
+   '@DEFQUERY QUERY[Query] NOME["BLDOBJQRY_QUERY_JOIN_DEFINIZIONE"]
+
+      ' Definizione della tabella di riferimento della query
+      ' Tabella BLDART
+      '@FROM TABELLA[BLDART]
+      
+      ' Definizione della seconda tabella all'interno della query.
+      ' Ogni tabella inserita deve essere in relazione con una tabella gi… presente
+      
+      ' Relazione tra BLDFAMIGLIA   (FamiglieArticoli)     - Famiglie
+      '             e BLDART   (Articoli)             - Articoli
+      '@JOIN TABELLA[BLDFAMIGLIA] TABELLAPADRE[BLDART]  _
+             REL[BLDFAMIGLIA.COD=BLDART.CODFAM] OPERATOREJOIN["LEFT"]  
+      
+      ' Definizione dei campi della query
+      ' Una sola DEFQUERYFIELD con tanti ESPR quanti sono i campi (anche se puntano a tabelle differenti)
+      '@COLUMN ESPR[BLDART.COD           AS [CodiceArticolo]]     _ ' Codice articolo _
+               ESPR[BLDART.DES           AS [Descrizione]]        _ ' Descrizione _
+               ESPR[BLDART.PREZZO        AS [PrezzoUnitario]]     _ ' Prezzo unitario di listino _
+               ESPR[BLDART.SCONTO        AS [ScontoArticolo]]     _ ' Sconto articolo _
+               ESPR[BLDART.QUA           AS [QuantitaMagazzino]]  _ ' Quantit… in magazzino _
+               ESPR[BLDFAMIGLIA.DES      AS [DesFamiglia]]          ' Descrizione
+      
+      ' Ordinamento
+      ' Definizione ordinamento ASCENDENTE per DESCRIZIONE
+      '@ORDERBY IND[1] ESPR[BLDART.DES/ASC]
+
+   '@ENDQUERY
+
+End
+

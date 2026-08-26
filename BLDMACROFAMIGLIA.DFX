@@ -1,0 +1,15 @@
+F,1,2048,145,,Tabella Macrofamiglie,**BLDMACROFAMIGLIE
+K,0|BLDMACROFA,,COD,MFA,,Chiave
+T,MFA,,,,,                 Tabella Macrofamiglie
+C,COD,C,6,,,               Codice Macrofamiglia
+C,DES,C,35,,,              Descrizione Macrofamiglia
+C,DATAINIZVAL,A,4,,[DATETIME], Data Inizio Validita
+C,DATAFINEVAL,A,4,,[DATETIME], Data Fine Validita
+C,Sys_DataCreazione,A,4,,, Firma creazione: Data
+C,Sys_OraCreazione,L4r[N6],,,, Firma creazione: Ora
+C,Sys_OperCreazione,C,20,,, Firma creazione: Operatore
+C,Sys_ModuloCreazione,C,20,,, Firma creazione: Modulo
+C,Sys_DataModifica,A,4,,,  Firma modifica: Data
+C,Sys_OraModifica,L4r[N6],,,, Firma modifica: Ora
+C,Sys_OperModifica,C,20,,, Firma modifica: Operatore
+C,Sys_ModuloModifica,C,20,,, Firma modifica: Modulo

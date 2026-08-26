@@ -1,0 +1,17 @@
+'@PGQUERY BLDOBJQRY_QUERYBASE_DATAREADER_DEFINIZIONE STRICT[4] ' Esercitazione query per DataReader - Definizione query
+
+   '@SBP Query[BCQUERY] [INOUT]
+
+   '@DEFQUERY QUERY[Query] NOME["BLDOBJQRY_QUERYBASE_DATAREADER_DEFINIZIONE_15"]
+
+      ' Definizione della tabella principale (FROM)
+      '@FROM TABELLA[BLDART]
+
+      ' Definizione elenco dei campi da estrarre
+      '@COLUMN ESPR[BLDART.COD AS [CodArt]] _
+               ESPR[BLDART.DES AS [DesArt]] 
+
+   '@ENDQUERY
+
+End
+

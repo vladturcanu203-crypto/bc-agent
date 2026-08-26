@@ -1,0 +1,31 @@
+'@PGQUERY BLDOBJQRY_QUERYBASE_DEFINIZIONE STRICT[4] ' Esercitazione query base - Definizione query
+
+   '@SBP QueryObject[BCQUERY] [INOUT]
+
+   '@DEFQUERY QUERY[QueryObject] NOME["BLDOBJQRY_QUERYBASE_DEFINIZIONE"]
+   
+      ' Definizione della tabella di riferimento della query
+      ' Tabella ARTICOLI
+      '@FROM TABELLA[BLDART]
+      
+      ' Definizione dei campi della query
+      ' Una sola DEFQUERYFIELD con tanti ESPR quanti sono i campi
+      '@COLUMN ESPR[BLDART.COD       AS [CodiceArticolo]]      _ ' Codice articolo
+               ESPR[BLDART.DES       AS [Descrizione]]         _ ' Descrizione
+               ESPR[BLDART.CODFAM    AS [Famiglia]]            _ ' Codice famiglia
+               ESPR[BLDART.PREZZO    AS [PrezzoUnitario]]      _ ' Prezzo unitario di listino
+               ESPR[BLDART.SCONTO    AS [ScontoArticolo]]      _ ' Sconto articolo
+               ESPR[BLDART.QUA       AS [QuantitaMagazzino]]     ' Quantit… in magazzino
+   
+      ' Filtri (Where)
+      ' Applicazione del filtro: Selezionare tutti i dati DOVE il prezzo Š superiore a 30
+      '@WHERE ESPR[BLDART.PREZZO>30]
+      
+      ' Ordinamento
+      ' Definizione ordinamento ASCENDENTE per DESCRIZIONE
+      '@ORDERBY IND[1] ESPR[BLDART.DES/ASC]
+
+   '@ENDQUERY
+
+End
+

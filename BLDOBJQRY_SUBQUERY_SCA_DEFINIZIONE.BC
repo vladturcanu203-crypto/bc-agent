@@ -1,0 +1,29 @@
+'@PGQUERY BLDOBJQRY_SUBQUERY_SCA_DEFINIZIONE STRICT[4] ' Query esercitazione sottoquery scalare - Definizione query
+
+   '@SBP Query[BCQUERY] [INOUT]
+
+   '@DEFQUERY QUERY[Query] NOME["BLDOBJQRY_SUBQUERY_SCA_DEFINIZIONE_15"]
+
+      '@FROM TABELLA[BLDART]
+   
+      '@DEFSUBQUERY QUERY[TotaleRigheArt]
+      
+         '@FROM TABELLA[BLDTESTATA]
+         '@JOIN TABELLA[BLDRIGA] TABELLAPADRE[BLDTESTATA] OPERATOREJOIN["INNER"] REL[BLDRIGA.IDD=BLDTESTATA.IDD]
+         
+         '@COMPUTEDCOLUMN ESPR[COUNTDISTINCT(BLDRIGA.IDDOC) AS [Totale] FMT[NUMERICO[6]]]
+         
+         '@WHERE ESPR[BLDRIGA.CODART=BLDART.COD ]
+      
+      '@ENDQUERY   
+      
+      '@COLUMN ESPR[BLDART.COD AS [Codice]] _
+               ESPR[BLDART.DES AS [Descrizione]]
+               
+      '@COMPUTEDCOLUMN ESPR[SUBQ(TotaleRigheArt) AS [NumeroDoc] FMT[NUMERICO[6]]] 
+            
+      '@WHERE ESPR[SUBQ(TotaleRigheArt)>3]
+      
+   '@ENDQUERY 
+
+End

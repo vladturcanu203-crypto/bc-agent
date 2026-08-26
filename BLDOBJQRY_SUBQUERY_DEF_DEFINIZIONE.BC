@@ -1,0 +1,19 @@
+'@PGQUERY BLDOBJQRY_SUBQUERY_DEF_DEFINIZIONE STRICT[4] ' SUBQUERY Definizione - Definizione query
+
+   '@SBP TotaleRigheArt[BCQUERY]         [INOUT] _  ' SubQuery
+         QueryPadre[BCQUERY]             [INOUT] _  ' Query principale
+         CodArticolo[BCQUERY_ESPRSTRING] [INOUT]    ' Campo COD della tabella BLDART
+
+   '@DEFSUBQUERY QUERY[TotaleRigheArt] QUERYPADRE[QueryPadre]
+   
+      '@FROM TABELLA[BLDTESTATA]
+      '@JOIN TABELLA[BLDRIGA] TABELLAPADRE[BLDTESTATA] OPERATOREJOIN["INNER"] REL[BLDRIGA.IDD=BLDTESTATA.IDD]
+      
+      '@COMPUTEDCOLUMN ESPR[COUNTDISTINCT(BLDRIGA.IDDOC) AS [Totale] FMT[NUMERICO[5]]]
+      
+      '@WHERE ESPR[BLDRIGA.CODART=QUERY.GetExpression( CodArticolo )]
+      
+   '@ENDQUERY 
+      
+End
+

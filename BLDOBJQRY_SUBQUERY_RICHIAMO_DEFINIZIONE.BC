@@ -1,0 +1,21 @@
+'@PGQUERY BLDOBJQRY_SUBQUERY_RICHIAMO_DEFINIZIONE STRICT[4] ' SUBQUERY Richiamo - Definizione query
+
+   '@SBP Query[BCQUERY] [INOUT]
+
+   '@DEFQUERY QUERY[Query] NOME["BLDOBJQRY_SUBQUERY_RICHIAMO_DEFINIZIONE_15"] 
+
+      '@FROM TABELLA[BLDART]
+      
+      DIM totaleRigheArt[QUERY[BLDOBJQRY_SUBQUERY_DEF(Query [INOUT], QUERY.SetExpression(BLDART.COD) [INOUT] )]]
+   
+      '@COLUMN ESPR[BLDART.COD AS [Codice]] _
+               ESPR[BLDART.DES AS [Descrizione]]
+               
+      '@COMPUTEDCOLUMN ESPR[SUBQ(totaleRigheArt) AS [NumeroDoc] FMT[NUMERICO[6]]]       
+            
+      '@WHERE ESPR[SUBQ(totaleRigheArt)>3]
+      
+   '@ENDQUERY 
+
+End
+

@@ -1,0 +1,3 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<Table Name="BLD_INDIRIZZI" NameDFX="BLDINDCLIFOR" NameExt="BLDIndirizziCliFor" RecType="ICL" DesRecType="Tabella indirizzi cliente fornitore" Des="Tabella indirizzi cliente fornitore" Type="I" IsNameExt="1" IsGroup="1" NameBcf="**BLDINDCLIFOR" Location="1" NumIndexes="2" NumTRecs="1" NumFields="23" ExtendedNames="1" GroupType="1" Date="2022-08-29" Time="12.09.30" RecContName="BLD_TAB_CL" UseExtendedNamesDfx="1"/>
+

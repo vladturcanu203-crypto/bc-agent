@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<Table Name="BLD_FATTURA_FILTRI" NameDFX="BLD_FATTURA_FILTRI" NameExt="BLD_FATTURA_FILTRI" DesRecType="Classe filtri della fattura" Des="Classe filtri della fattura" Type="C" NumTRecs="1" Date="2025-05-30" Time="10.55.17" Operator="PINZARRONE" Session="A5" RecContName="BLD_TAB_CL">
+	<Fields>
+		<Field Pos="0.2" Name="CodFattura" Des="Codice fattura" Type="I" Length="2" NumDigits="4" NotMapped="2" XmlName="CodFattura" FlCamelCase="1"/>
+		<Field Pos="1" Name="TipoFattura" Des="Filtro sul tipo di fattura" Type="C" Length="5" NotMapped="2" XmlName="TipoFattura" FlCamelCase="1">
+			<FieldValues Type="2">
+				<FieldValue Pos="1" Value="FTV" Des="Fattura di vendita" RefNum="1"/>
+				<FieldValue Pos="2" Value="FTA" Des="Fattura di acquisto" RefNum="2"/>
+				<FieldValue Pos="3" Value="Tutte" Des="Tutte" RefNum="3"/>
+			</FieldValues>
+		</Field>
+		<Field Pos="2" Name="FiltroCliente" Des="Filtro su rag.sociale cliente" Type="C" Length="30" NotMapped="2" XmlName="FiltroCliente" FlCamelCase="1"/>
+		<Field Pos="4" Name="FiltroDataDa" Des="Filtro su data iniziale" Type="A" Length="4" NotMapped="2" XmlName="FiltroDataDa" FlCamelCase="1"/>
+		<Field Pos="5" Name="FiltroDataA" Des="Filtro su data finale" Type="A" Length="4" NotMapped="2" XmlName="FiltroDataA" FlCamelCase="1"/>
+	</Fields>
+	<Methods/>
+	<Views/>
+	<Features UseDynString="1"/>
+</Table>
+

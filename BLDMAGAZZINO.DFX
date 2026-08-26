@@ -1,0 +1,17 @@
+F,1,2048,143,,Tabella magazzino,**BLDMAGAZZINO
+K,0|PK,,COD,MAG,,Chiave primaria
+T,MAG,,,,,                 Tabella magazzino
+C,COD,C,4,,,               Codice Magazzino
+C,DES,C,35,,,              Descrizione Magazzino
+C,STATO,I2r[N1],,,,        Stato Magazzino
+C,TIPO,I2r[N1],,,,         Tipologia Magazzino
+C,UTILIZZO,I2r[N1],,,,     Tipo Utilizzo Magazzino
+C,AREA,I2r[N1],,,,         Giacenza per Area
+C,Sys_DataCreazione,A,4,,, Firma creazione: Data
+C,Sys_OraCreazione,L4r[N6],,,, Firma creazione: Ora
+C,Sys_OperCreazione,C,20,,, Firma creazione: Operatore
+C,Sys_ModuloCreazione,C,20,,, Firma creazione: Modulo
+C,Sys_DataModifica,A,4,,,  Firma modifica: Data
+C,Sys_OraModifica,L4r[N6],,,, Firma modifica: Ora
+C,Sys_OperModifica,C,20,,, Firma modifica: Operatore
+C,Sys_ModuloModifica,C,20,,, Firma modifica: Modulo

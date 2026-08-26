@@ -1,0 +1,8 @@
+'@PG CBAS_02 STRICT[2]     ' Esercitazione 2: Hello + Sub
+   
+   DIM varTesto[STRING]="Hello, World!"
+   
+   ' Chiamata alla sub SUB_002 con passaggio della variabile varTesto
+   CALL SUB02_MSGSUB(varTesto)  ' Esercitazione 2: Hello + Sub
+
+End

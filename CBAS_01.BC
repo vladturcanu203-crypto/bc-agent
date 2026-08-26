@@ -1,0 +1,8 @@
+'@PG CBAS_01 STRICT[2]     ' Esercitazione 1: Hello + Main'
+
+   DIM varTesto[STRING]="Hello, World!"
+   
+   ' Emissione a video della variabile varTesto
+   MESSAGEBOX(#INFO,"CBAS_01",varTesto)
+   
+End

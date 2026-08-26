@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<Table Name="BLD_CLIENTE" NameDFX="BLDCLIFOR" NameExt="BLDClientiFornitori" RecType="CF" DesRecType="Tabella Clienti/Fornitori" Des="Tabella Clienti/Fornitori" Type="I" IsNameExt="1" IsGroup="1" NameBcf="**BLDCLIFOR" Location="1" RecLength="281" NumIndexes="4" NumTRecs="1" NumFields="34" ExtendedNames="1" GroupType="1" Date="2022-08-29" Time="14.26.37" DesExt="." RecContName="BLD_TAB_CL" UseExtendedNamesDfx="1">
+	<Methods>
+		<Method Name="Carica" Des="Metodo per caricamento dati Oggetto" Accessibility="1" Overriding="Caricamento" Signature="2,1,3/1,5/1,6" Dll="BLD_TAB_BL"/>
+	</Methods>
+</Table>
+

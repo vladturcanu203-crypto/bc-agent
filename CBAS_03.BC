@@ -1,0 +1,13 @@
+'@PG CBAS_03     ' Esercitazione 3: Hello + Dll
+
+   ' Valorizzazione della variabile varTesto
+
+   DIM varTesto[STRING(50)]="Hello, World!"
+
+   ' Chiamata In SBL della sub SUB_003 contenuta all'interno della DLL DLL_CBASE
+   ' Passaggio in interfaccia della variabile varTesto
+   
+   '@SBL DLL_CBASE.SUB03_MSGDLL  _      ' Esercitazione 3: Hello + dll
+                   varTesto     [IN]    ' I - Testo da stampare
+
+END

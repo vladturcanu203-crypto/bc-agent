@@ -1,0 +1,78 @@
+'@PGQUERY BLDOBJQRY_ART_ELENCO_DEFINIZIONE STRICT[4] ' Query di elenco su BLDART - Definizione query
+
+   '@SBP Query[BCQUERY]                   [INOUT] _ ' Oggetto query
+         Multisel[TIPO[BCBOOL]]           [IN]    _ ' Abilita multiselezione
+         CodPreselezionati[STRING]        [IN]    _ ' Elenco codici pre selezionati
+         Filtri[CLASSE[BLD_ART_FILTRI]]   [INOUT]   ' Filtro sul campo chiave per l'aggiornamento della griglia
+
+   '@DEFQUERY QUERY[Query] NOME["OBJQRY_BLD_ART_ELENCO_DEFINIZIONE_IdQueryElenco"]
+
+      '@FROM TABELLA[BLDART]
+      
+      '@JOIN TABELLA[BLDFAMIGLIA] TABELLAPADRE[BLDART] _
+             REL[BLDFAMIGLIA.COD = BLDART.CODFAM] OPERATOREJOIN["LEFT"]
+             
+      '@COLUMN ESPR[BLDART.COD            AS [CodiceArticolo]] _
+               ESPR[BLDART.DES            AS [Descrizione]]    _
+               ESPR[BLDART.ACQUISTO       AS [Acquisto]]       _
+               ESPR[BLDART.VENDITA        AS [Vendita]]        _
+               ESPR[BLDART.GESVAR         AS [GestVariazione]] _
+               ESPR[BLDART.FlGesMatricole AS [GestMatricole]]  _
+               ESPR[BLDART.COSTO          AS [Costo]]          _
+               ESPR[BLDART.PREZZO         AS [Prezzo]]         _
+               ESPR[BLDART.SCONTO         AS [Sconto]]         _
+               ESPR[BLDART.CODFAM         AS [CodiceFamiglia]] _
+               ESPR[BLDFAMIGLIA.DES       AS [DescrizioneFam]]
+               
+      '@COMPUTEDCOLUMN ESPR[DECODDES$(BLDART.STATO) AS[Stato] FMT[TESTO[50]]] _
+                       ESPR[DECODDES$(BLDART.TIPO)  AS[Tipo]  FMT[TESTO[50]]]
+                       
+      ' Se Š prevista la multiselezione va aggiunto il campo calcolato ZSEL sui codici preselezionati
+      If Multisel = #True Then
+
+         '@COMPUTEDCOLUMN ESPR[If INLISTSTR(BLDART.COD, CodPreSelezionati) > 0 Then 1 AS [ZSEL] FMT[NUMERICO[1]]]
+
+      EndIf
+      
+      ' Escludo i filtri se sto aggiornando la query
+      If Filtri.CodArt = "" Then
+   
+         If Filtri.CodMacro <> "" Then
+         
+           '@WHERE ESPR[INLISTSTR(BLDFAMIGLIA.CODMACRO, Filtri.CodMacro) > 0]
+           
+         EndIf
+         
+         If Filtri.CodFamSelezionati <> "" Then
+         
+           '@WHERE ESPR[INLISTSTR(BLDART.CODFAM, Filtri.CodFamSelezionati) > 0]
+           
+         EndIf
+         
+         If Filtri.Acquisti <> 2 Then
+         
+            '@DEFQUERYWHERE ESPR[BLDART.ACQUISTO = Filtri.Acquisti]
+            
+         EndIf
+         
+         If Filtri.Vendite <> 2 Then
+         
+            '@WHERE ESPR[BLDART.VENDITA = Filtri.Vendite]
+            
+         EndIf
+         
+         If Filtri.DesArt > "" Then
+         
+            '@WHERE ESPR[MATCH(BLDART.DES, "%" + FNTRSD$(Filtri.DesArt) + "%") > 0]
+            
+         EndIf
+         
+      Else
+      
+         '@WHERE ESPR[BLDART.COD = Filtri.CodArt]
+      
+      EndIf
+      
+   '@ENDQUERY
+
+End

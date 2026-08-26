@@ -1,0 +1,30 @@
+'@PGQUERY BLDOBJQRY_QUERYBASE_UPDATEDBDATA_DEFINIZIONE STRICT[4] '  Esercitazione query per modifica ed eliminazione campi - Definizione query
+
+   '@SBP QueryObject[BCQUERY]    [INOUT] _
+         inTipoFiltro[INT]       [IN]
+
+   '@DEFQUERY QUERY[QueryObject] NOME["BLDOBJQRY_QUERYBASE_UPDATEDBDATA_DEFINIZIONE"]
+
+      ' Definizione della tabella principale (FROM)
+      '@FROM TABELLA[BLDART]
+
+      ' Definizione elenco dei campi da estrarre
+      '@COLUMN ESPR[BLDART.COD AS [CodArt]] 
+
+      ' Filtro
+      If inTipoFiltro=1 Then
+   
+         ' Estraggo l'articolo con codice '001'
+         '@WHERE ESPR[BLDART.COD="001"]
+   
+      Else
+      
+         ' Estraggo gli articoli che hanno lo sconto maggiore di 25
+         '@WHERE ESPR[BLDART.SCONTO>25]
+      
+      EndIf
+
+   '@ENDQUERY
+
+End
+

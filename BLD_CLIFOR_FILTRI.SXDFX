@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<Table Name="BLD_CLIFOR_FILTRI" NameDFX="BLD_CLIFOR_FILTRI" NameExt="BLD_CLIFOR_FILTRI" DesRecType="Filtri per BLDCLIFOR" Des="Filtri per BLDCLIFOR" Type="C" NumTRecs="1" Date="2025-05-23" Time="09.18.42" Operator="PINZARRONE" Session="A5" RecContName="BLD_TAB_CL">
+	<Fields>
+		<Field Pos="1" Name="CodCliFor" Des="Codice cliente fornitore" Type="I" Length="2" NumDigits="4" NotMapped="2" XmlName="CodCliFor" FlCamelCase="1"/>
+		<Field Pos="2" Name="TipoFiltro" Des="Tipologia filtro" Type="I" Length="2" NumDigits="1" NotMapped="2" XmlName="TipoFiltro" FlCamelCase="1">
+			<FieldValues Type="2">
+				<FieldValue Pos="1" Value="-1" Des="Nessun filtro" RefNum="-1" RefString="Nessun filtro"/>
+				<FieldValue Pos="2" Value="0" Des="Cliente" RefString="Cliente"/>
+				<FieldValue Pos="3" Value="1" Des="Fornitore" RefNum="1" RefString="Fornitore"/>
+				<FieldValue Pos="4" Value="2" Des="Stato sospeso" RefNum="2" RefString="Stato sospeso"/>
+			</FieldValues>
+		</Field>
+	</Fields>
+	<Methods/>
+	<Views/>
+	<Features UseDynString="1"/>
+</Table>
+

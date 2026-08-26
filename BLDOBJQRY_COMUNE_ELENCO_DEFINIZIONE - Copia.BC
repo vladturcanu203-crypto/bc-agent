@@ -1,0 +1,45 @@
+'@PGQUERY BLDOBJQRY_COMUNE_ELENCO_DEFINIZIONE STRICT[4] ' Query di elenco su BLDCOMUNE - Definizione query
+  
+    '@SBP Query[BCQUERY] [INOUT]                      _ ' Oggetto Query
+         Multisel[TIPO[BCBOOL]]              [IN]    _ ' Multiselezione (0-No;1-Si)
+         CodPreselezionati[STRING]           [IN]    _ ' Elenco codici preselezionati
+         Modalita[TIPO[BCTD_MODALITAELENCO]] [IN]    _ ' Modalit… dell'elenco
+         Filtri[CLASSE[BLD_COMUNE_FILTRI]]   [INOUT] 
+
+   '@DEFQUERY QUERY[Query] NOME["OBJQRY_BLD_COMUNE_ELENCO_DEFINIZIONE_IdQueryElenco"]
+   
+      '@FROM TABELLA[BLDCOMUNE]
+   
+      '@COLUMN ESPR[BLDCOMUNE.COD AS [Comune]]         _
+               ESPR[BLDCOMUNE.CODPR AS [CodProvincia]] _
+               ESPR[BLDCOMUNE.CODREG AS [CodRegione]]  _
+               ESPR[BLDCOMUNE.CODST AS [CodStato]]     _
+               ESPR[BLDCOMUNE.CAP AS [CAP]]
+                   
+      If Multisel = 1 Then
+   
+         '@COMPUTEDCOLUMN ESPR[If INLISTSTR(BLDFAMIGLIA.COD, CodPreSelezionati)>0 Then 1 AS [ZSEL] FMT[NUMERICO[1]] ]
+   
+      EndIf   
+      
+      If Filtri.CodComune <> "" Then
+      
+         '@WHERE ESPR[BLDCOMUNE.COD = Filtri.CodComune]
+      
+      Else
+      
+         If Modalita = BCTD_MODALITAELENCO.Ricerca And Filtri.CodStato <> "" Then 
+   
+            '@WHERE ESPR[BLDCOMUNE.CODST = Filtri.CodStato]
+      
+         Else
+      
+            '@WHERE ESPR[BLDCOMUNE.COD <> ""]
+      
+         EndIf 
+         
+      EndIf
+
+   '@ENDQUERY
+
+End

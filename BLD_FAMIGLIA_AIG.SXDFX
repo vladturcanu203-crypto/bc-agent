@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<Table Name="BLD_FAMIGLIA_AIG" NameDFX="BLD_FAMIGLIA_AIG" NameExt="BLD_FAMIGLIA_AIG" DesRecType="Tabella Famiglie" Des="Tabella Famiglie" Type="C" NumTRecs="1" Date="2020-12-28" Time="11.08.52" Operator="PETRASSO" Session="01" RecContName="BLD_TAB_CL" UseExtendedNamesDfx="1">
+	<Fields>
+		<Field Pos="1" Name="DESMACRO" Des="Descrizione Macrofamiglia" Type="C" Length="35" NotMapped="2" XmlName="DESMACRO" FlCamelCase="1"/>
+	</Fields>
+	<Methods>
+		<Method Name="Carica" Des="Metodo per Caricamento Oggetto" Accessibility="1" Overriding="Caricamento" Signature="2,1,3/1,5/1" Dll="BLD_TAB_BL"/>
+	</Methods>
+	<Views/>
+	<MasterQuery Library="*"/>
+	<Features/>
+</Table>
+

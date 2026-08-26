@@ -1,0 +1,27 @@
+F,2,,,,Tabella indirizzi cliente fornitore,**BLDINDCLIFOR
+K,0|BLDINDCLI,,COD+NPR,ICL,,Indice primario
+K,1|BLDINDCLIF,,IND,ICL,DM,Indice secondario
+T,ICL,,,,,                 Tabella indirizzi cliente fornitore
+C,COD,L4r[N8],,,,          Codice cliente
+C,NPR,L4r[N5],,,,          Numero progressivo indirizzo
+C,PRS,C,35,,,              Presso (c/o)
+C,IND,C,35,,,              Indirizzo
+C,CAP,C,5,,,               C.A.P.
+C,CODST,C,3,,,             Codice stato
+C,CODPR,C,2,,,             Provincia
+C,CODCOM,C,25,,,           Comune
+C,CONS,I2r[N1],,,,         Valido per consegna
+C,TEL,C,20,,,              Numero telefonico
+C,TEL2,C,20,,,             Secondo numero telefonico
+C,FAX,C,20,,,              Numero fax
+C,EMAIL,C,200,,,           Indirizzo di posta elettronica
+C,SITO,C,100,,,            Indirizzo del sito web
+C,NOTA,B,,,,               Annotazione del campo indirizzo
+C,Sys_DataCreazione,A,4,,, Firma creazione: Data
+C,Sys_OraCreazione,L4r[N6],,,, Firma creazione: Ora
+C,Sys_OperCreazione,C,20,,, Firma creazione: Operatore
+C,Sys_ModuloCreazione,C,20,,, Firma creazione: Modulo
+C,Sys_DataModifica,A,4,,,  Firma modifica: Data
+C,Sys_OraModifica,L4r[N6],,,, Firma modifica: Ora
+C,Sys_OperModifica,C,20,,, Firma modifica: Operatore
+C,Sys_ModuloModifica,C,20,,, Firma modifica: Modulo

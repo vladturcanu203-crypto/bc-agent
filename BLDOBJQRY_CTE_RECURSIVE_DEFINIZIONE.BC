@@ -1,0 +1,46 @@
+'@PGQUERY BLDOBJQRY_CTE_RECURSIVE_DEFINIZIONE STRICT[4] ' CTE ricorsiva - Definizione query
+
+   '@SBP Query[BCQUERY] [INOUT]
+
+   '@DEFQUERY QUERY[Query] NOME["BLOBJQRY_CTE_RECURSIVE_DEFINIZIONE_15"]
+   
+      '@DEFQUERYCTE QUERY[ParteFissa] ALIAS["Organigramma"] PARTE[#FISSA]
+      
+         '@FROM TABELLA[BLDIMPIEGATI]
+         
+         '@COLUMN ESPR[BLDIMPIEGATI.IDImpiegato AS [IdPadre]] 
+         '@COMPUTEDCOLUMN ESPR[BLDIMPIEGATI.Nome +" " + BLDIMPIEGATI.Cognome AS [Nominativo] FMT[TESTO[80]]] 
+         '@COMPUTEDCOLUMN ESPR[1 AS [Livello] FMT[NUMERICO[2]]] 
+         '@COMPUTEDCOLUMN ESPR[FNTRSD$(BLDIMPIEGATI.Nome) + " " + FNTRSD$(BLDIMPIEGATI.Cognome) AS [Posizione] FMT[TESTO[255]]]  
+         '@COMPUTEDCOLUMN ESPR[FNS$(BLDIMPIEGATI.IDImpiegato) AS [Sort] FMT[TESTO[255]]]    
+         
+         '@WHERE ESPR[BLDIMPIEGATI.IDResponsabile=0]
+      
+      '@ENDQUERY 
+      
+      '@DEFQUERYCTE QUERY[ParteRicorsiva] ALIAS["Organigramma"] PARTE[#RICORSIVA]
+      
+         '@FROM TABELLA[BLDIMPIEGATI]
+         '@JOIN TABELLA[[Organigramma]] TABELLAPADRE[BLDIMPIEGATI] OPERATOREJOIN["INNER"] REL[BLDIMPIEGATI.IDResponsabile=[Organigramma].IdPadre] 
+         
+         '@COLUMN ESPR[BLDIMPIEGATI.IDImpiegato AS [IdPadre]] 
+         '@COMPUTEDCOLUMN ESPR[BLDIMPIEGATI.Nome +" " + BLDIMPIEGATI.Cognome AS [Nominativo] FMT[TESTO[80]]] 
+         '@COMPUTEDCOLUMN ESPR[[Organigramma].Livello + 1 AS [Livello] FMT[NUMERICO[2]]] 
+         '@COMPUTEDCOLUMN ESPR[STRING$([Organigramma].Livello, "|    ")+FNTRSD$(BLDIMPIEGATI.Nome) + " " + FNTRSD$(BLDIMPIEGATI.Cognome) AS [Posizione] FMT[TESTO[255]]]     
+         '@COMPUTEDCOLUMN ESPR[[Organigramma].Sort+FNS$(BLDIMPIEGATI.IDImpiegato) AS [Sort] FMT[TESTO[255]]]
+      
+      '@ENDQUERY 
+      
+      '@FROM TABELLA[[Organigramma]]
+      
+      '@COMPUTEDCOLUMN ESPR[[Organigramma].IdPadre AS [IdPadre] FMT[NUMERICO[9]]] 
+      '@COMPUTEDCOLUMN ESPR[[Organigramma].Nominativo AS [Nominativo] FMT[TESTO[80]]] 
+      '@COMPUTEDCOLUMN ESPR[[Organigramma].Posizione AS [Posizione] FMT[TESTO[255]]] 
+      '@COMPUTEDCOLUMN ESPR[[Organigramma].Livello  AS [Livello] FMT[NUMERICO[2]]]  
+      '@COMPUTEDCOLUMN ESPR[[Organigramma].Sort AS [Sort] FMT[NUMERICO[5]] NOOUTPUT] 
+      
+      '@ORDERBY ESPR[[Sort]]
+
+   '@ENDQUERY
+End
+

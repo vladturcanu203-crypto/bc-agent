@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<Table Name="BLD_INDCLIFOR_VID" NameDFX="BLD_INDCLIFOR_VID" NameExt="BLD_INDCLIFOR_VID" DesRecType="Classe Video Indirizzi Clienti Fornitori" Des="Classe Video Indirizzi Clienti Fornitori" Type="C" NumTRecs="1" Date="2023-12-28" Time="11.54.12" Operator="CALDERA" Session="CB" RecContName="BLD_TAB_CL">
+	<Fields>
+		<Field Pos="1" Name="_BASE_" Des="Indirizzo Cliente/Fornitore" Type="#" TypeExt="BLD_INDCLIFOR" XmlName="_BASE_" XmlType="1" FlCamelCase="1"/>
+		<Field Pos="2" Name="FlagSedeLegale" Des="Indica se è l&apos;indirizzo della sede legale" Type="N" Length="1" NotMapped="2" XmlName="FlagSedeLegale" FlCamelCase="1" FlBool="1">
+			<FieldValues Type="1"/>
+		</Field>
+		<Field Pos="3" Name="FlagSpedizione" Des="Indica se è l&apos;indirizzo di spedizione" Type="N" Length="1" NotMapped="2" XmlName="FlagSpedizione" FlCamelCase="1" FlBool="1">
+			<FieldValues Type="1"/>
+		</Field>
+		<Field Pos="4" Name="FlagFatturazione" Des="Indica se è l&apos;indirizzo di fatturazione" Type="N" Length="1" NotMapped="2" XmlName="FlagFatturazione" FlCamelCase="1" FlBool="1">
+			<FieldValues Type="1"/>
+		</Field>
+	</Fields>
+	<Methods>
+		<Method Name="Deriva" Des="Derivazione dati classe video" Accessibility="1" Dll="BLD_TAB_BL"/>
+		<Method Name="ImpostaAttributiVideoDaProprieta" Des="Metodo per impostare gli attributi sulle proprietà dell&apos;oggetto" Accessibility="1" Dll="BLD_TAB_BL"/>
+	</Methods>
+	<Views/>
+	<Features UseDynString="1"/>
+</Table>
+

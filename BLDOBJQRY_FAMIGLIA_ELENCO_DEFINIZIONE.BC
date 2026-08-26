@@ -1,0 +1,35 @@
+'@PGQUERY BLDOBJQRY_FAMIGLIA_ELENCO_DEFINIZIONE STRICT[4] ' Query di elenco su BLDFAMIGLIA - Definizione query
+
+   '@SBP Query[BCQUERY]              [INOUT] _ ' ID Query
+         Multisel[TIPO[BCBOOL]]      [IN]    _ ' Multiselezione (0-No;1-Si)
+         CodPreselezionati[STRING]   [IN]    _ ' Elenco codici preselezionati
+         CodiceFamiglia[STRING]      [IN]      ' Filtro per aggiornare la query
+
+   '@DEFQUERY QUERY[Query] NOME["OBJQRY_BLD_FAMIGLIA_ELENCO_DEFINIZIONE_IdQueryElenco"]
+   
+      ' Definizione query elenco
+      DIM DataSistema[DATE] = BCSystemInfo.GetDate()
+   
+      '@FROM TABELLA[BLDFAMIGLIA]
+   
+      '@COLUMN ESPR[BLDFAMIGLIA.COD AS [CodFamiglia]] _
+               ESPR[BLDFAMIGLIA.DES AS [DesFamiglia]]
+      
+      '@COMPUTEDCOLUMN ESPR[IF BLDFAMIGLIA.DATAINIZVAL<=DataSistema AND _
+                              (BLDFAMIGLIA.DATAFINEVAL>=DataSistema OR _
+                               BLDFAMIGLIA.DATAFINEVAL=0) THEN 1 ELSE 0 AS [Valida] FMT[NUMERICO[1]]]
+      
+      If Multisel = #True Then
+      
+         '@COMPUTEDCOLUMN ESPR[If INLISTSTR(BLDFAMIGLIA.COD, CodPreSelezionati)>0 Then 1 AS [ZSEL] FMT[NUMERICO[1]] ]
+      
+      EndIf
+      
+      If CodiceFamiglia <> "" Then
+         
+         '@WHERE ESPR[BLDFAMIGLIA.COD = CodiceFamiglia]
+         
+      EndIf 
+
+   '@ENDQUERY
+End

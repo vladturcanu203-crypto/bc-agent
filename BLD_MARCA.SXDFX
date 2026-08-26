@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<Table Name="BLD_MARCA" NameDFX="BLD_MARCA" NameExt="BLD_MARCA" DesRecType="Classe marca" Des="Classe marca" Type="C" NumTRecs="1" Date="2024-01-05" Time="14.50.32" Operator="CALDERA" Session="CB" RecContName="BLD_TAB_CL" UseExtendedNamesDfx="1">
+	<Fields/>
+	<Methods>
+		<Method Name="Attiva" Des="Marca valida in data" Accessibility="1" Dll="BLD_TAB_BL"/>
+		<Method Name="Carica" Des="Metodo per Caricamento Oggetto" Overriding="Caricamento" Signature="2,1,3/1,5/1,6" Dll="BLD_TAB_BL"/>
+		<Method Name="Elenco" Des="Videata di elenco" Accessibility="1" Dll="BLD_TAB_UI" Context="2"/>
+		<Method Name="Elimina" Des="Eliminazione Dati da Database" Overriding="Eliminazione" Signature="4/1,5/1,6" Dll="BLD_TAB_BL"/>
+		<Method Name="Gestione" Des="Metodo per gestione dati Oggetto" Accessibility="1" Dll="BLD_TAB_BL" Context="2"/>
+		<Method Name="ImpostaAttributiVideo" Des="Metodo per impostare gli attributi sulle proprietà dell&apos;oggetto" Accessibility="1" Dll="BLD_TAB_BL"/>
+		<Method Name="ImpostaAttributoObbligatorio" Des="Metodo per impostare l&apos;attributo obbligatorio sulle proprietà dell&apos;oggetto" Accessibility="1" Dll="BLD_TAB_BL"/>
+		<Method Name="IsProprietaGestita" Des="Metodo che indica se una proprieta e&apos; gestita" Accessibility="1" Dll="BLD_TAB_BL"/>
+		<Method Name="IsProprietaProtetta" Des="Metodo che indica se una proprieta e&apos; protetta" Accessibility="1" Dll="BLD_TAB_BL"/>
+		<Method Name="QueryElenco" Des="Metodo per definizione query lettura codici elenco/gestione" Accessibility="1" Dll="BLD_TAB_BL" Context="2"/>
+		<Method Name="QueryElencoAggiornamento" Des="Metodo per definizione query lettura elenco/gestione" Accessibility="1" Dll="BLD_TAB_BL" Context="2"/>
+		<Method Name="Salva" Des="Salvataggio Dati su Database" Overriding="Salvataggio" Signature="4/1" Dll="BLD_TAB_BL"/>
+		<Method Name="Valida" Des="Validazione Classe" Dll="BLD_TAB_BL"/>
+	</Methods>
+	<Views>
+		<View Name="Dettaglio" Des="Dettaglio" Type="4" Dll="BLD_TAB_UI"/>
+	</Views>
+	<Features Snapshot="1"/>
+</Table>
+

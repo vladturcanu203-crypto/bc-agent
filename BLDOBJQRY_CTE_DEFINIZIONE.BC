@@ -1,0 +1,36 @@
+'@PGQUERY BLDOBJQRY_CTE_DEFINIZIONE STRICT[4] ' CTE semplice - Definizione query
+
+   '@SBP Query[BCQUERY] [INOUT]
+
+   '@DEFQUERY QUERY[Query] NOME["BLDOBJQRY_CTE_DEFINIZIONE_15"]
+      
+      '@DEFQUERYCTE QUERY[QScadenze] ALIAS["Scadenze"]
+      
+         '@FROM TABELLA[BLDTESTATA]
+         '@JOIN TABELLA[BLDPIEDE] TABELLAPADRE[BLDTESTATA] OPERATOREJOIN["INNER"] REL[BLDPIEDE.IDDOC=BLDTESTATA.IDDOC]
+         '@JOIN TABELLA[BLDCPG] TABELLAPADRE[BLDTESTATA] OPERATOREJOIN["INNER"] REL[BLDCPG.COD=BLDTESTATA.CODPAG]
+         '@JOIN TABELLA[BLDSDE] TABELLAPADRE[BLDCPG] OPERATOREJOIN["LEFT"] REL[BLDSDE.COD=BLDCPG.COD]
+         '@WHERE ESPR[BLDTESTATA.GRDOC="FTV"]
+         
+         '@COLUMN ESPR[BLDTESTATA.INTEST  AS [Cliente]]   _
+                  ESPR[BLDTESTATA.IDDOC AS [Documento]]
+         
+         '@COMPUTEDCOLUMN ESPR[FNDAYDATEADD(BLDTESTATA.DatDoc,BLDSDE.GG) AS[DataScadenza] FMT[DATA8]] _
+                          ESPR[BLDPiede.ValTot*BLDSDE.PerImp/100 AS[Importo] FMT[NUMERICO[7,2]]]
+      '@ENDQUERY 
+      
+      '@FROM TABELLA[BLDCLIFOR]
+      '@JOIN TABELLA[[Scadenze]] TABELLAPADRE[BLDCLIFOR] OPERATOREJOIN["INNER"] REL[[Scadenze].Cliente=BLDCLIFOR.COD]
+      
+      '@COLUMN ESPR[BLDCLIFOR.COD AS [Cliente]]  
+      '@COMPUTEDCOLUMN ESPR[[Scadenze].DataScadenza AS [Scadenza] FMT[DATA8]]     _
+                       ESPR[[Scadenze].Importo AS [Importo] FMT[NUMERICO[8,2]]]    
+                       
+      '@WHERE ESPR[[Cliente]=1 AND [Importo]>0]                       
+   
+      '@ORDERBY ESPR[[Scadenza]]
+      
+   '@ENDQUERY
+
+End
+

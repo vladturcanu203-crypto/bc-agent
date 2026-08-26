@@ -1,0 +1,10 @@
+
+
+Traduttore BC/X - Windows/.NET (C) v33.2
+Errori/Warnings di traduzione - Programma : C:\TMP\BLDOBJQRY_CTE_RICHIAMO_DEFINIZIONE.TD3
+                              - Stazione  : D3 09-01-2026 16:05:11
+
+
+BLDOBJQRY_CTE_RICHIAMO_DEFINIZIONE.BC - Linea 7 Colonna 6
+SCADENZE.DEFINIZIONE(QUERY [INOUT])
+[C O M P A T I B I L I T A . N E T] - La sub <BLDOBJQRY_CTE_DEF_DEFINIZIONE> non puo' essere richiamata perche' non e' valida .NET (#1144)

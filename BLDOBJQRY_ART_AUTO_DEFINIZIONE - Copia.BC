@@ -1,0 +1,20 @@
+'@PGQUERY BLDOBJQRY_ART_AUTO_DEFINIZIONE STRICT[4] ' Query di autocompletamento su BLDART - Definizione query
+
+   '@SBP Query[BCQUERY] [INOUT]
+
+   '@DEFQUERY QUERY[Query] NOME["BLDOBJQRY_ART_AUTO_DEFINIZIONE_15"]
+
+      '@FROM TABELLA[BLDART]
+
+      '@COLUMN ESPR[BLDART.COD     AS [VAR]]                       ETICHETTA["Codice"]    _
+               ESPR[BLDART.DES     AS [Descrizione]]               ETICHETTA["Descrizione"]
+   
+      '@COMPUTEDCOLUMN ESPR[IF BLDART.COD="#TD" THEN 1 AS [MatchCode] FMT[NUMERICO[1]] NOOUTPUT[1]]   ETICHETTA["MatchCode"] ERRORE
+      
+      '@WHERE ESPR[(MATCH([VAR],"%#TD%")>0 OR MATCH([Descrizione],"%#TD%")>0)] IDESPR["1"]
+      
+      '@ORDERBY ESPR[[MatchCode] /DESC, BLDART.COD]
+
+   '@ENDQUERY
+
+End

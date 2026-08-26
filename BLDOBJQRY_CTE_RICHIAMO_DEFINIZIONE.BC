@@ -1,0 +1,23 @@
+'@PGQUERY BLDOBJQRY_CTE_RICHIAMO_DEFINIZIONE STRICT[4] ' CTE Richiamo - Definizione query
+
+   '@SBP Query[BCQUERY] [INOUT]
+
+   '@DEFQUERY QUERY[Query] NOME["BLDOBJQRY_CTE_COMP2_DEFINIZIONE_15"]
+   
+      DIM scadenze[QUERY[BLDOBJQRY_CTE_DEF(Query [INOUT])]]
+      
+      '@FROM TABELLA[BLDCLIFOR]
+      '@JOIN TABELLA[scadenze] TABELLAPADRE[BLDCLIFOR] OPERATOREJOIN["INNER"] REL[scadenze.Cliente=BLDCLIFOR.COD]
+      
+      '@COLUMN ESPR[BLDCLIFOR.COD AS [Cliente]]  
+      '@COMPUTEDCOLUMN ESPR[scadenze.DataScadenza AS [Scadenza] FMT[DATA8]]     _
+                       ESPR[scadenze.Importo AS [Importo] FMT[NUMERICO[8,2]]]    
+                       
+      '@WHERE ESPR[[Cliente]=1 AND [Importo]>0]                       
+   
+      '@ORDERBY ESPR[[Scadenza]]   
+
+   '@ENDQUERY
+
+End
+

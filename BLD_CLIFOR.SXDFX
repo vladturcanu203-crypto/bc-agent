@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<Table Name="BLD_CLIFOR" NameDFX="BLD_CLIFOR" NameExt="BLD_CLIFOR" DesRecType="Classe cliente/fornitore" Des="Classe cliente/fornitore" Type="C" NumTRecs="1" Date="2025-06-16" Time="14.49.42" Operator="PINZARRONE" Session="A5" DesExt="." RecContName="BLD_TAB_CL" UseExtendedNamesDfx="1">
+	<Fields>
+		<Field Pos="35" Name="Ind" Des="Indirizzi del cliente" Type="%" TypeExt="BLD_INDCLIFOR" Relation="BLDINDCLIFOR_BLDCLIFOR"/>
+	</Fields>
+	<Methods>
+		<Method Name="AttivaCache" Des="Attivazione Cache" Accessibility="1" Dll="BLD_TAB_BL" Context="2"/>
+		<Method Name="Carica" Des="Metodo per Caricamento Oggetto" Accessibility="1" Overriding="Caricamento" Signature="2,1,3/1,5/1,6" Dll="BLD_TAB_BL"/>
+		<Method Name="Deriva" Des="Deriva Classe" Accessibility="1" Dll="BLD_TAB_BL"/>
+		<Method Name="DerivaIndirizzo" Des="Derivazione sottoclasse indirizzo" Accessibility="1" Dll="BLD_TAB_BL"/>
+		<Method Name="Elimina" Des="Eliminazione Dati da Database" Accessibility="1" Overriding="Eliminazione" Signature="4/1,5/1,6" Dll="BLD_TAB_BL"/>
+		<Method Name="Gestione" Des="Metodo per gestione dati Oggetto" Accessibility="1" Dll="BLD_TAB_BL" Context="2"/>
+		<Method Name="ImpostaAttributiVideo" Des="Metodo per impostare gli attributi sulle proprietà dell&apos;oggetto" Accessibility="1" Dll="BLD_TAB_BL"/>
+		<Method Name="ImpostaAttributiVideoDaProprieta" Des="Metodo per impostare gli attributi sulle proprietà dell&apos;oggetto" Accessibility="1" Dll="BLD_TAB_BL"/>
+		<Method Name="ImpostaAttributoObbligatorio" Des="Metodo per impostare l&apos;attributo obbligatorio sulle proprietà dell&apos;oggetto" Accessibility="1" Dll="BLD_TAB_BL"/>
+		<Method Name="Indirizzo" Des="Ritorna indirizzo cliente" Accessibility="1" Dll="BLD_TAB_BL"/>
+		<Method Name="IsProprietaGestita" Des="Metodo che indica se una proprieta e&apos; gestita" Accessibility="1" Dll="BLD_TAB_BL"/>
+		<Method Name="IsProprietaProtetta" Des="Metodo che indica se una proprieta e&apos; protetta" Accessibility="1" Dll="BLD_TAB_BL"/>
+		<Method Name="QueryElenco" Des="Metodo per definizione query lettura codici elenco/gestione" Accessibility="1" Dll="BLD_TAB_BL" Context="2"/>
+		<Method Name="QueryElencoAggiornamento" Des="Metodo per definizione query lettura elenco/gestione" Accessibility="1" Dll="BLD_TAB_BL" Context="2"/>
+		<Method Name="Salva" Des="Salvataggio Dati su Database" Accessibility="1" Overriding="Salvataggio" Signature="4/1" Dll="BLD_TAB_BL"/>
+		<Method Name="Valida" Des="Validazione Classe" Accessibility="1" Dll="BLD_TAB_BL"/>
+		<Method Name="ValidaIndirizzo" Des="Validazione indirizzo articolo" Accessibility="1" Dll="BLD_TAB_BL"/>
+	</Methods>
+	<Views>
+		<View Name="Dettaglio" Des="Dettaglio" Accessibility="1" Type="4" Dll="BLD_TAB_UI"/>
+		<View Name="DettaglioIndirizzi" Des="Dettaglio indirizzi" Accessibility="1" Type="4" Dll="BLD_TAB_UI"/>
+		<View Name="DettaglioMultiPag" Des="Videata di dettaglio con multipagina" Accessibility="1" Type="4" Dll="BLD_TAB_UI"/>
+		<View Name="Elenco" Des="Videata di Elenco" Type="4" Dll="BLD_TAB_UI" Context="2"/>
+		<View Name="ElencoIndirizzi" Des="Griglia di elenco indirizzi clienti/fornitori" Accessibility="1" Type="4" Dll="BLD_TAB_UI"/>
+		<View Name="Intestazione" Des="Intestazione videata" Accessibility="1" Type="4" Dll="BLD_TAB_UI" Context="2"/>
+	</Views>
+	<Features Snapshot="1"/>
+</Table>
+

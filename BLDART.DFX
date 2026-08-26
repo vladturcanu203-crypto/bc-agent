@@ -1,0 +1,27 @@
+F,1,,,,Tabella Articoli,**BLDART
+K,0|BLDART,,COD,ART,,Codice articolo
+T,ART,,,,,                 Tabella Articoli
+C,COD,C,25,,,              Codice Articolo
+C,DES,C,50,,,              Descrizione Articolo
+C,STATO,N,1,,,             Stato Articolo
+C,TIPO,N,1,,,              Tipo Articolo
+C,VENDITA,N,1,,,           Rilevanza Vendite
+C,ACQUISTO,N,1,,,          Rilevanza Acquisti
+C,GESVAR,N,1,,,            Gestione Varianti
+C,PREZZO,S4r[N5.2],,,,     Prezzo Articolo
+C,SCONTO,N,2,,,            Sconto Articolo
+C,COSTO,D8r[N13.6],,,,     Costo Standard
+C,CODFAM,C,6,,,            Codice Famiglia
+C,CODMARCA,C,6,,,          Codice Marca
+C,UNITA,C,2,,,             Unit… di Misura
+C,QUA,L4r[N9],,,,          Quantit… in magazzino
+C,DESESTESA,B,,,,          Descrizione Estesa Articolo
+C,FlGesMatricole,N,1,,,    Flag Gestione Matricole
+C,Sys_DataCreazione,A,4,,, Firma creazione: Data
+C,Sys_OraCreazione,L4r[N6],,,, Firma creazione: Ora
+C,Sys_OperCreazione,C,20,,, Firma creazione: Operatore
+C,Sys_ModuloCreazione,C,20,,, Firma creazione: Modulo
+C,Sys_DataModifica,A,4,,,  Firma modifica: Data
+C,Sys_OraModifica,L4r[N6],,,, Firma modifica: Ora
+C,Sys_OperModifica,C,20,,, Firma modifica: Operatore
+C,Sys_ModuloModifica,C,20,,, Firma modifica: Modulo

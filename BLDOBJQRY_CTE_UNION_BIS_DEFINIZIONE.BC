@@ -1,0 +1,61 @@
+'@PGQUERY BLDOBJQRY_CTE_UNION_BIS_DEFINIZIONE STRICT[4] ' CTE con UNION annidate - Definizione query
+
+   '@SBP Query[BCQUERY] [INOUT]
+
+   '@DEFQUERY QUERY[Query] NOME["BLDOBJQRY_CTE_UNION_DEFINIZIONE_15"]
+'   
+'      ' Definizione della prima CTE
+'      '@DEFQUERYCTE QUERY[Impiegati] ALIAS["Impiegati"] 
+'      
+'         '@FROM TABELLA[BLDIMPIEGATI]
+'
+'         '@COLUMN ESPR[GROUPBY(BLDIMPIEGATI.IDUfficio) AS [IdUfficio]] _
+'                  ESPR[COUNT(BLDIMPIEGATI.IDImpiegato) AS [ContaUfficio]]
+'   
+'         ' Uffici con pi— di un impiegato
+'         '@WHERE ESPRHAVING[[ContaUfficio]>1]
+'         
+'      '@ENDQUERY 
+'      
+'      '@DEFQUERYCTE QUERY[Impiegati2] ALIAS["Impiegati2"] 
+'      
+'         '@FROM TABELLA[BLDIMPIEGATI]
+'
+'         '@COLUMN ESPR[GROUPBY(BLDIMPIEGATI.IDUfficio) AS [IdUfficio]] _
+'                  ESPR[COUNT(BLDIMPIEGATI.IDImpiegato) AS [ContaUfficio]]
+'   
+'         ' Uffici con un impiegato
+'         '@WHERE ESPRHAVING[[ContaUfficio]=1]
+'         
+'      '@ENDQUERY 
+'         
+'         
+'         '@FROM TABELLA[BLDUFFICI]
+'   
+'         '@JOIN TABELLA[[Impiegati]] TABELLAPADRE[BLDUFFICI] _
+'                REL[[Impiegati].IdUfficio = BLDUFFICI.IDUfficio] _
+'                OPERATOREJOIN["INNER"]
+'         
+'         '@COLUMN ESPR[BLDUFFICI.Descrizione   AS [DescrizioneUfficio]]
+'         '@COMPUTEDCOLUMN ESPR[[Impiegati].ContaUfficio AS [NumeroImpiegati] FMT[NUMERICO[9]]] 
+'
+'      '@ENDQUERY
+'   
+'   
+'      ' Definizione della terza query
+'      '@DEFQUERY QUERY[TerzaQuery] NOME["BLDOBJQRY_CTE_TerzaQuery"]
+'
+         '@FROM TABELLA[BLDUFFICI]
+   
+         '@COMPUTEDCOLUMN ESPR["Ufficio Fittizio" AS [DescrizioneUfficio] FMT[TESTO[50]]]
+         '@COMPUTEDCOLUMN ESPR[12 AS [NumeroImpiegati] FMT[NUMERICO[9]]] 
+'
+'      '@ENDQUERY
+'      
+'      ' '@DEFQUERYSET ESPR[QRY(PrimaQuery) UNION QRY(SecondaQuery) UNION QRY(TerzaQuery)]
+'      '@DEFQUERYSET ESPR[QRY(TerzaQuery)]
+'      
+   '@ENDQUERY
+
+End
+

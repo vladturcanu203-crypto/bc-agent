@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<AG_QUERY_METADATI NomeDLL="BLD_TAB_QRY" Contenitore="">
+  <Campi>
+    <AG_QUERY_CAMPO DFX="BLDOBJQRY_COMUNE_ELENCO" NPR="1" NOMC="Comune" DES="Codice Comune" TLOG="0" TID="C" LUD="25" POSD="0" LUU="0" DEU="0" POSU="0" CIF="0" DEC="0" SCH="0" FLPER="0" XMLTIPO="0" XMLOBBL="0" CAMELCASE="1" FLBOOL="0" EspInGriglia="0" Obbligatorio="0" ACCESSIBILITA="0" RELAZIONABILE="1">
+      <InfoEstese NoZero="0" NoZeroDec="0" Intestazione="" NumValori="0" TipoValori="0">
+        <Valori />
+      </InfoEstese>
+    </AG_QUERY_CAMPO>
+    <AG_QUERY_CAMPO DFX="BLDOBJQRY_COMUNE_ELENCO" NPR="2" NOMC="CodProvincia" DES="Codice Provincia" TLOG="0" TID="C" LUD="2" POSD="0" LUU="0" DEU="0" POSU="0" CIF="0" DEC="0" SCH="0" FLPER="0" XMLTIPO="0" XMLOBBL="0" CAMELCASE="1" FLBOOL="0" EspInGriglia="0" Obbligatorio="0" ACCESSIBILITA="0" RELAZIONABILE="1">
+      <InfoEstese NoZero="0" NoZeroDec="0" Intestazione="Provincia" NumValori="0" TipoValori="0">
+        <Valori />
+      </InfoEstese>
+    </AG_QUERY_CAMPO>
+    <AG_QUERY_CAMPO DFX="BLDOBJQRY_COMUNE_ELENCO" NPR="3" NOMC="CodRegione" DES="Codice Regione" TLOG="0" TID="C" LUD="6" POSD="0" LUU="0" DEU="0" POSU="0" CIF="0" DEC="0" SCH="0" FLPER="0" XMLTIPO="0" XMLOBBL="0" CAMELCASE="1" FLBOOL="0" EspInGriglia="0" Obbligatorio="0" ACCESSIBILITA="0" RELAZIONABILE="1">
+      <InfoEstese NoZero="0" NoZeroDec="0" Intestazione="Regione" NumValori="0" TipoValori="0">
+        <Valori />
+      </InfoEstese>
+    </AG_QUERY_CAMPO>
+    <AG_QUERY_CAMPO DFX="BLDOBJQRY_COMUNE_ELENCO" NPR="4" NOMC="CodStato" DES="Codice Stato" TLOG="0" TID="C" LUD="3" POSD="0" LUU="0" DEU="0" POSU="0" CIF="0" DEC="0" SCH="0" FLPER="0" XMLTIPO="0" XMLOBBL="0" CAMELCASE="1" FLBOOL="0" EspInGriglia="0" Obbligatorio="0" ACCESSIBILITA="0" RELAZIONABILE="1">
+      <InfoEstese NoZero="0" NoZeroDec="0" Intestazione="Stato" NumValori="0" TipoValori="0">
+        <Valori />
+      </InfoEstese>
+    </AG_QUERY_CAMPO>
+    <AG_QUERY_CAMPO DFX="BLDOBJQRY_COMUNE_ELENCO" NPR="5" NOMC="CAP" DES="C.A.P." TLOG="0" TID="C" LUD="5" POSD="0" LUU="0" DEU="0" POSU="0" CIF="0" DEC="0" SCH="0" FLPER="0" XMLTIPO="0" XMLOBBL="0" CAMELCASE="1" FLBOOL="0" EspInGriglia="0" Obbligatorio="0" ACCESSIBILITA="0" RELAZIONABILE="1">
+      <InfoEstese NoZero="0" NoZeroDec="0" Intestazione="" NumValori="0" TipoValori="0">
+        <Valori />
+      </InfoEstese>
+    </AG_QUERY_CAMPO>
+    <AG_QUERY_CAMPO DFX="BLDOBJQRY_COMUNE_ELENCO" NPR="6" NOMC="ZSEL" DES="ZSEL" TLOG="0" TID="N" LUD="1" POSD="0" LUU="0" DEU="0" POSU="0" CIF="1" DEC="0" SCH="0" FLPER="0" XMLTIPO="0" XMLOBBL="0" CAMELCASE="1" FLBOOL="0" EspInGriglia="0" Obbligatorio="0" ACCESSIBILITA="0" RELAZIONABILE="0">
+      <InfoEstese NoZero="0" NoZeroDec="0" Intestazione="" NumValori="0" TipoValori="-1">
+        <Valori />
+      </InfoEstese>
+    </AG_QUERY_CAMPO>
+  </Campi>
+  <Metodi>
+    <AG_QUERY_METODO ARE="" PRD="" PRJ="" TIP="0" NOM="BLDOBJQRY_COMUNE_ELENCO_DEFINIZIONE" DES="Query di elenco su BLDCOMUNE - Definizione query" DAT="01012001" ORA="0" OPE="" CODOP="" VALWIN="0" VALNET="0" WCL="0" NCL="0" PWS="1" DLL="0" TIPOSPEC="0">
+      <Info ARE="" PRD="" PRJ="" NOM="Definizione" DES="Query di elenco su BLDCOMUNE - Definizione query" SUB="BLDOBJQRY_COMUNE_ELENCO_DEFINIZIONE" ACCESS="1" DLL="" CTX="0" />
+    </AG_QUERY_METODO>
+  </Metodi>
+</AG_QUERY_METADATI>

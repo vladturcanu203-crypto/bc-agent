@@ -1,0 +1,40 @@
+F,4,,317,,Tabella Clienti/Fornitori,**BLDCLIFOR
+K,0|BLDCLIFOR,,COD,CF,,Indice primario
+K,1|BLDCLIFOR1,,COD+NSEDE,CF,,Indirizzo legale
+K,2|BLDCLIFOR2,,COD+NSPED,CF,,Indirizzo spedizione
+K,3|BLDCLIFOR3,,COD+NFATT,CF,,Indirizzo fatturazione
+T,CF,,,,,                  Tabella Clienti/Fornitori
+C,COD,L4r[N8],,,,          Codice Cliente Fornitore
+C,TIPANA,I2r[N1],,,,       Tipo Anagrafica
+C,PIVA,C,12,,,             Partita IVA
+C,CF,C,16,,,               Codice Fiscale
+C,RS1,C,30,,,              Ragione Sociale 1
+C,RS2,C,30,,,              Ragione Sociale 2
+C,STANA,N,1,,,             Stato Anagrafica
+C,TIPSOG,I2r[N1],,,,       Tipo Soggetto
+C,PFCOGN,C,25,,,           Persona fisica: cognome
+C,PFNOME,C,20,,,           Persona fisica: nome
+C,PFSTATO,C,3,,,           Persona fisica: Stato di nascita
+C,PFPROV,C,2,,,            Persona fisica: provincia di nascita
+C,PFCOM,C,25,,,            Persona fisica: comune di nascita
+C,PFDATA,A,4,,,            Persona fisica: data di nascita
+C,PFSESSO,C,1,,,           Persona fisica: sesso
+C,TITPIVA,I2r[N1],,,,      Titolare partita IVA
+C,RITENUTE,I2r[N1],,,,     Tipo soggetto ritenute
+C,CODIVA,C,4,,,            Codice IVA non imponibile o agevolato
+C,CODZONA,C,6,,,           Codice Zona
+C,CODMAG,C,4,,,            Codice Magazzino
+C,CODPAG,C,6,,,            Codice Condizione di pagamento
+C,TIPCOM,N,2,,,            Codice Tipologia Commerciale
+C,CODAFF,C,6,,,            Codice Classe Affidamento
+C,NSEDE,L4r[N5],,,,        Numero Indirizzo Sede Legale
+C,NSPED,L4r[N5],,,,        Numero Indirizzo Spedizione
+C,NFATT,L4r[N5],,,,        Numero Indirizzo Fatturazione
+C,Sys_DataCreazione,A,4,,, Firma creazione: Data
+C,Sys_OraCreazione,L4r[N6],,,, Firma creazione: Ora
+C,Sys_OperCreazione,C,20,,, Firma creazione: Operatore
+C,Sys_ModuloCreazione,C,20,,, Firma creazione: Modulo
+C,Sys_DataModifica,A,4,,,  Firma modifica: Data
+C,Sys_OraModifica,L4r[N6],,,, Firma modifica: Ora
+C,Sys_OperModifica,C,20,,, Firma modifica: Operatore
+C,Sys_ModuloModifica,C,20,,, Firma modifica: Modulo

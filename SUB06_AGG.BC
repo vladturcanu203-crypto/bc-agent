@@ -1,0 +1,46 @@
+'@PG SUB06_AGG      ' Esercitazione 6: Aggiunta elemento in struttura
+
+'@SBP Ritorno[INT] [OUT] ' Valore in uscita (0-definizione corretta;1-Definizione errata)
+
+   Gosub AggiuntaElemento
+
+End
+
+'@SR AggiuntaElemento
+
+   ' AGGIUNTA DI UN ELEMENTO NELLA STRUTTURA DINAMICA
+   
+   ' INIZIALIZZAZIONE DELLE VARIABILI
+   
+   ' CODICE$[10]=""
+   ' FAMIGLIA$[6]=""
+   ' QUANTITA#[8,3]=0
+   DESCRIZIONE$[30]="Descrizione dell'articolo"
+   FAMCOD$[6]="FAM01"
+   
+   ' CICLO D'INSERIMENTO 5 ELEMENTI
+   
+   For I[INT]=1 To 5
+   
+      ' VALORIZZAZIONE CAMPI DELLA STRUTTURA
+   
+      ARCOD$[10]="ART000000"
+      ARCOD$=FNTR$(ARCOD$)+FNS$(I)
+      NOME_STRUTTURA$[20]="ARTICOLI"
+   
+      ' AGGIUNTA ALL'INTERNO DELLA STRUTTURA DINAMICA
+   
+      '@ADDDYNSTRUCT STRUTTURA[NOME_STRUTTURA$] _
+                     CAMPI[CODICE$=ARCOD$, _  ' ASSEGNAZIONE esplicita
+                     DESCRIZIONE$,         _  ' ASSEGNAZIONE IMPLICITA
+                     FAMIGLIA$=FAMCOD$,    _  ' ASSEGNAZIONE esplicita
+                     QUANTITA#=10]         _  ' ASSEGNAZIONE esplicita
+                     ERRORE
+   
+      ' ASSEGNAZIONE DEFAULT: PREZZO = 0
+   
+      If ZBCERR>0 Then Ritorno=1:ExitSr
+      
+   Next I
+
+Return

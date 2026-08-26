@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<Table Name="BLDRIGA" NameDFX="BLDRIGA" NameExt="OOPTabRiga" DesRecType="Tabella riga" Des="Tabella riga" Type="I" IsNameExt="1" IsGroup="1" NameBcf="**BLDRIGA" Location="1" NumIndexes="1" NumTRecs="1" NumFields="19" ExtendedNames="1" GroupType="1" Date="2024-04-11" Time="13.32.47" Operator="OPREA" Session="B9" RecContName="BLD_TAB_CL" UseExtendedNamesDfx="1">
+	<Fields/>
+	<Methods>
+		<Method Name="Valida" Des="Validazione Classe" Accessibility="1" Dll="BLD_TAB_BL"/>
+	</Methods>
+	<Views/>
+	<Features Snapshot="1"/>
+</Table>
+

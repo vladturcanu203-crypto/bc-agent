@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<Table Name="BLD_COMUNE_FILTRI" NameDFX="BLD_COMUNE_FILTRI" NameExt="BLD_COMUNE_FILTRI" DesRecType="Filtri per BLDCOMUNE" Des="Filtri per BLDCOMUNE" Type="C" NumTRecs="1" Date="2025-05-23" Time="14.16.09" Operator="PINZARRONE" Session="A5" RecContName="BLD_TAB_CL">
+	<Fields>
+		<Field Pos="1" Name="CodComune" Des="Codice comune" Type="C" Length="25" NotMapped="2" XmlName="CodComune" FlCamelCase="1"/>
+		<Field Pos="2" Name="CodStato" Des="Codice stato" Type="C" Length="3" NotMapped="2" XmlName="CodStato" FlCamelCase="1"/>
+	</Fields>
+	<Methods/>
+	<Views/>
+	<Features UseDynString="1"/>
+</Table>
+

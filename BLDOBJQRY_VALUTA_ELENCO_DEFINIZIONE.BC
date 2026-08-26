@@ -1,0 +1,31 @@
+'@PGQUERY BLDOBJQRY_VALUTA_ELENCO_DEFINIZIONE STRICT[4] ' Query di elenco su BLDVALUTA - Definizione query
+
+   '@SBP Query[BCQUERY]            [INOUT] _ ' Oggetto query
+         Multisel[TIPO[BCBOOL]]    [IN]    _ ' Multiselezione (0-No;1-Si)
+         CodPreselezionati[STRING] [IN]    _ ' Elenco codici preselezionati
+         CodValuta[STRING]         [IN]      ' Filtro su codice valuta per aggiornare la query
+
+   '@DEFQUERY QUERY[Query] NOME["OBJQRY_BLD_VALUTA_ELENCO_DEFINIZIONE_IdQueryElenco"]
+
+      '@FROM TABELLA[BLDVALUTA]
+      
+      '@COLUMN ESPR[BLDVALUTA.COD  AS [CodiceValuta]] _
+                       ESPR[BLDVALUTA.DES  AS [Descr]]        _
+                       ESPR[BLDVALUTA.SIMB AS [Simbolo]]      _
+                       ESPR[BLDVALUTA.RAPP AS [Cambio]]
+                       
+      If Multisel = #True Then
+      
+         '@COMPUTEDCOLUMN ESPR[If INLISTSTR(BLDVALUTA.COD, CodPreSelezionati)>0 Then 1 AS [ZSEL] FMT[NUMERICO[1]] ]
+      
+      EndIf 
+      
+      If CodValuta <> "" Then
+         
+         '@WHERE ESPR[BLDVALUTA.COD = CodValuta]
+         
+      EndIf
+   
+   '@ENDQUERY
+
+End

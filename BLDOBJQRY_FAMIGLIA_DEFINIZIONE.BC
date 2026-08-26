@@ -1,0 +1,14 @@
+'@PGQUERY BLDOBJQRY_FAMIGLIA_DEFINIZIONE STRICT[4] ' Query Famiglia - Definizione query
+
+   '@SBP Query[BCQUERY] [INOUT]
+
+   '@DEFQUERY QUERY[Query] NOME["BLDOBJQRY_FAMIGLIA_DEFINIZIONE_15"]
+
+      '@FROM TABELLA[BLDFAMIGLIA]
+      
+      '@COLUMN ESPR[BLDFAMIGLIA.COD AS [CodFamiglia]]_
+               ESPR[BLDFAMIGLIA.DES AS [DesFamiglia]]     
+
+   '@ENDQUERY
+
+End
