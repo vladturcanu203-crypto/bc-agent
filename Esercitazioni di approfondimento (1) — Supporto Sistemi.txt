@@ -1,0 +1,145 @@
+Esercitazioni di approfondimento (1)
+GSTRUMSVIL - Guida allo sviluppo in BC - © SISTEMI S.p.A.
+Esercitazione "Variabili e strutturazione del codice"
+Requisiti per lo svolgimento delle esercitazioni
+Per eseguire l'esercitazione, è necessario aver installato i sorgenti del corso Builder e creare un nuovo
+progetto di personalizzazione (es.: "TUT_AP") all'interno dell'area/prodotto installata.
+È necessario l'uso della guida e una buona conoscenza degli argomenti: main, moduli e sub,
+strutturazione del codice, variabili, variabili di ambiente e passaggio parametri.
+Durata prevista dell'esercitazione 8h.
+Modalità di esecuzione dell'esercitazione
+Creare un main in cui andare ad inserire i moduli dei singoli esercizi.
+ 
+Il nome del main deve includere il riferimento all'esercitazione.
+Il nome del modulo deve includere il riferimento dell'esercitazione e dell'esercizio che si sta svolgendo.
+Il nome della sub deve includere il riferimento dell'esercitazione e dell'esercizio.
+Il nome della dll in cui inserire le sub sviluppate deve contenere il riferimento dell'esercitazione.
+ 
+Se non esplicitamente richiesto, il modulo deve contenere esclusivamente la sub che svogle l'esercizio.
+ 
+Nel caso in cui l'esercizio richieda di aggiungere delle funzionalità all'esercizio precedente, si dovrà
+procedere con la duplicazione di tutti gli oggetti che compongono il programma (sub, classi, tipi dato) il
+quale avranno nel nome l'indicazione del nuovo esercizio.
+Esempi
+Nome del main: ESE01 si riferisce al main della prima esercitazione
+Nome del modulo: MOD01_02 si riferisce al secondo esercizio della prima esercitazione
+Nome della sub: SU01_03_** si riferisce all'esercizio 3 della prima esercitazione
+Nome della DLL: DLL01 si riferisce alla prima esercitazione
+Esercizio 1
+Prendere come riferimento il modulo "CBAS_01" del prodotto e creare un nuovo programma in modo che
+il messaggio a video:
+·         sia acquisito da linea di comando del programma (dimensione massima 80 caratteri);
+·         se superiore a 40 caratteri, sia suddiviso su più righe;
+·         presenti come ultima riga le informazioni di data e ora corrente in grassetto.
+27/07/26, 14:41 Esercitazioni di approfondimento (1) — Supporto Sistemi
+https://supporto.sistemi.com/5108/1/927020/654/single_print_view 1/4
+
+Esercizio 2
+Prendere come riferimento quanto sviluppato nell'esercizio 1 e creare un nuovo programma in modo da
+soddisfare le seguenti caratteristiche:
+·         inserite sulle finestra del messaggio i tasti <F1> ed <F4>;
+·         inserite un nuovo messaggio che evidenzi il tasto premuto;
+·         se premuto <F1> il programma deve visualizzare il messaggio "Premuto F1" ed esce;
+·         se premuto <F4> il programma deve incrementare un contatore, visualizzarne il valore e rieseguire
+il primo messaggio.
+Esercizio 3
+Prendere come riferimento il modulo "CBAS_02" del prodotto e creare un nuovo programma in modo da
+soddisfare le seguenti caratteristiche:
+·         il testo del messaggio sia acquisito da riga di comando (dimensione massima 80 caratteri);
+·         se premuto <F1> il programma deve visualizzare il messaggio "Premuto F1" ed esce;
+·         se premuto <F4> il programma deve visualizzare il valore del contatore incrementato in una sub
+esterna, inserita in DLL.
+Esercizio 4
+Prendere come riferimento il modulo "CBAS_02" del prodotto e creare un nuovo programma in modo da
+soddisfare le seguenti caratteristiche:
+·         scomponga la stringa
+"gennaio,febbraio,marzo,aprile,maggio,giugno,luglio,agosto,settembre,ottobre,novembre,dicembr
+e", ricevuta come riga di comando, nei singoli elementi caricando una collezione;
+·         in un sub esterna, inserita in DLL, utilizzare la collezione dei mesi passato in interfaccia per creare
+un'altra collezione che ne inverta l'ordine;
+·         inserire, a fine elaborazione, un messaggio a video con il testo "Utilizzare il BCLIVE" per controllare
+la correttezza della nuova collezione.
+ 
+Per la manipolazione delle stringhe è possibile fare riferimento alle schede del Manuale di riferimento del
+linguaggio BC:
+·         "Tipi dato di ambiente"
+·         "Metodi dei Tipi dato applicativi"
+·         "Metodi dei tipi base"
+Esercizio 5
+Prendere come riferimento il modulo "CBAS_02" del prodotto e creare un nuovo programma in modo da
+soddisfare le seguenti caratteristiche:
+·         esporre con un messaggio a video il valore della somma di due numeri interi;
+·         i due numeri devono essere ricevuti tramite riga di comando;
+·         la somma deve essere eseguita in una sub esterna, inserita in DLL, che riceve in input i due numeri
+e restituisca il risultato come valore di ritorno (Funzione).
+27/07/26, 14:41 Esercitazioni di approfondimento (1) — Supporto Sistemi
+https://supporto.sistemi.com/5108/1/927020/654/single_print_view 2/4
+
+Esercizio 6
+Prendere come riferimento il modulo "CBAS_02" del prodotto e creare un nuovo programma in modo da
+soddisfare le seguenti caratteristiche:
+·         dichiarare una variabile data e valorizzarla con la data (fissa da programma) 13/10/2019;
+·         controllare in una sub esterna, in DLL, che il giorno sia un Mercoledì. La sub deve ricevere in
+interfaccia la data e ritornare il risultato booleano come variabile di ritorno (Funzione). Per
+effettuare il confronto utilizzare una variabile di tipo dato enumerato con l'elenco dei giorni della
+settimana (Lunedì, Martedì, ecc...);
+·         visualizzare con un messaggio il risultato: "Il giorno è un mercoledì" in caso positivo oppure "Il
+giorno non è un mercoledì" in caso negativo.
+ 
+Per la manipolazione delle stringhe è possibile fare riferimento alle schede del Manuale di riferimento del
+linguaggio BC:
+·         "Tipi dato di ambiente"
+·         "Metodi dei Tipi dato applicativi"
+·         "Metodi dei tipi base"
+Esercizio 7
+Prendere come riferimento il modulo "CBAS_61" del prodotto e creare un nuovo programma in modo da
+soddisfare le seguenti caratteristiche:
+·         modificare il testo del contenuto del file in modo da andare a capo ad ogni parola utilizzando
+come caratteri di fine riga e a capo i seguenti CHR$(13) e CHR$(10). Per eseguire questa operazione
+rileggere il file;
+·         sovrascrivere il file con il risultato ottenuto inserendo in una subroutine interna parametrica la
+scrittura e controllo del file;
+·         aprire il file, da programma, dopo averlo creato per controllare la modifica.
+ 
+Per la manipolazione delle stringhe è possibile fare riferimento alle schede del Manuale di riferimento del
+linguaggio BC:
+·         "Tipi dato di ambiente"
+·         "Metodi dei Tipi dato applicativi"
+·         "Metodi dei tipi base"
+Esercizio 8
+Creare un nuovo programma che visualizzi il prezzo al netto dello sconto di un articolo. Per svolgere
+questo esercizio è necessario creare una classe CLS01_08_ARTICOLO composta da:
+·         Codice, di 15 caratteri;
+·         Descrizione, di 100 caratteri;
+·         Prezzo, numerico di tipo double di 13 interi di cui 2 decimali;
+·         Sconto, numerico di tipo intero di 2.
+ 
+27/07/26, 14:41 Esercitazioni di approfondimento (1) — Supporto Sistemi
+https://supporto.sistemi.com/5108/1/927020/654/single_print_view 3/4
+
+Il calcolo del prezzo scontato deve essere un metodo della classe.
+Visualizzare il risultato tramite un messaggio video:
+Il prezzo scontato dell'articolo <codice> - <descrizione> è <prezzo scontato>.
+ 
+Libera scelta per i valori che devono assumere le proprietà della classe. L'unico vincolo è che il prezzo sia
+maggiore di zero.
+Esercizio 9
+Creare un nuovo programma in modo che soddisfi le seguenti caratteristiche:
+·         modificare la classe INDIRIZZI aggiungendo la proprietà TipoIndirizzo di tipo numerico di 1 che
+accetti i valori: 1-Fatturazione; 2-Spedizione; 3-Altro. La proprietà deve essere inserita tra
+"NumProgressivo" e "Indirizzo";
+·         modificare il metodo di caricamento della collezione della classe CLIENTE (.CaricaClienti()) andando
+a valorizzare per ogni indirizzo di ogni cliente la nuova proprietà, scegliendo liberamente tra i tre
+valori che può assumere, rispettando i seguenti vincoli:
+·         il primo indirizzo deve essere quello di fatturazione;
+·         è possibile avere più indirizzi di spedizione, ma solo uno di fatturazione;
+·         cercare tutti i clienti che abbiano almeno un indirizzo di spedizione e che non sia titolare di partita
+IVA;
+·         modificare i clienti estratti dalla precedente ricerca aggiungendo la P.IVA e impostando il flag di
+titolare di P.IVA. Impostare la P.IVA con il valore "0123456789" più un ultimo carattere con valore
+random tra 5 e 9;
+·         eliminare il Cliente con Codice=2 per cessata attività;
+·         inserire, a fine elaborazione, un messaggio a video con il testo "Utilizzare il BCLIVE" per controllare
+la correttezza collezione modificata.
+27/07/26, 14:41 Esercitazioni di approfondimento (1) — Supporto Sistemi
+https://supporto.sistemi.com/5108/1/927020/654/single_print_view 4/4

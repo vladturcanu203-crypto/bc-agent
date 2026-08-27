@@ -1,0 +1,295 @@
+Il dizionario dati
+GSTRUMSVIL - Guida allo sviluppo in BC - © SISTEMI S.p.A.
+...a cosa serve il dizionario dati
+La definizione di una tabella viene fatta attraverso il DFX ed è tramite tale tipo oggetto che il programma
+BC ha a disposizione tutte le proprietà della tabella e il dizionario dati contenga tutte le informazioni utili
+alla sua gestione sul database.
+ 
+Un prodotto Sistemi può gestire e utilizzare anche più di un dizionario dati, anzi normalmente sono gestiti
+più di un dizionario dati e la scelta di quanti gestirne può essere motivata da diverse esigenze legate alla
+struttura e all'architettura del prodotto in sviluppo.
+ 
+Come abbiamo visto, il DFX è una definizione logica della tabella che viene usata in sviluppo, il dizionario
+dati è il contenitore di un insieme di DFX ed è lo strumento che deve essere utilizzato per fare in modo che
+sul database siano riportate le tabelle a cui i DFX sono riferiti.
+ 
+E' grazie al dizionario dati che lo sviluppatore gestisce l'evoluzione della base dati di un prodotto Sistemi.
+ 
+  Tutte le operazioni di creazione e di variazione della struttura di una tabella sul database sono eseguite
+attraverso il dizionario dati.
+Non sono mai eseguite operazioni sul database senza fare uso di uno strumento di sviluppo predisposto
+da Sistemi.
+ 
+ Maggiori dettagli e approfondimenti sugli argomenti trattati in questo capitolo sono disponibili nella
+guida di AGIS nelle sezioni "L'oggetto 'Nuovi dizionari dati (SQL)'  ".
+Creazione del dizionario dati e prime operazioni
+Subito dopo aver creato il dizionario dati devono essere inseriti al suo interno le definizione delle tabelle
+che devono essere gestite, devono quindi essere inseriti i riferimenti ai DFX da gestire all'interno della
+voce "Eleno descrittori complessivi".
+Nell'esempio riportato viene visualizzata la situazione definita sul dizionario dati BLD_TABELLE:
+ 
+20/07/26, 12:46 Il dizionario dati — Supporto Sistemi
+https://supporto.sistemi.com/5108/1/927052/651/single_print_view 1/13
+
+ 
+Da notare le informazioni presenti per ogni tabella dove vengono riportate la data e l'ora della versione
+del tracciato record.
+ 
+  Quando viene modificato in Agis un DFX viene stabilita la sua versione tramite la coppia di informazioni
+data+ora.
+La versione di un DFX identifica la sua struttura in un preciso momento dello sviluppo di un prodotto ed è
+determinata dalla data e dall'ora di salvataggio del tracciato record.
+ 
+La versione di un DFX è una informazione che viene recepita dai quei programmi BC che utilizzano la
+tabella a cui fa riferimento e quando un modulo o una sub vengono compilati sono riportate all'interno
+del sorgente .C le informazioni sulle tabelle da lui utilizzate.
+ 
+Durante l'esecuzione dei programmi sono poi gestiti dei controlli di congruità dall'ambiente di esecuzione
+Sistemi, nella pratica viene effettuato un confronto tra la versione della tabella rilevata sul programma e la
+sua versione individuata sul database.
+ 
+Eventuali incongruenze sono segnalate all'operatore e interrompono l'esecuzione perché se le versioni
+non coincidono significa che il programma tenta di accedere ad una tabella che sul database è ad una
+versione diversa da quella attesa.
+ 
+20/07/26, 12:46 Il dizionario dati — Supporto Sistemi
+https://supporto.sistemi.com/5108/1/927052/651/single_print_view 2/13
+
+ La modifica della definizione di una tabella (DFX) comporta che siano adeguati tutti i programmi che la
+utilizzano e che il database venga adeguato alla nuova struttura, è indispensabile che il programma in
+esecuzione e la tabella fisica sul database facciano riferimento alla medesima versione della tabella.
+ 
+Dopo aver creato il dizionario dati e aver inserito al suo interno le tabelle necessarie è possibile iniziare ad
+utilizzare il dizionario dati.
+ 
+L'evoluzione del dizionario dati viene fatta attraverso le sue diverse versioni e le azioni che possono
+essere eseguite su di esse.
+ 
+Quando viene creato un nuovo dizionario dati, o quando il dizionario dati che è stato rilasciato e
+distribuito viene riportato in sviluppo, è necessario creare una nuova versione di rilascio:
+ 
+ 
+la versione di rilascio è la versione che sarà rilasciata all'utente finale pertanto è la versione a cui tendere
+in fase di sviluppo.
+Quando gli sviluppi sul prodotto sono completati e possono essere quindi distribuiti agli utenti, la versione
+di rilascio deve essere rilasciata, tale operazione permette di chiudere lo sviluppo del dizionario dati
+andando ad attribuire alla versione la coppia di informazioni data+ora che la identificano. L'operazione di
+rilascio genera il piano di adeguamento tra la precedente versione rilasciata e quella in rilascio necessario
+per eseguire fisicamente le operazioni di adeguamento delle tabelle.
+ 
+ Una volta distribuita sugli utenti la versione rilasciata in dizionario non può più essere riaperto, sarà
+necessario creare una nuova versione di rilascio a cui tendere.
+20/07/26, 12:46 Il dizionario dati — Supporto Sistemi
+https://supporto.sistemi.com/5108/1/927052/651/single_print_view 3/13
+
+Evoluzione della base dati in sviluppo
+Nelle varie fasi di sviluppo di una nuova versione di prodotto sono effettuate molteplici operazioni e sulla
+base dati può essere necessario creare nuove tabelle oppure modificare tabelle già esistenti.
+ 
+In pratica partendo da una situazione precedentemente rilasciata oppure partendo da zero le operazioni
+che devono essere eseguite nella definizione della base dati sono le stesse.
+ 
+Inizialmente è sempre necessario creare una nuova versione di sviluppo sul dizionario dati:
+ 
+ 
+in questo modo viene definito il punto di partenza dell'evoluzione del dizionario dati.
+ 
+Se si tratta di un nuovo dizionario dati sarà la versione che definisce le tabelle per la prima volta e
+procederà alla loro creazione.
+ 
+Successivamente, eseguendo l'operazione "Applica versione", viene applicata la versione sul database e
+sono quindi fisicamente riportate le definizioni delle tabelle:
+ 
+20/07/26, 12:46 Il dizionario dati — Supporto Sistemi
+https://supporto.sistemi.com/5108/1/927052/651/single_print_view 4/13
+
+ 
+ Solo dopo l'operazione "Applica versione" il database viene allineato alla corretta definizione delle
+tabelle data dalla versione applicata.
+ 
+ Per visualizzare se la versione è stata applicata correttamente sulle aree è possibile utilizzare il bottone
+Stato AdL oppure utilizzare il programma BCFSQL dall'installazione corrispondente all'AdL.
+ 
+Durante le varie fasi dello sviluppo sono normalmente modificate una o più tabelle e dopo aver
+completato le modifiche al DFX si procede ad adeguare tutti i programmi che ne fanno uso.
+ 
+Una volta raggiunto il momento di poter fare dei test sui programmi è necessario andare ad eseguire le
+varie funzioni in un'area di lavoro che deve essere idonea alla loro esecuzione.
+ 
+Prima di poter eseguire tali programmi deve essere applicato il dizionario dati per fare in modo che il
+database sia aggiornato alla situazione corretta delle tabelle.
+Le versioni del dizionario che possono essere create durante il normale sviluppo di un prodotto sono le
+versioni di sviluppo e le versioni parziali.
+ 
+La versione di sviluppo è una versione che contiene una 'fotografia' di tutte le tabelle inserite nel
+dizionario dati mentre la versione parziale è la 'fotografia' di una o più tabelle, quindi solo di una parte
+delle tabelle che compongono il dizionario dati.
+ 
+Ad esempio:
+ 
+20/07/26, 12:46 Il dizionario dati — Supporto Sistemi
+https://supporto.sistemi.com/5108/1/927052/651/single_print_view 5/13
+
+ 
+La versione di sviluppo "3.0.002" contiene tutte le tabelle e la versione parziale "3.0.004" contiene solo la
+tabella query prezzo medio.
+Le versioni parziali
+All'interno di un gruppo di lavoro l'assegnazione dei lavori deve essere gestita in modo tale da suddividere
+le competenze e gli interventi da eseguire.
+ 
+E' quindi molto probabile che programmatori diversi lavorino su programmi diversi e su tabelle diverse e
+quindi ogni programmatore lavora su una parte del prodotto e ne gestisce i vari aspetti.
+ 
+Diventa quindi molto utile poter lavorare in piena autonomia e poter eseguire le diverse operazioni
+necessarie senza andare in conflitto con quanto in sviluppo da altri.
+ 
+L'utilizzo delle versioni parziali consente proprio di lavorare in questo modo, il programmatore che ha
+preso in carico l'eventuale adeguamento di una tabella e dei programmi che la usano può muoversi in
+modo quasi del tutto autonomo proprio perché le singole versioni possono essere gestite separatamente.
+ 
+Nell'esempio riportato qui di seguito la versione parziale "3.0.004" è stata definita con la sola tabella
+"QRYPREZZOMEDIOART" mentre "3.0.002.XXXXXX.01" con la sola tabella "BLDIVA":
+ 
+20/07/26, 12:46 Il dizionario dati — Supporto Sistemi
+https://supporto.sistemi.com/5108/1/927052/651/single_print_view 6/13
+
+ 
+Inoltre l'applicazione di una versione parziale permette di eseguire il salvataggio della tabella (o delle
+tabelle) su cui lavora prima di procedere con l'adeguamento:
+ 
+20/07/26, 12:46 Il dizionario dati — Supporto Sistemi
+https://supporto.sistemi.com/5108/1/927052/651/single_print_view 7/13
+
+ 
+In questo modo, avendo il salvataggio delle tabelle, è possibile eseguire un rollback delle operazioni
+effettuate dalla versione parziale.
+ 
+Dalla versione parziale selezionare "<F2-Stato AdL>":
+ 
+ 
+selezionare l'area su cui si intende procedere:
+ 
+ 
+e selezionare l'eventuale versione parziale su cui eseguire il rollback:
+ 
+20/07/26, 12:46 Il dizionario dati — Supporto Sistemi
+https://supporto.sistemi.com/5108/1/927052/651/single_print_view 8/13
+
+ 
+al termine dell'operazione di rollback il database sarà alla situazione precedente all'applicazione della
+versione parziale "4.0.001.ART.01".
+I tipi di versione
+ 
+Il dizionario dati definisce un elenco di tabelle che sono un sottoinsieme delle tabelle contenute nel
+database.
+Tramite il dizionario dati viene gestita l'evoluzione del database durante lo sviluppo e con le versioni è
+possibile andare ad adeguare il database sull'area di lavoro.
+Ogni singola versione gestita sul dizionario dati è una immagine, complessiva o parziale, delle tabelle
+memorizzata in un certo istante.
+Le varie versioni hanno un loro codice (versione) ma sono identificate dalla coppia di informazioni
+data+ora.
+Le diverse versioni sono:
+ 
+di rilascio versione 'obiettivo' da rilasciare all'esterno, nasce con la nuova versione del
+prodotto e contiene tutti i descrittori appartenenti al dizionario all'istante del
+rilascio;
+di sviluppo versione 'intermedia' in fase di sviluppo, nasce durante lo sviluppo con funzioni
+di test applicativo, contiene tutti i descrittori appartenenti al dizionario all'istante
+della sua creazione, rappresenta lo stato complessivo del dizionario in
+quell'istante;
+parziale versione intermedia in fase di sviluppo, contiene solo un elenco ridotto di
+tabelle per aggiornamenti mirati e più rapidi.
+ 
+Al cliente arriveranno SOLO versioni di rilascio.
+Il log di adeguamento
+Tutte le operazioni che un dizionario dati esegue su un'area di lavoro sono tracciate all'interno di un file di
+log che è consultabile tramite la funzione "<F2-Stato AdL>".
+ 
+20/07/26, 12:46 Il dizionario dati — Supporto Sistemi
+https://supporto.sistemi.com/5108/1/927052/651/single_print_view 9/13
+
+ 
+ 
+la consultazione del file di log è molto utile soprattutto in fase di analisi di eventuali comportamenti
+anomali, il log riporta in sequenza temporale tutte le operazioni effettuate durante l'adeguamento della
+base dati ed il loro esito.
+Le predisposizioni
+L'adeguamento automatico della base dati fatto dal dizionario dati non può certo coprire ogni tipo di
+modifica effettuata sulle tabelle.
+ 
+Ad esempio, se su una tabella viene modificata la chiave è necessario procedere allo sviluppo di un
+programma di conversione che vada a convertire i dati della tabella creando in modo adeguato le sue
+nuove righe con la chiave correttamente valorizzata.
+ 
+E' obbligatorio utilizzare il dizionario dati per ogni tipo di intervento sul database.
+ 
+Quando viene modificato un DFX AGIS propone la creazione di una versione parziale con cui poi andremo
+ad applicare il dizionario dati sul database dell'area di lavoro, ma ci permette anche di poter già creare la
+sub di predisposizione che sarà eseguita in fase di adeguamento della base dati per la specifica tabella.
+ 
+20/07/26, 12:46 Il dizionario dati — Supporto Sistemi
+https://supporto.sistemi.com/5108/1/927052/651/single_print_view 10/13
+
+Esempio:
+ 
+Viene richiesto il tipo di predisposizione e viene proposto il nome di una sub e della dll in cui la sub sarà
+inserita e poi sono create in agis:
+ 
+ 
+20/07/26, 12:46 Il dizionario dati — Supporto Sistemi
+https://supporto.sistemi.com/5108/1/927052/651/single_print_view 11/13
+
+e sul dizionario dati la sub viene inserita tra le azioni da eseguire in fase di adeguamento della base dati:
+ 
+ 
+Avendo definito una predisposizione e avendola inserita nelle azioni della versione, quando tale versione
+sarà applicata al database, per la tabella articoli non sarà eseguito l'adeguamento della base dati
+automatico ma sarà eseguita la predisposizione indicata; l'adeguamento della tabella specifica è quindi a
+carico del programmatore BC.
+I tipi di predisposizione
+I diversi tipi di predisposizione definiscono il comportamento che deve essere adottato dalla sub di
+predisposizione oltre al comportamento di alcune azioni preventive alla sua esecuzione.
+Di seguito viene riportata una descrizione dei diversi tipi di predisposizione che possono essere utilizzati:
+ 
+Pre copia la tabella vecchia in una tabella temporanea, crea la tabella nuova, popola la tabella
+nuova con i campi copiabili della tabella vecchia, esecuzione della sub di predisposizione;
+PreNC copia la tabella vecchia in una tabella temporanea, crea la tabella nuova,  NON popola la
+tabella nuova con i campi copiabili della tabella vecchia, esecuzione della sub di
+predisposizione;
+PreAT NON viene creata una copia della tabella vecchia; viene adeguata la nuova tabella tramite alter
+table, esecuzione della sub di predisposizione;
+ 
+Questi tre tipi di predisposizione sono definiti su una specifica tabella e operano solo su di essa.
+Se è necessario gestire una predisposizione che deve operare su diverse tabelle deve essere utilizzata una
+predisposizione di tipo PreSA.
+La predisposizione PreSA richiede un DFX di riferimento solo per fare in modo che in esecuzione agisca su
+un singolo gruppo archivi oppure su tutti i gruppi indistintamente.
+ 
+ Per l'elenco delle azioni utilizzabili è possibile consultare la scheda relativa alle Azioni associate ad
+una versione di dizionario.
+Gli oggetti EPT
+Un altro componente del dizionario dati sono gli oggetti di tipo EPT e sono uno strumento molto utile per
+fare in modo che siano distribuiti dei dati nelle tabelle.
+20/07/26, 12:46 Il dizionario dati — Supporto Sistemi
+https://supporto.sistemi.com/5108/1/927052/651/single_print_view 12/13
+
+Tramite il dizionario dati è quindi possibile definire e manutenere la struttura di una tabella ed è possibile
+fare in modo che una tabella sia popolata con dei contenuti distribuiti.
+Gli oggetti EPT sono in pratica dei file compressi che contengono uno o più file xml (.SXDAT) che
+contengono i dati delle tabelle da popolare.
+Le operazioni principali che possono essere eseguite in AGIS sui file EPT sono le seguenti:
+ 
+EDITAZIONE definizione delle tabelle che devono essere popolate, selezione dell'area di lavoro
+master da cui attingere i dati da distribuire;
+ESPORTAZIONE creazione del file compresso .SXPTZ contenente un insieme di file XML (.SXDAT)
+contenenti l'esportazione di ogni singola tabella;
+POPOLAMENTO installa il file .SXPTZ nella base dati selezionata, a seconda dei modi di sovrascrittura
+decisi in fase di editazione per la singola tabella.
+ 
+Una volta confezionato il contenitore delle tabelle da distribuire deve poi essere inserita l'azione specifica
+sulla versione del dizionario dati he andrà ad effettuare il popolamento durante l'adeguamento della base
+dati.
+Sull'azione è possibile configurare le modalità di popolamento come, a esempio se essere eseguita in fase
+di installazione di un master oppure di un aggiornamento.
+20/07/26, 12:46 Il dizionario dati — Supporto Sistemi
+https://supporto.sistemi.com/5108/1/927052/651/single_print_view 13/13

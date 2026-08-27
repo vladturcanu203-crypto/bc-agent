@@ -1,0 +1,999 @@
+Introduzione all'ambiente di sviluppo Sistemi
+GSTRUMSVIL - Guida allo sviluppo in BC - © SISTEMI S.p.A.
+·       Concetti generali
+·       Prerequisiti
+·       Installazione e avvio Builder
+·       Installazione e avvio Builder DEMO
+·       Installazione sorgenti di Builder DEMO
+·       Configurazione iniziale
+Concetti generali
+BUILDER: L'ambiente di sviluppo di Sistemi
+L'obiettivo di questa guida è quello di fornire tutte le informazioni necessarie per apprendere le logiche
+generali, installare ed utilizzare l'ambiente di sviluppo Sistemi.
+Builder consente lo sviluppo di applicazioni fruibili sia in modalità Desktop per ambienti Windows che
+Web, integrando con MS SQL Server come DBMS per l'accesso alla base dati.
+ 
+Alcuni dei componenti dell'ambiente di sviluppo Sistemi prevedono specifici manuali, ai quali si farà
+riferimento esplicito in questa guida per approfondire gli argomenti in dettaglio.
+ 
+Partiamo anzitutto col fare una veloce panoramica sulle principali componenti dell'ambiente di sviluppo
+Sistemi, in modo da iniziare a familiarizzare con i termini e i concetti che ci seguiranno poi durante tutto il
+corso.
+Ciascuno di questi elementi verrà poi ripreso e dettagliato in appositi capitoli della guida.
+ 
+08/07/26, 15:12 Introduzione all'ambiente di sviluppo Sistemi — Supporto Sistemi
+https://supporto.sistemi.com/5108/1/927006/full_print_view 1/42
+
+Ambiente di sviluppo
+·       AGIS: è lo strumento principale che supporta il programmatore a gestire in modo completo il ciclo di
+vita del software fino alla produzione di un package per la distribuzione del prodotto all'utente finale.
+Attraverso AGIS vengono gestiti e organizzati sia i sorgenti che compongono un prodotto sia tutti gli
+altri oggetti a corredo dello stesso, come report, menù, formati di stampa, immagini e quant'altro serva
+al funzionamento del prodotto stesso.
+·       LINGUAGGIO BC: è il linguaggio di programmazione proprietario Sistemi. È un linguaggio di alto livello
+(o metalinguaggio) rivolto espressamente allo sviluppo di applicazioni gestionali / transazionali dando la
+possibilità di scrivere sorgenti che danno vita ad applicazioni multipiattaforma.
+È un linguaggio orientato alla programmazione ad oggetti ed è  in costante evoluzione.
+08/07/26, 15:12 Introduzione all'ambiente di sviluppo Sistemi — Supporto Sistemi
+https://supporto.sistemi.com/5108/1/927006/full_print_view 2/42
+
+·       TRADUTTORE: è lo strumento  attraverso il quale i sorgenti scritti in BC vengono trasformati in sorgenti
+analoghi ma scritti in un linguaggio di programmazione standard che a seconda della piattaforma può
+essere C (desktop) o C# (Web/mobile). Questo componente è di fondamentale importanza in quanto
+permette di tenere separata la descrizione logica di cosa deve fare il programma dal modo in cui tale
+comportamento viene ottenuto, garantendo quindi sia l'evoluzione tecnologica che la indipendenza
+dalla piattaforma hardware su cui il programma deve funzionare.
+·       BCDevelop: è l'editor dei sorgenti BC, derivato da un progetto open source poi notevolmente
+implementato e integrato in modo da renderlo perfettamente aderente sia al linguaggio che alle
+tecniche di sviluppo di Sistemi.
+·       DIZIONARIO DATI: è lo strumento attraverso il quale viene gestita la struttura della base dati del
+prodotto, dalla definizione logica alla generazione dello script SQL per la generazione dello schema dati
+sul DataBase. Consente la gestione del versioning della base dati.
+·       SISFORM: è il disegnatore di formati di stampa attraverso il quale vengono definiti i layout che devono
+avere le stampe e i report del prodotto.
+·       REPORTER: è lo strumento di reportistica che spazia dalla semplice estrazione dei dati alla produzione
+di file (PDF, XLSX, CSV, TXT), alla generazione di mailing list.
+·       MANUALI DI RIFERIMENTO: una ricca manualistica di riferimento in continua evoluzione e integrata
+con gli strumenti dell'ambiente di sviluppo.
+Ambiente di esecuzione
+È il cuore dell'ambiente di sviluppo in quanto rappresenta l'insieme di tutte le funzioni primitive a cui il
+sorgente BC (tradotto in linguaggio nativo) può far riferimento. Anche chiamate Librerie di Ambiente,
+terminologia che enfatizza la distinzione da quelle di prodotto.
+Permette quindi la lettura e scrittura di file di ogni tipo, integrazione con Word ed Excel, invio mail,
+stampe, interazioni con il database, e altro ancora.
+ 
+ In supporto a questa guida è disponibile il Manuale di riferimento del linguaggio BC che contiene
+schede specifiche per ogni istruzione e funzione BC, ogni scheda ha la definizione e la descrizione di ogni
+singola specifica e di tutti i suoi parametri con eventuali esempi di utilizzo.
+Inoltre il manuale di riferimento del linguaggio BC è integrato nell'editor dei sorgenti per essere utilizzato
+come help in linea del linguaggio di programmazione.
+L'ambiente di esecuzione BUILDER/Sistemi
+L'ambiente di sviluppo permette la definizione, lo sviluppo e la produzione di un programma eseguibile
+(ovviamente questa è una definizione molto sintetica), tale programma per poter poi essere eseguito
+necessita il supporto dell'ambiente di esecuzione Sistemi.
+ 
+Quando un programma Sistemi viene eseguito ha l'esigenza di gestire una interfaccia a video con cui
+visualizzare informazioni o consentire all'utente il loro inserimento, deve poter accedere alla base dati per
+leggere e aggiornare i dati sul database, si deve integrare con Microsoft-Office e deve poter generare file
+in formato .PDF oppure ancora deve poter gestire la posta elettronica o deve eseguire operazioni come la
+gestione della firma digitale su un documento.
+08/07/26, 15:12 Introduzione all'ambiente di sviluppo Sistemi — Supporto Sistemi
+https://supporto.sistemi.com/5108/1/927006/full_print_view 3/42
+
+ 
+L'ambiente di esecuzione Sistemi, composto da diversi eseguibili e DLL a supporto di tutte le funzionalità
+di un programma sviluppato in BC ed è indispensabile alla sua esecuzione.
+Guide e manuali
+Insieme a questa guida ne sono distribuite diverse altre che trattano gli argomenti specifici:
+·       Manuale di riferimento del linguaggio BC > Definizione delle specifiche previste dal linguaggio BC
+·       la guida di AGIS
+·       la guida di BCDevelop
+·       la guida di SISFORM - Gestione formati di Stampa
+·       la guida di REPORTER - Gestione avanzata Sistema di Reporting
+·       il forum ambiente di sviluppo Sistemi - https://buildercommunity.sistemi.com
+ 
+ I programmatori che seguono il corso di formazione continueranno invece ad utilizzare il forum
+dedicato previsto dall'aula del corso online. Una volta certificati potranno partecipare attivamente al
+forum della community.
+Lo sviluppo di un prodotto
+La gestione dello sviluppo di un prodotto gestionale viene effettuato attraverso le diverse fasi che fanno
+parte del suo ciclo lavorativo, dalla progettazione e analisi del prodotto per procedere attraverso la
+definizione di una base dati, le funzioni di gestione e di reportistica, lo sviluppo delle attività pianificate e il
+loro test funzionale fino ad arrivare al confezionamento del prodotto per la sua distribuzione.
+ 
+In ogni singolo aspetto del processo di lavoro sono necessari strumenti a supporto di coloro che ne sono
+coinvolti, strumenti che sono indispensabili sia in uno sviluppo su un progetto piuttosto semplice ma
+soprattutto quando un progetto assume dimensioni importanti in cui sono coinvolte più persone che
+devono poter essere in grado di gestire e coordinare il proprio lavoro con quello di tutti gli altri loro
+collaboratori.
+ 
+Per tutte le attività di sviluppo e in supporto alle attività di analisi, di verifica e di distribuzione di un
+prodotto Sistemi ha sviluppato AGIS; uno strumento indispensabile che ci supporta in tutte le nostre
+attività.
+ 
+La gestione di tutti i componenti di un prodotto e quindi la catalogazione di tutti gli oggetti che lo
+compongono, la creazione di un sorgente e la definizione di un eseguibile, la definizione logica della base
+dati e la sua applicazione fisica sul database sono tutte funzionalità che vengono svolte da AGIS e dagli
+strumenti predisposti a tale scopo che sono integrati con esso.
+ 
+AGIS accompagna ogni singola risorsa del gruppo di sviluppo nelle sue funzioni specifiche ad è uno
+strumento molto efficace per la definizione dell'ambiente di lavoro di un gruppo di sviluppo.
+ 
+08/07/26, 15:12 Introduzione all'ambiente di sviluppo Sistemi — Supporto Sistemi
+https://supporto.sistemi.com/5108/1/927006/full_print_view 4/42
+
+La vita di un prodotto Sistemi prevede una fase iniziale di progettazione e disegno poi, successivamente, si
+procede con sviluppi e rilasci che vengono distribuiti nel tempo; con AGIS sono gestite tutte le singole fasi
+di vita di un prodotto:
+·       creazione di un prodotto;
+·       definizione e versioning della base dati;
+·       sviluppo e generazione eseguibili e DLL
+·       test delle applicazioni sviluppate
+·       definizione di progetti di sviluppo e la loro manutenzione
+·       chiusura dei progetti di sviluppo
+·       consolidamento del prodotto e sua distribuzione
+·       rilascio della versione di prodotto consolidata per procedere allo sviluppo di una versione successiva.
+ 
+Sono inoltre gestiti i progetti di personalizzazione utili soprattutto ai nostri partner che si occupano tra le
+altre cose della personalizzazione dei prodotti standard Sistemi per i clienti che hanno esigenze
+particolari.
+ 
+All'interno di questa guida sono descritte le diverse modalità con cui è possibile configurare l'ambiente di
+lavoro in base alle esigenze proprie del prodotto, saranno descritte le funzionalità di AGIS che permettono
+e regolano la definizione e l'organizzazione di un prodotto nelle sue versioni, nei suoi sviluppi e nella sua
+storicizzazione.
+ 
+Prerequisiti
+ Prerequisiti
+Lo sviluppo in BC implica la disponibilità dell'ambiente di sviluppo Sistemi e ovviamente di un'area di
+lavoro predisposta e configurata a tale scopo.
+In questa guida viene presentato il processo di installazione e configurazione del prodotto BUILDER.
+Successivamente viene spiegata la configurazione in AGIS dell'ambiente di lavoro, così da essere
+pienamente operativi sullo strumento e poter iniziare ad utilizzarlo.
+Infine viene presentato il flusso operativo per effettuare il download dei sorgenti dimostrativi del prodotto
+BUILDER/Demo, utili ad apprendere tramite esempi concreti la tecnica di sviluppo in BC.
+Prerequisiti
+In questa guida viene presa come riferimento l'ultima versione pubblicata di Builder. Gli esempi utilizzati
+per l'installazione, invece, utilizzano la versione 2017.2.
+ 
+Le modalità di installazione ed il setup sono gli stessi degli altri prodotti distribuiti con solo alcune
+particolarità specifiche che in seguito saranno descritte.
+ 
+08/07/26, 15:12 Introduzione all'ambiente di sviluppo Sistemi — Supporto Sistemi
+https://supporto.sistemi.com/5108/1/927006/full_print_view 5/42
+
+Allo stesso modo di un eSOLVER piuttosto che di un PROFIS il prodotto Builder necessita degli stessi
+requisiti di base (DBMS SQL-Server) a cui vanno aggiunte alcune esigenze specifiche come ad esempio un
+compilatore C per poter produrre i programmi eseguibili.
+ 
+Un esempio di Info Sistemisti è disponibile la segnalazione SI4215:
+ 
+ 
+dove sono indicati i requisiti necessari ai prodotti Sistemi, al suo interno viene trattato anche il prodotto
+Builder con le sue particolarità.
+Requisiti compilatore C
+Altro requisito dell'ambiente di sviluppo Builder è avere a disposizione un compilatore C ed è possibile
+fare uso di una delle seguenti tre versioni:
+·         Microsoft Visual C++ 2019
+·         Microsoft Visual C++ 2010
+ 
+ Le due versioni di compilatore C sopra indicate sono le uniche versioni compatibili con l'ambiente di
+sviluppo Sistemi.
+Altre versioni possono causare dei malfunzionamenti o non funzionare correttamente.
+ 
+ Il compilatore 2010 può essere utilizzato a partire dalla versione di traduttore 22.1 e rispetto alla
+versione 6 permette di ottenere librerie/eseguibili di dimensione ridotta e con minore occupazione di
+memoria a run-time.
+ 
+ Il compilatore 2019 può essere utilizzato a partire dalla versione di traduttore 29.0 e rispetto alla
+versione precedente permette la compilazione a 64 bit.
+ 
+ Nello sviluppo di una personalizzazione la scelta della versione di traduttore e di compilatore C da
+utilizzare è vincolata dalle caratteristiche del prodotto da personalizzare, ma sui nuovi sviluppi è sempre
+consigliabile lavorare con la versioni più aggiornata sia del traduttore che del compilatore C.
+Installazione del compilatore C
+Visual Studio 2010 fornisce il compilatore C++ 2010 utile allo sviluppo in BC, è possibile installare in un
+percorso di rete il necessario alla compilazione dei sorgenti BC per fare in modo che sia condiviso
+all'interno di un gruppo di sviluppo ma se si rende necessario eseguire un programma con il debug C
+allora è necessario che sia installato Visual Studio 2010 sul client.
+08/07/26, 15:12 Introduzione all'ambiente di sviluppo Sistemi — Supporto Sistemi
+https://supporto.sistemi.com/5108/1/927006/full_print_view 6/42
+
+La versione Express gratuita è più che sufficiente, sul SAR Builder trovate la segnalazione SR212 che
+fornisce tutte le informazioni utili per installare MS-Visual Studio 2010 in base alle proprie esigenze.
+ 
+Altro componente essenziale per il nostro ambiente di sviluppo sono le SDK Windows 7, nella stessa
+segnalazione è disponibile il setup da eseguire.
+ 
+Per il la versione 2019 è necessario installare i componenti dal link della segnalazione SR357. Con questa
+versione non è più necessario installare Visual Studio in locale.
+ 
+Installazione e avvio Builder
+ Installazione e avvio Builder
+IDS - Abilitazione del prodotto Sistemi
+Builder è sottoposto ad una verifica di abilitazione, deve essere pertanto richiesta l'abilitazione al Servizio
+Utenti presso Sistemi.
+Download del prodotto BUILDER
+Dopo aver soddisfatto i vari requisiti del prodotto si può procedere con il download e l'installazione del
+prodotto Builder, sull'area Builder (SAR Builder) del portale Sistemi AOL Assistenza On Line è possibile
+trovare la segnalazione con la pubblicazione dell'ultima versione di prodotto rilasciata: la segnalazione al
+suo interno contiene il link per il download del pacchetto di installazione ed il link alle note di rilascio del
+prodotto, è consigliabile prendere visione delle note per poi procedere all'installazione della nuova
+versione del prodotto Builder.
+ 
+Una volta installato il prodotto Builder è consigliabile configurarlo in modo da far si che il download e
+l'aggiornamento dei micro aggiornamenti sia effettuato in modo automatico, così facendo si ha sempre a
+disposizione l'ultima versione rilasciata e aggiornata.
+Installazione e abilitazione del prodotto BUILDER
+Superate le fasi di preparazione dei requisiti e dopo aver effettuato il download del prodotto Builder
+copiate l'immagine del cd contenuta nel file .ZIP sul vostro client in una cartella temporanea, ad esempio
+"C:\TEMP\BUILDER_SQL_2017.2".
+Procedere poi con l'esecuzione del setup con il comando "C:\TEMP\BUILDER_SQL_2017.2\WIN64\SETUP /NEW":
+ 
+08/07/26, 15:12 Introduzione all'ambiente di sviluppo Sistemi — Supporto Sistemi
+https://supporto.sistemi.com/5108/1/927006/full_print_view 7/42
+
+ 
+Come per gli altri prodotti Sistemi anche Builder ha a corredo della documentazione di rilascio, è bene
+consultarla e poi proseguire con le operazioni di setup.
+ 
+Successivamente viene visualizzato il contenuto del package del prodotto:
+ 
+ 
+Come si può vedere in esso sono presenti solo le ultime versioni più recenti del traduttore; come sopra
+riportato,  le eventuali versioni precedenti di traduttore possono essere installate successivamente
+tramite un micro aggiornamento.
+ 
+08/07/26, 15:12 Introduzione all'ambiente di sviluppo Sistemi — Supporto Sistemi
+https://supporto.sistemi.com/5108/1/927006/full_print_view 8/42
+
+Nel passaggio successivo sono proposte e richieste le coordinate dell'installazione:
+ 
+ 
+dove rispetto agli altri prodotti Sistemi la proposta delle direttive è un po' differente, nelle cartelle
+proposte è stata inserita una direttiva radice "C:\BUILDER\" che ha la funzione di essere una root destinata
+a contenere tutte le ulteriori sottocartelle di AGIS, le versioni di traduttore, sorgenti, etc.
+Dopo aver indicato i riferimenti al database di prodotto e confermando i dati indicati, è possibile
+proseguire  con l'installazione del prodotto, viene subito eseguita la creazione del database e
+successivamente viene portato a termine il setup.
+ 
+Al termine dell'installazione del prodotto è possibile eseguirlo tramite la specifica icona creata sul desktop,
+alla sua prima esecuzione saranno eseguite alcune procedure automatiche e verrà richiesto di procedere
+con l'installazione dell'abilitazione del prodotto:
+ 
+08/07/26, 15:12 Introduzione all'ambiente di sviluppo Sistemi — Supporto Sistemi
+https://supporto.sistemi.com/5108/1/927006/full_print_view 9/42
+
+ 
+ 
+ 
+ Per utilizzare il prodotto Builder è necessario avere a disposizione uno specifico IDS che abilita al suo
+utilizzo.
+Operatori e stazioni di lavoro
+ Dopo la prima installazione il prodotto possiede una configurazione iniziale con un unico operatore
+disponibile "ADMIN" a cui è associata la stazione "W1". Come per gli altri prodotti Sistemi è necessario
+procedere alla creazione dei diversi operatori che devono poter condividere l'ambiente di sviluppo.
+ 
+Le operazioni di creazione e di configurazione degli operatori possono essere effettuate utilizzando il
+programma di configurazione dell'ambiente sistemi  "GCONF - Gestione Configurazione".
+Dopo aver creato e configurato gli operatori necessari sarà possibile iniziare a lavorare sul prodotto
+Builder anche con operatori specifici.
+08/07/26, 15:12 Introduzione all'ambiente di sviluppo Sistemi — Supporto Sistemi
+https://supporto.sistemi.com/5108/1/927006/full_print_view 10/42
+
+ 
+Prima esecuzione, configurazione della stazione in AGIS
+Dopo aver completato tutte le fasi necessarie alla configurazione del prodotto Builder è possibile eseguire
+il prodotto ed entrare in AGIS.
+Per poter utilizzare AGIS è necessario effettuare una ulteriore operazione, essendo AGIS un programma di
+gestione molto complesso e articolato è stato dotato di una sua configurazione delle stazioni di lavoro
+separata dal prodotto Builder.
+Non essendo possibile creare le impostazioni della stazione con valori di default di base, si rende
+necessario fare in modo che l'operatore completi la configurazione della stazione.
+Per agevolare gli utenti in queste operazioni AGIS fa in modo che al suo primo accesso venga proposto
+all'operatore di creare la stazione in uso derivandone alcuni dati dall'operatore in uso sul prodotto
+Builder:
+ 
+ 
+confermando la richiesta è possibile procedere nella configurazione della stazione di lavoro:
+ 
+08/07/26, 15:12 Introduzione all'ambiente di sviluppo Sistemi — Supporto Sistemi
+https://supporto.sistemi.com/5108/1/927006/full_print_view 11/42
+
+ 
+tra i parametri della configurazione della stazione ci sono delle informazioni anagrafiche e dei parametri
+di configurazione dell'editor per l'editazione dei sorgenti.
+Comando di avvio Editor
+BCDevelop
+Già da diverse versioni del prodotto Builder Sistemi distribuisce un editor integrato con il proprio
+ambiente di sviluppo.
+Si tratta di BCDevelop, un IDE gratuito e open source per i linguaggi di programmazione, che nelle sue
+prime versioni è stato proposto un po' timidamente.
+Con il tempo Sistemi ha implementato e potenziato BCDevelop rendendolo sempre più integrato con il
+linguaggio BC ma soprattutto con gli strumenti di sviluppo diventando uno strumento essenziale nella
+quotidianità di uno sviluppatore BC.
+E' pur sempre possibile utilizzare un altro editor ma è fortemente sconsigliato, non c'è motivo per fare a
+meno delle potenzialità e del valore aggiunto che BCDevelop fornisce allo sviluppo.
+In seguito avremo modo di vedere le funzionalità aggiunte a BCDevelop nel dettaglio, nel frattempo
+procedere quindi con l'installazione di  BCDevelop e con la configurazione di SISWIN tramite gli specifici
+bottoni della videata di configurazione della stazione di lavoro riportata sopra.
+ 
+08/07/26, 15:12 Introduzione all'ambiente di sviluppo Sistemi — Supporto Sistemi
+https://supporto.sistemi.com/5108/1/927006/full_print_view 12/42
+
+  Si rimanda direttamente al Manuale di BCDevelp per visualizzare tutte le potenzialità dell'editor
+consigliato.
+ 
+La compilazione locale e remota
+Ogni stazione di lavoro in AGIS può definire come eseguire la compilazione dei sorgenti BC ed il link degli
+eseguibili:
+ 
+ 
+Le due modalità di compilazione si differenziano come segue:
+·         se la compilazione è definita come "locale" il comando di compilazione genera un file batch (.bat)
+che viene eseguito dal proprio client in background senza alcuna richiesta
+·         se la compilazione è definita come 'remota' allora è necessario definire almeno una coda di
+compilazione.
+ 
+La configurazione standard prevede la compilazione locale.
+Le code di compilazione remote vengono solitamente utilizzate per compilazioni massive su macchina
+dedicata.
+ 
+08/07/26, 15:12 Introduzione all'ambiente di sviluppo Sistemi — Supporto Sistemi
+https://supporto.sistemi.com/5108/1/927006/full_print_view 13/42
+
+La coda di compilazione non è altro che una cartella di destinazione in cui viene copiato il comando di
+compilazione, sarà poi un altro client configurato all'interno del gruppo di sviluppo che si occupa di
+andare a scandire il contenuto di tale cartella per individuare tali file ed eseguirli.
+Con AGIS viene distribuito il programma eseguibile BCLOOP.EXE che si occupa proprio di questo, quando
+è in esecuzione cerca ed esegue i comandi di compilazione (file .bat) presenti in una cartella.
+L'esecuzione dei comandi di compilazione fatta dal programma BCLOOP.EXE segue l'ordine cronologico di
+creazione dei comandi.
+Sul Manuale di AGIS sono disponibili degli approfondimenti sulla configurazione e l'utilizzo delle code di
+compilazione.
+ 
+ L'eseguibile BCLOOP è un programma di AGIS e come tale necessità di essere eseguito con l'ambiente
+di esecuzione Sistemi, è pertanto necessario che sia prevista l'installazione dell'ambiente Sistemi prima di
+poterlo eseguire.
+ 
+Installazione e avvio Builder DEMO
+Installazione e avvio Builder DEMO
+IDS - Abilitazione del prodotto Sistemi
+Builder è sottoposto ad una verifica di abilitazione, deve essere pertanto richiesta l'abilitazione al Servizio
+Utenti presso Sistemi.
+Download del prodotto BUILDER DEMO
+Dopo aver installato il Builder si può procedere con il download e l'installazione del prodotto Builder
+DEMO, sull'area Builder del sito info.sistemi.com è possibile trovare la segnalazione con la pubblicazione
+dell'ultima versione di prodotto rilasciata: la segnalazione al suo interno contiene il link per il download
+del pacchetto di installazione ed il link alle note di rilascio del prodotto, è consigliabile prendere visione
+delle note per poi procedere all'installazione della nuova versione del prodotto Builder.
+Installazione e abilitazione del prodotto BUILDER DEMO
+Superate le fasi di preparazione dei requisiti e dopo aver effettuato il download del prodotto Builder
+copiate l'immagine del cd contenuta nel file .ZIP sul vostro client in una cartella temporanea, ad esempio
+"C:\TEMP\BUILDER_DEMO_9.0".
+Procedere poi con l'esecuzione del setup con il comando "C:\TEMP\ BUILDER_DEMO_9.0\WIN64\SETUP /NEW":
+ 
+08/07/26, 15:12 Introduzione all'ambiente di sviluppo Sistemi — Supporto Sistemi
+https://supporto.sistemi.com/5108/1/927006/full_print_view 14/42
+
+ 
+Come per gli altri prodotti Sistemi anche Builder DEMO ha a corredo della documentazione di rilascio, è
+bene consultarla e poi proseguire con le operazioni di setup.
+ 
+Successivamente viene visualizzato il contenuto del package del prodotto:
+ 
+08/07/26, 15:12 Introduzione all'ambiente di sviluppo Sistemi — Supporto Sistemi
+https://supporto.sistemi.com/5108/1/927006/full_print_view 15/42
+
+ 
+Nel passaggio successivo sono proposte e richieste le coordinate dell'installazione:
+ 
+08/07/26, 15:12 Introduzione all'ambiente di sviluppo Sistemi — Supporto Sistemi
+https://supporto.sistemi.com/5108/1/927006/full_print_view 16/42
+
+ 
+Dopo aver indicato i riferimenti al database di prodotto e confermando i dati indicati, è possibile
+proseguire  con l'installazione del prodotto, viene subito eseguita la creazione del database e
+successivamente viene portato a termine il setup.
+ 
+Al termine dell'installazione del prodotto è possibile eseguirlo tramite la specifica icona creata sul desktop,
+alla sua prima esecuzione saranno eseguite alcune procedure automatiche e verrà richiesto di procedere
+con l'installazione dell'abilitazione del prodotto:
+ 
+08/07/26, 15:12 Introduzione all'ambiente di sviluppo Sistemi — Supporto Sistemi
+https://supporto.sistemi.com/5108/1/927006/full_print_view 17/42
+
+ 
+ 
+ 
+ Per utilizzare il prodotto Builder DEMO è necessario avere a disposizione uno specifico IDS che abilita al
+suo utilizzo.
+ 
+Installazione sorgenti di Builder DEMO
+Installazione sorgenti di Builder DEMO
+08/07/26, 15:12 Introduzione all'ambiente di sviluppo Sistemi — Supporto Sistemi
+https://supporto.sistemi.com/5108/1/927006/full_print_view 18/42
+
+Dopo a ver completato tutti i passaggi utili alla installazione del prodotto Builder ed alla configurazione
+iniziale per poter utilizzare AGIS, è ora possibile andare a creare una nuova area/prodotto e poi iniziare
+alla definizione del prodotto di sviluppo.
+Per semplificare un po' i concetti che si andranno a descrivere e per proporre degli esempi significativi,
+anziché partire da un foglio bianco, procediamo con l'installazione dei sorgenti del prodotto Builder
+DEMO, che è un prodotto Sistemi progettato e sviluppato proprio allo scopo di supportare
+l'apprendimento delle tecniche di programmazione e di reporting.
+Procedendo in questo modo si andrà a creare un nuovo prodotto in AGIS con al suo interno dei contenuti
+utili alla formazione del programmatore BC.
+ 
+Sul sito info.sisemi.com, sezione Builder, è possibile trovare l'ultima segnalazione di BuilderDEMO. Tale
+segnalazione oltre a contenere il link per il download del prodotto Builder DEMO contiene anche il link per
+il download del pacchetto sorgenti del prodotto.
+Dopo aver effettuato il download del pacchetto di installazione dei sorgenti del prodotto Builder DEMO
+copiate l'immagine del cd contenuta nel file .ZIP sul vostro client in una cartella temporanea, ad esempio "
+C:\TEMP\BUILDER_DEMO_SRC_9.0".
+Procedere poi con l'installazione del pacchetto sorgenti dal menù di AGIS andando ad installare una
+nuova versione di prodotto:
+ 
+ 
+indicate la cartella e confermate:
+ 
+ 
+consultate le note di installazione e proseguite:
+ 
+08/07/26, 15:12 Introduzione all'ambiente di sviluppo Sistemi — Supporto Sistemi
+https://supporto.sistemi.com/5108/1/927006/full_print_view 19/42
+
+ 
+Nel momento in cui vengono richieste le cartelle di installazione del prodotto:
+ 
+ 
+l'unica direttiva da modificare è la direttiva sorgenti Builder DEMO a cui deve essere aggiunta una direttiva
+radice "C:\BUILDER\" che è la root destinata a contenere tutte le ulteriori sottocartelle di AGIS, le versioni
+di traduttore, sorgenti, etc.
+ 
+Proseguendo poi deve essere confermata la proposta dell'area e del prodotto di installazione:
+ 
+08/07/26, 15:12 Introduzione all'ambiente di sviluppo Sistemi — Supporto Sistemi
+https://supporto.sistemi.com/5108/1/927006/full_print_view 20/42
+
+ 
+infine, se viene proposta la seguente videata:
+ 
+premete Abbandona <F1>. Avete così completato il processo di installazione sorgenti
+ 
+ 
+Dopo aver terminato tutte queste operazioni a livello di File System avremo una situazione come quella di
+seguito riportata:
+ 
+ 
+ 
+una cartella "BUILDER" con al suo interno le sottocartelle:
+·         "AGIS" contenente il prodotto AGIS installato;
+08/07/26, 15:12 Introduzione all'ambiente di sviluppo Sistemi — Supporto Sistemi
+https://supporto.sistemi.com/5108/1/927006/full_print_view 21/42
+
+·         "SRC" contenente la cartella dei sorgenti del prodotto Builder DEMO installato;
+ 
+La gestione dei programmi in sviluppo
+Richiamando la voce di menù "Gestione programmi in sviluppo" viene eseguito AGIS e dopo aver
+selezionato il prodotto Builder DEMO saremo posizionati sulla videata di gestione degli oggetti:
+ 
+ 
+l'intestazione della videata riporta le coordinate di AGIS (area/prodotto/progetto+versione+versione
+traduttore):
+ 
+ 
+sempre nella parte superiore della videata sono disponibili dei filtri rapidi utili alla visualizzazione
+dell'elenco oggetti:
+ 
+08/07/26, 15:12 Introduzione all'ambiente di sviluppo Sistemi — Supporto Sistemi
+https://supporto.sistemi.com/5108/1/927006/full_print_view 22/42
+
+ 
+mentre la parte sinistra della videata trova posto un dock-panel che contiene l'albero dei
+prodotto/progetti disponibili:
+ 
+ 
+La videata di gestione dei programmi in sviluppo è un elenco in cui sono visualizzati gli oggetti che sono
+all'interno del prodotto o progetto selezionato.
+E' possibile filtrare l'elenco con diverse modalità, ogni singolo programmatore può definire dei filtri propri
+in base alle proprie esigenze.
+Le azioni sull'area, il prodotto ed il progetto possono essere eseguite dalla toolbar dell'albero presente nel
+dock-panel inserito sulla parte sinistra della videata oppure utilizzando il menù contestuale sul nome del
+prodotto / progetto (click con il tasto dx del mouse).
+Le azioni sui singoli oggetti sono eseguite quando viene premuto il tasto invio (oppure doppio click)
+sull'oggetto selezionato.
+ 
+Nel prossimo capitolo verranno approfondite le terminologie ed i concetti generali su cui si base AGIS per
+gestire le componenti software ed il loro ciclo di vita.
+ 
+Configurazione iniziale
+Configurazione iniziale
+08/07/26, 15:12 Introduzione all'ambiente di sviluppo Sistemi — Supporto Sistemi
+https://supporto.sistemi.com/5108/1/927006/full_print_view 23/42
+
+Tra i vari compiti svolti da AGIS il principale è quello di catalogazione degli oggetti che compongono lo
+sviluppo di un'applicazione Sistemi. Per svolgere questa funzione AGIS introduce tre concetti
+fondamentali che sono Area, Prodotto e Progetto, che possono essere anzitutto considerati come tre
+contenitori logici e fisici in gerarchia tra loro, sui quali si innestano i diversi processi che permettono lo
+sviluppo dell'applicazione stessa.
+L'Area, il Prodotto ed il Progetto
+La struttura definita in AGIS per la gestione dello sviluppo di una applicazione Sistemi, prevede la
+definizione di un'Area, di almeno un Prodotto ad essa riferito ed eventualmente di un Progetto.
+ 
+L'area è il macro insieme dei prodotti che possono essere gestiti;
+il prodotto è l'entità di sviluppo principale;
+il progetto è un sottoinsieme del prodotto su cui vengono effettuati sviluppi a medio o lungo termine.
+ 
+L'ambiente di lavoro può più in generale essere organizzato come nello schema sotto riportato:
+ 
+ 
+Una stessa installazione di AGIS può dunque gestire più Aree, ciascuna area più Prodotti e ciascun
+Prodotto più Progetti.
+ 
+Nonostante AGIS permetta la definizione di più prodotti all'interno della stessa area dobbiamo
+considerare che l'area ed il prodotto siano una entità unica.
+L'organizzazione dell'ambiente di lavoro all'interno dello sviluppo sistemi prevede che un prodotto Sistemi
+come eSolver coincida con la definizione di una Area+Prodotto in agis, nella pratica non ci sono prodotti
+che condividono la stessa area.
+Pertanto lo schema di definizione dell'ambiente di lavoro è convenzionalmente definito nel seguente
+modo:
+ 
+08/07/26, 15:12 Introduzione all'ambiente di sviluppo Sistemi — Supporto Sistemi
+https://supporto.sistemi.com/5108/1/927006/full_print_view 24/42
+
+ 
+  Si sconsiglia l'utilizzo di un'area condivisa tra prodotti diversi,
+ 
+Nella definizione in AGIS dell'ambiente di lavoro di un prodotto sistemi deve essere prevista un'area
+specifica con uno specifico prodotto al suo interno.
+Come vedremo nel seguito di questa guida, questa configurazione consente di mantenere separate sia
+logicamente che fisicamente i diversi prodotti.
+Gestione dati area
+I dati area sono visualizzabili tramite la ribbon bar sopra l'elenco dei prodotti:
+ 
+ 
+ 
+All'interno dei dati dell'area sono indicati i suoi dati anagrafici, il percorso "Nome del server" che è la
+radice principale di tutte le sottocartelle dell'area in sviluppo e la direttiva degli oggetti DFX (descrittori
+archivi).
+ 
+08/07/26, 15:12 Introduzione all'ambiente di sviluppo Sistemi — Supporto Sistemi
+https://supporto.sistemi.com/5108/1/927006/full_print_view 25/42
+
+ 
+Le direttive fisiche dei diversi tipi di oggetto presenti in un prodotto sono definite all'interno del prodotto
+di AGIS ad eccezione della direttiva dei descrittori DFX che è invece definita sull'area di AGIS.
+ 
+ La definizione sull'area del nome del server e della direttiva descrittori DFX comporta che eventuali
+prodotti definiti sulla stessa area condividano tale configurazione, la condivisione dei contenuti potrebbe
+generare conflitti nella gestione dei prodotti nella stessa area.
+Le proprietà di definizione dell'area sono uno dei motivi per cui è consigliabile definire un'area di lavoro
+specifica per un prodotto specifico in sviluppo.
+Gestione dati prodotto
+I dati del prodotto sono visualizzabili tramite la ribbon bar, come per i dati dell'area, oppure premendo il
+tasto destro del mouse sul prodotto interessato. Oltre ai dati anagrafici ed identificativi sono presenti
+diversi parametri ed opzioni.
+ 
+ 
+08/07/26, 15:12 Introduzione all'ambiente di sviluppo Sistemi — Supporto Sistemi
+https://supporto.sistemi.com/5108/1/927006/full_print_view 26/42
+
+Diverse impostazioni che regolamentano lo sviluppo di un prodotto Sistemi sono definite a livello di
+prodotto, opzioni come la validità per ambienti diversi oppure opzioni su controlli specifici che possono
+essere adottati in traduzione sono definiti sul prodotto.
+Tali configurazioni sono utili e necessarie perché prodotti diversi hanno esigenze specifiche, soprattutto in
+un contesto di sviluppo come quello dei partner Sistemi dove nello sviluppo di personalizzazioni sono
+molto vincolati dalle specifiche del prodotto standard.
+ 
+ 
+il tab sviluppo sorgenti contiene la configurazione tecnica del prodotto:
+ 
+08/07/26, 15:12 Introduzione all'ambiente di sviluppo Sistemi — Supporto Sistemi
+https://supporto.sistemi.com/5108/1/927006/full_print_view 27/42
+
+ 
+dall'area viene ovviamente ereditata una parte della configurazione per essere poi completata nel
+prodotto.
+Sul prodotto sono definite la direttiva base di sviluppo, la versione di traduttore che deve essere usata e la
+versione del compilatore C.
+Sono anche definite le impostazioni utili allo sviluppo di applicazioni web.
+Premendo il  tasto <Direttive> vengono visualizzate in dettaglio le cartelle di sviluppo in cui saranno
+contenuti tutti gli oggetti gestiti da AGIS per il prodotto:
+ 
+ 
+Ogni oggetto nel prodotto ha una sua ben definita collocazione fisica e la cartella specifica è definita sul
+prodotto, unica eccezione fatta per la cartella dei descrittori DFX che è invece definita sull'area.
+08/07/26, 15:12 Introduzione all'ambiente di sviluppo Sistemi — Supporto Sistemi
+https://supporto.sistemi.com/5108/1/927006/full_print_view 28/42
+
+Convenzione sulla scelta dei percorsi
+Nella progettazione del proprio ambiente di lavoro e nella definizione dei suoi componenti è sempre
+consigliabile adottare particolari attenzioni.
+E' sempre utile la definizione di alcune convenzioni che anche se piuttosto semplici o dall'aspetto banale
+forniscono un valore aggiunto in termini di ordine, chiarezza, leggibilità, etc.
+Per quanto riguarda il percorso fisico degli oggetti in sviluppo tali convenzioni devono essere rispettate già
+in fase di installazione del prodotto.
+Il nome del server, che negli esempi riportati in questa guida è la cartella "C:" del client, è la radice
+principale di tutti i percorsi a cui abbiamo aggiunto una root "\BUILDER", seguono poi le diverse parti che
+vanno a completare la direttiva:
+ 
+\SRC  cartella radice di tutto il contenuto dell'Area/Prodotto;
+\BLDD  sigla del prodotto Sistemi sviluppato nell'Area/prodotto AGIS, nei nostri esempi abbiamo
+usato "BLDD" che abbrevia "BLD_DEMO" ma ad esempio per il prodotto eSOLVER Sistemi
+utilizza "ES";
+\V50  versione dell'Area/Prodotto, nel nostro caso versione 5.0; Per i prodotti in sviluppo,
+ovvero ancora non distribuite, si usa come convenzione DEV.
+\<Tipo
+oggetto>
+ radice specifica per il tipo di oggetto, ad esempio \MODULI conterrà i sorgenti relativi ai
+moduli presenti a prodotto.
+ 
+Ovviamente entrano nel merito considerazioni di altro genere, se il lavoro di sviluppo deve essere gestito
+da un gruppo di lavoro composto da più persone si opterà per una installazione in rete con condivisione
+delle risorse.
+ 
+Si avrà quindi sul file system una struttura di cartelle come quella di seguito riportata:
+ 
+08/07/26, 15:12 Introduzione all'ambiente di sviluppo Sistemi — Supporto Sistemi
+https://supporto.sistemi.com/5108/1/927006/full_print_view 29/42
+
+La gestione dei progetti
+La definizione di una nuova area di sviluppo, e quindi di un nuovo prodotto da sviluppare, è una
+operazione poco frequente.
+Anche nello sviluppo delle personalizzazioni presso i partner Sistemi è poco frequente la creazione di un
+nuovo prodotto, in quanto necessaria per sviluppi totalmente slegati dal prodotto standard.
+Nello sviluppo di una personalizzazione vengono messi a disposizione i sorgenti del prodotto standard
+fornito da Sistemi e il lavoro di sviluppo viene poi proiettato su uno o più progetti.
+La definizione di un progetto di implementazione è invece prassi normale per gestire l'evoluzione del
+prodotto in separata sede.
+08/07/26, 15:12 Introduzione all'ambiente di sviluppo Sistemi — Supporto Sistemi
+https://supporto.sistemi.com/5108/1/927006/full_print_view 30/42
+
+Il progetto è un sottoinsieme di un prodotto, viene quindi creato su un prodotto già esistente da cui
+eredita le caratteristiche definite su di esso.
+La creazione di un nuovo progetto avviene dalla specifica voce del menù riportato in seguito:
+ 
+ 
+richiede che sia definito un codice identificativo (nell'esempio "PROGETTO01") e che siano impostati tutti i
+dati utili, quindi le sue opzioni e la sua configurazione:
+ 
+ 
+normalmente le opzioni e la configurazione del progetto sono derivati dal prodotto a cui appartiene.
+Il progetto  ha caratteristiche del tutto simili al prodotto e gli oggetti che sono gestiti al suo interno hanno
+quindi una loro specifica cartella di collocazione.
+Come per il prodotto, il progetto ha una cartella base di sviluppo che è collocata all'interno del file system
+del prodotto, nel caso riportato nei nostri esempi il percorso è il seguente:
+            "\SRC\BLDD\V50\PROGETTI\PROGETTO01\"
+ 
+<direttiva di prodotto> + "\PROGETTI" + <direttiva specifica di progetto>
+ 
+ La cartella viene proposta in fase di creazione del progetto ed è consigliabile mantenerla senza
+modificarla.
+ 
+08/07/26, 15:12 Introduzione all'ambiente di sviluppo Sistemi — Supporto Sistemi
+https://supporto.sistemi.com/5108/1/927006/full_print_view 31/42
+
+ 
+confermando poi la creazione del progetto sarà creata sul file system una struttura di sottocartelle
+specifica per il progetto del tutto simile a quella del prodotto.
+Sviluppo a progetto
+ 
+All'interno di un progetto di implementazione è possibile creare dei nuovi oggetti oppure copiare degli
+oggetti a partire dal prodotto per modificarne il contenuto.
+AGIS consente, tramite le relazioni tra oggetti, di poter utilizzare direttamente gli oggetti a prodotto che
+non devono subire modifiche. Di fatto il progetto contiene i soli oggetti che vanno modificati per lo
+specifico sviluppo di implementazione del prodotto.
+Essendo il progetto definito come un'entità con una sua collocazione ben precisa, gli oggetti che sono
+creati o modificati al suo interno non vanno mai a pregiudicare quanto presente sul prodotto.
+Se dal prodotto viene copiato un oggetto e poi viene modificato all'interno del progetto questo è
+fisicamente un oggetto diverso da quello del prodotto.
+I progetti si distinguono in:
+·         Progetti di implementazione
+·         Progetti di personalizzazione
+ 
+Vediamo ora in dettaglio quali caratteristiche prevedono.
+Il progetto di implementazione
+La creazione di un nuovo progetto è ovviamente una fase importante, lo sviluppatore deve sapere come
+deve essere definito il progetto basandosi sul tipo di sviluppo che deve essere effettuato.
+Nella creazione di un progetto ha particolare rilevanza la definizione della sua classificazione:
+ 
+08/07/26, 15:12 Introduzione all'ambiente di sviluppo Sistemi — Supporto Sistemi
+https://supporto.sistemi.com/5108/1/927006/full_print_view 32/42
+
+ 
+Il progetto di implementazione è normalmente usato nello sviluppo dei prodotti Sistemi, o in generale per
+lo sviluppo di nuove funzionalità o revisione di specifiche parti del prodotto.
+Parlando in modo generico e facendo riferimento ad uno dei nostri prodotti, vediamo come può essere
+gestito un progetto di implementazione.
+Un prodotto Sistemi distribuito presso i nostri utenti è un prodotto rilasciato ad una determinata versione
+(es: PROFIS 2017.1), questo vuole dire che il gruppo di sviluppo ha rilasciato tale versione, ne ha creato un
+package e poi lo ha distribuito agli utenti Sistemi.
+Lo sviluppo per la versione successiva (es: 2017.2) procede nel seguente modo:
+Il prodotto 2017.1 viene chiuso e storicizzato per avere una situazione di sviluppo ferma pari alla versione
+di prodotto che è stata rilasciata agli utenti;
+·         sul prodotto in sviluppo viene creato un progetto (es: "PRJ20172");
+·         sul progetto sono fatti tutti gli sviluppi necessari in prospettiva del rilascio della versione successiva
+del prodotto (2017.2);
+·         al termine dello sviluppo il progetto viene chiuso e il prodotto viene quindi portato alla versione
+2017.2 pronto per essere poi rilasciato.
+ 
+La principale particolarità del progetto definito come di "implementazione" sta nella generazione delle
+DLL/EXE. Pur avendo a progetto solo alcuni dei componenti di una DLL o di un MAIN, la generazione
+comprenderà anche quanto presente a prodotto e relazionato.
+Ipotizziamo di avere un oggetto DLL contenente SUB1, SUB2 e SUB3. Portando a progetto la sola SUB2
+viene automaticamente portata anche la relativa DLL di riferimento. Questa mantiene comunque la
+relazione con le altre due sub rimaste a prodotto. La generazione da progetto della DLL sarà comunque
+comprensiva degli oggetti ad essa relazionati, che siano presenti a progetto o a prodotto.
+Come vedremo più avanti il progetto definito come di "personalizzazione" utilizza una logica diversa, oltre
+ad avere diverse funzionalità a corredo specifiche per lo sviluppo di personalizzazioni da parte del Partner
+sui prodotti standard Sistemi.
+ 
+Durante lo sviluppo il progetto viene incrementato nei suoi contenuti, saranno copiati oggetti da prodotto
+per essere implementati e saranno creati dei nuovi oggetti, il 'volume' che può assumere un progetto
+dipende soprattutto da quali sono le esigenze  applicative e dagli obiettivi che vengono dati al progetto.
+ 
+08/07/26, 15:12 Introduzione all'ambiente di sviluppo Sistemi — Supporto Sistemi
+https://supporto.sistemi.com/5108/1/927006/full_print_view 33/42
+
+In un prodotto possono essere creati diversi progetti di implementazione, in tale caso è necessario
+prestare attenzione per evitare eventuali conflitti o disallineamento durante lo sviluppo che si possono poi
+ripercuotere nella chiusura dei progetti sul prodotto.
+Copiare oggetti dal prodotto al progetto
+Gli oggetti del prodotto che devono essere portati e modificati nel progetto possono essere copiati dal
+prodotto tramite la specifica azione sugli oggetti:
+ 
+ 
+oppure è possibile eseguire dal progetto l'azione di "Derivazione oggetti da prodotto":
+ 
+ 
+ 
+  Attenzione ad eventuali oggetti già presenti nel progetto, se un oggetto selezionato nella copia dal
+prodotto esiste già sul progetto l'operazione di copia andrà a sovrascrivere l'oggetto del progetto con
+quello del prodotto.
+08/07/26, 15:12 Introduzione all'ambiente di sviluppo Sistemi — Supporto Sistemi
+https://supporto.sistemi.com/5108/1/927006/full_print_view 34/42
+
+ 
+Un'altra modalità per copiare un singolo oggetto dal prodotto è integrata nella creazione di un nuovo
+oggetto dove sulla videata proposta è disponibile una funzione utile per andare a selezionare un oggetto
+dal prodotto e copiarlo:
+ 
+ 
+La copia a progetto di un oggetto effettua la copia dei dati oggetto presente in AGIS dal prodotto al
+progetto e la copia fisica dell'oggetto dal file system del prodotto a quella del progetto.
+ 
+Per tutti gli oggetti che sono portati dal prodotto al progetto, AGIS evidenzia sul prodotto tale situazione:
+ 
+ 
+La chiusura del progetto
+Il progetto di implementazione ha normalmente una finestra di vita limitata rispetto allo sviluppo diretto a
+prodotto. Quando termina lo sviluppo a progetto è necessario procedere alla sua chiusura per fare in
+modo che il prodotto possa essere integrato con quanto implementato a progetto e poter essere
+distribuito agli utenti.
+L'operazione di chiusura del progetto effettua tutte le operazioni di aggiornamento del prodotto andando
+a copiare tutti gli oggetti dal progetto sul prodotto.
+ 
+La chiusura del progetto copia gli oggetti dal progetto al prodotto andando a sovrascrivere gli oggetti
+corrispondenti.
+ 
+La chiusura del progetto è una fase molto importante e delicata nel ciclo di sviluppo di un progetto, è
+consigliabile prima di procedere alla chiusura effettuare una prova di chiusura del progetto.
+08/07/26, 15:12 Introduzione all'ambiente di sviluppo Sistemi — Supporto Sistemi
+https://supporto.sistemi.com/5108/1/927006/full_print_view 35/42
+
+ 
+ 
+La prova di chiusura di progetto effettua tutti i controlli preventivi eseguiti dall'operazione di chiusura,
+segnala eventuali anomalie riscontrate che vengono poi visualizzate nella griglia sotto riportata, senza
+però effettuare la copia effettiva degli oggetti fisici. in questo modo è possibile risolvere preventivamente
+eventuali conflitti rilevati.
+ 
+ 
+Nell'esempio riportato il nostro progetto contiene un modulo modificato a progetto ed una sub che dopo
+essere stata portata a progetto è stata modificata nel prodotto.
+Tale situazione viene segnala come anomala e segnalato all'operatore di andare a visualizzare le
+modifiche apportate all'oggetto e la differenza tra l'oggetto a prodotto e quello a progetto.
+ 
+ 
+sulla sub a prodotto sono state aggiunte le seguenti righe di codice:
+ 
+'
+''' 28.09.2917 - RIGA DI COMMENTO INSERITA SULL'OGGETTO A PRODOTTO
+'
+08/07/26, 15:12 Introduzione all'ambiente di sviluppo Sistemi — Supporto Sistemi
+https://supporto.sistemi.com/5108/1/927006/full_print_view 36/42
+
+ 
+Terminati i controlli con la prova di chiusura del progetto è possibile procedere alla sua chiusura.
+ 
+ Se durante il ciclo di sviluppo del progetto l'oggetto a prodotto è stato modificato la chiusura del
+progetto sovrascrive l'oggetto e le modifiche introdotte a prodotte saranno perse.
+ 
+La chiusura del progetto, quando terminata, visualizza l'esito dell'operazione; dopo aver completato la
+chiusura di un progetto il progetto stesso assume lo stato di 'Chiuso' e il suo contenuto non è più
+modificabile.
+Inoltre, sul prodotto, sugli oggetti che erano a progetto non viene più visualizzata l'informazione che sono
+in modifica nel progetto oramai chiuso.
+L'annullamento di un progetto
+Tra le operazioni messe a disposizione di AGIS, possiamo eseguire l'annullamento di un progetto:
+ 
+ 
+Tale operazione elimina il progetto da AGIS, tutte le sue componenti logiche e permette anche
+l'eliminazione fisica di tutti i contenuti del progetto:
+ 
+ 
+Se viene effettuata dopo "Chiusura Progetto" significa che lo sviluppo terminato, se invece viene effettuata
+senza una "Chiusura Progetto" lo sviluppo del progetto viene di fatto interrotto.
+ 
+ L'annullamento di un progetto con eliminazione fisica degli oggetti non è reversibile. Il contenuto di un
+progetto annullato non è ripristinabile a meno di non avere a disposizione un backup di prodotto.
+08/07/26, 15:12 Introduzione all'ambiente di sviluppo Sistemi — Supporto Sistemi
+https://supporto.sistemi.com/5108/1/927006/full_print_view 37/42
+
+Il progetto di personalizzazione
+Il progetto di personalizzazione possiede caratteristiche diverse dal progetto di implementazione, non
+tanto nella gestione dello sviluppo sugli oggetti quanto dal punto di vista del loro impiego e della
+distribuzione all'utente finale.
+Mentre il progetto di implementazione normalmente viene aperto e poi chiuso per il rilascio di una nuova
+versione di prodotto, il progetto di personalizzazione viene aperto per modificare il comportamento
+definito dal prodotto standard per andare in contro alle specifiche esigenze del cliente
+Quindi tendenzialmente si avrà uno specifico progetto per ogni cliente per cui è necessario eseguire
+modifiche ai programmi distribuiti da Sistemi.
+I sorgenti del prodotto Standard sono distribuiti da Sistemi e sono installati presso il Partner nel proprio
+AGIS, in una specifica Area/Prodotto.
+Tutte le personalizzazioni sono fatte a progetto, questo conterrà i soli oggetti per cui è necessario una
+modifica.
+La personalizzazione non andrà mai a far parte del prodotto standard ma andrà in affiancamento, per
+questo motivo il progetto di personalizzazione non sarà mai chiuso e gli oggetti a progetto non saranno
+mai riportati a prodotto.
+Invece, per quanto riguarda la gestione dello sviluppo, la principale differenza rispetto al progetto di
+implementazione è la generazione di DLL/EXE. Queste conterranno solo i componenti presenti nel
+progetto. Riprendendo l'esempio visto in precedenza, ipotizziamo di avere un oggetto DLL contenente
+SUB1, SUB2 e SUB3. Portando in un progetto di personalizzazione la sola SUB2 viene automaticamente
+portata anche la relativa DLL di riferimento, stesso comportamento visto per il progetto di
+personalizzazione.
+La DLL generata conterrà esclusivamente il codice generato della SUB2, quindi anche la dimensione della
+stessa sarà inferiore rispetto a quella del prodotto. Questo perché la collocazione finale nell'installazione
+del cliente sarà diversa rispetto a quella prevista per le DLL standard. Sarà l'ambiente di esecuzione a
+gestire la corretta ricerca delle funzioni da richiamare rispetto a quanto presente nell'installazione
+dell'utente.
+Questo meccanismo di utilizzo delle DLL personalizzate viene approfondito nel documento "Creazione di
+un progetto di personalizzazione" e più nello specifico, nella scheda "Codice univoco di progetto".
+Gli oggetti in AGIS
+Un prodotto di sviluppo è un insieme di oggetti che vanno a comporre il prodotto che viene poi rilasciato
+all'utente finale.
+Gli oggetti che possono essere gestiti all'interno di un prodotto sono molteplici e possiedono alcune
+caratteristiche comuni come la definizione della relativa anagrafica in AGIS.
+Di seguito riportiamo alcune tipologie degli oggetti gestiti:
+ 
+Menù file xml (.SXMNU);
+Main file eseguibili (.EXE) ogni eseguibile contiene uno più Moduli;
+DLL file libreria (.DLL) ogni dll contiene una o più funzioni (sub);
+Moduli   sorgenti BC (.BC) punto di ingresso di un eseguibile;
+Sub sorgente BC (.BC) richiamabile da moduli o sub;
+08/07/26, 15:12 Introduzione all'ambiente di sviluppo Sistemi — Supporto Sistemi
+https://supporto.sistemi.com/5108/1/927006/full_print_view 38/42
+
+Tracciati record sorgenti (DFX), descrivono la struttura delle tabelle dati
+Indipendenti dal DBMS;
+Dizionari dati Raggruppano i descrittori, ovvero descrivono la struttura della base dati e
+gestiscono la creazione fisica della base dati
+Contenitori popolamenti
+tabelle
+Strumento di sviluppo funzionale alla manutenzione della base dati
+Query Strumento di sviluppo per interrogare la base dati;
+Tab di stampa sorgenti (.TAB);
+Elenco variabili per
+stampe a formato libero
+sorgenti (.SXN);
+Formati di stampa file xml (.SXF)
+...  
+ 
+Oltre ad avere una propria definizione logica, gli oggetti hanno anche una collocazione fisica, una cartella
+sul file system dove risiede l'oggetto fisico.
+Allo stesso tempo i diversi tipi di oggetto hanno delle caratteristiche specifiche e diverse tra loro.
+AGIS fornisce gli strumenti e le modalità di gestione di ogni singolo oggetto, permette di gestire in modo
+corretto la proprietà dei vari tipi di oggetto e mette a disposizione, ad esempio, una specifica serie di
+azioni per ognuno di essi.
+Tra le caratteristiche degli oggetti di un prodotto abbiamo quindi la sua definizione logica nel database di
+AGIS, la sua individualità in quanto oggetto fisico, le azioni e le operazioni che possono essere effettuate
+su di esso e le relazioni con eventuali altri oggetti.
+ 
+Nella visualizzazione della griglia di AGIS l'operatore può impostare dei filtri in base alle proprie esigenze:
+ 
+ 
+in questo modo viene resa più agevole la navigazione del programmatore sulla videata di AGIS,
+soprattutto se si lavora all'interno di un gruppo di sviluppo con altre persone e su un prodotto dalle
+dimensioni importanti.
+La toolbar mette a disposizione alcune delle funzionalità principali e premendo il tasto <invio> su uno
+degli oggetti in griglia viene visualizzato l'elenco delle azioni disponibili per l'oggetto selezionato.
+In modo analogo le funzionalità esposte sulla griglia e nelle azioni possono essere eseguite dal menù
+contestuale che viene visualizzato premendo il tasto dx del mouse sulla griglia.
+08/07/26, 15:12 Introduzione all'ambiente di sviluppo Sistemi — Supporto Sistemi
+https://supporto.sistemi.com/5108/1/927006/full_print_view 39/42
+
+ 
+Per ognuno degli oggetti visualizzati è possibile visualizzare il suo dettaglio (<F5>) dove sono esposti e
+modificabili i dati logici dell'oggetto selezionato:
+ 
+ 
+ 
+La visualizzazione della griglia di AGIS è stata pensata per visualizzare ogni tipologia di oggetto, è possibile
+ad esempio andare sui filtri rapidi posti sopra la griglia e non indicare nel tipo oggetto (lasciare blank) per
+fare in modo che la griglia di AGIS visualizzi tutti gli oggetti di tutti i tipi presenti sul prodotto/progetto.
+Essendo stata progettata appositamente a tale scopo, la griglia contiene delle informazioni utili alla lettura
+dell'elenco come ad esempio la colonna "Tipo", oppure è presente una colonna specifica che indica se un
+oggetto è a prodotto oppure a progetto, oppure ancora è presente un'altra colonna che indica se una sub
+è stata inserita in una dll o meno.
+ 
+Un'informazione molto importante che viene visualizzata indirettamente da AGIS sono le relazioni tra i
+vari oggetti.
+ 
+La relazione è il legame che si crea tra due oggetti quando uno di questi utilizza l'altro.
+ 
+Ogni voce di menù di un prodotto Sistemi è un modulo inserito all'interno di un main(EXE) ed è possibile
+fare in modo che diverse voci di menù, quindi diversi moduli, appartengano ad uno o più main.
+ 
+Il main è un programma eseguibile che al suo interno può contenere uno o più moduli, ogni singolo
+modulo richiama al suo interno delle sub e le sub possono essere a loro volta inserite all'interno di una
+DLL.
+Semplificando un po' la relazione tra gli oggetti in AGIS è il legame che unisce un oggetto composto con
+uno dei suoi oggetti componenti.
+ 
+08/07/26, 15:12 Introduzione all'ambiente di sviluppo Sistemi — Supporto Sistemi
+https://supporto.sistemi.com/5108/1/927006/full_print_view 40/42
+
+Ad esempio un main è composto da uno o più moduli, quindi il modulo è un componente del main; un
+modulo richiama una sub, quindi la sub è una sua componente e il modulo è a sua volta il composto della
+sub; la sub a sua volta è inserita in una dll, quindi la dll è un composto della sub e la sub è una sua
+componente.
+ 
+Forse è più semplice visualizzarlo con un esempio che scriverlo:
+ 
+ 
+nell'esempio sopra riportato siamo sul prodotto e abbiamo premuto "Espandi/Comprimi" sul main
+BLDFATTURA (oppure abbiamo cliccato sul "-" (meno) a sinistra del nome del main con il mouse).
+Il main contiene un modulo "OOP_FATT", il modulo contiene il richiamo ad una sub "OOP_GRID_FATTURA"
+che a sua volta richiama altre due sub e utilizza due tabelle (BLDCLIFOR e BLDTESTATA).
+ 
+Le relazioni di AGIS forniscono in pratica il legame che unisce gli oggetti tra di loro, nella visualizzazione
+della griglia possiamo cliccare sui "+" e "-" per espandere e comprimere la visualizzazione ma è molto più
+efficace l'utilizzo del tasto <F7-Espandi/Comprimi> che può essere eseguito su un qualsiasi oggetto.
+Premendolo una prima volta sono visualizzati i componenti di un oggetto (verso il 'basso'), premendolo
+successivamente sono visualizzati gli eventuali composti (verso 'l'alto').
+ 
+Facciamo alcuni esempi esempio:
+·         visualizzare i componenti di una sub evidenzia le eventuali sub richiamate e gli archivi referenziati;
+·         visualizzare invece i composti di una sub evidenzia eventuali sub e moduli che la richiamano e le dll ed
+i main che ne fanno uso;
+·         su un DFX è solo possibile andare a vedere chi sono i suoi oggetti composti (l'oggetto di tipo DFX non
+può avere dei componenti) e la visualizzazione evidenzia le eventuali sub e moduli che fanno accesso
+alla tabella a cui si riferisce il dfx ed eventualmente il dizionario che contiene il descrittore.
+ 
+Le relazioni inoltre sono trasversali tra prodotto e progetti:
+08/07/26, 15:12 Introduzione all'ambiente di sviluppo Sistemi — Supporto Sistemi
+https://supporto.sistemi.com/5108/1/927006/full_print_view 41/42
+
+ 
+ 
+nel nostro progetto abbiamo importato un modulo dal prodotto e se andiamo a vedere le relazioni
+vediamo che il main contiene il modulo e il modulo contiene delle sub che sono a prodotto.
+ 
+Quando importiamo un modulo dal prodotto al progetto agis importa eventualmente l'oggetto main
+composto.
+Allo stesso modo se viene importata a progetto una sub e questa è inserita in una dll AGIS porta a
+progetto anche la dll composta.
+ 
+ Attenzione, non è necessario portare a progetto un oggetto e tutti i suoi componenti, e i componenti
+dei suoi componenti, etc.
+Nel progetto possono essere portati solo i moduli e le sub che devono essere modificati.
+I main e le dll mantengono la loro definizione a progetto e grazie alle relazioni, quando questi devono
+essere linkati, AGIS sarà in grado di elaborare gli oggetti a progetto modificati e gli oggetti a prodotto che
+non sono stati importati.
+ 
+  Maggiori dettagli e approfondimenti sugli argomenti trattati in questo capitolo sono disponibili nella
+guida di AGIS nelle sezioni "La gestione degli oggetti" e "Gestione del processo di sviluppo".
+ 
+ 
+08/07/26, 15:12 Introduzione all'ambiente di sviluppo Sistemi — Supporto Sistemi
+https://supporto.sistemi.com/5108/1/927006/full_print_view 42/42
